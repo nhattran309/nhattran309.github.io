@@ -1,0 +1,57 @@
+---
+title: "Curriculum Vitae"
+format: html
+---
+
+You can download my CV here: [Download CV (PDF)](cv/Nhat_Tran_CV.pdf)
+
+## Education
+
+**Boston University**, Boston, MA  
+M.S. in Business Analytics, GPA: 4.0  
+*Expected May 2026*
+
+**Drexel University**, Philadelphia, PA  
+B.S. in Economics, GPA: 3.7  
+*2017 – 2021*  
+- Minor: Finance  
+- Dean’s List (2018–2021), A.J Drexel Scholarship
+
+---
+
+## Skills
+
+- **Data Analysis Tools:** Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)  
+- **Programming Languages:** Python, SQL, Eviews, R
+- **Technical Skills:** Data Visualizations, Data Manipulation, Database Management, Macro Research, ML Models  
+
+---
+
+## Professional Experience
+
+**Brandywine Global Investment Management**, Philadelphia, PA  
+*Global Macro Research Analyst* — Feb 2022–Aug 2024  
+- Automated and maintained internal database (4k+ indicators) and 11k+ charts, improving operational efficiency  
+- Conducted macro analysis of Canada and inflation trends in major economies, supporting currency and fixed-income strategies  
+- Built economic indices and regression models in Python using Bloomberg and Macrobond data  
+- Assisted portfolio managers with marketing materials and client presentations, boosting engagement and new business  
+
+**KPIM Joint Stock Company**, Hanoi, Vietnam  
+*Business Intelligence Analyst* — Mar 2021–Sep 2021  
+- Created Power BI dashboards to automate capital expenditure analysis, saving $15,000+ annually  
+- Monitored Excel data updates (PivotTable, MATCH, COUNTIF, VLOOKUP) before Power BI conversion for merger consequence analysis  
+- Evaluated transition financial performance against benchmarks, driving cost savings and risk management  
+- Researched COVID infection trends in Vietnam using Ministry of Health data  
+
+**Ernst & Young LLP**, Hanoi, Vietnam  
+*Intern – Assurance Services* — May 2020–Sep 2020  
+- Analyzed valuation drivers (earnings quality, net indebtedness, working capital) for clients  
+- Supported financial performance transformation through analytics, growth strategy, and process improvement  
+- Coordinated a team of consultants across countries on advisory projects  
+- Specialized in financial due diligence for acquisitions and divestitures  
+
+**City of Philadelphia – Streets Department**, Philadelphia, PA  
+*Intern – Office of the Deputy Commissioner of Streets* — Apr 2019–Sep 2019  
+- Organized $100,000+ worth of vehicle violations to uncover billing errors  
+- Processed work orders and invoices for projects up to $2 million  
+- Built Excel-based financial performance reports for commission distribution  

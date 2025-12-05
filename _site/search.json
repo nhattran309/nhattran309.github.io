@@ -9,8 +9,36 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Nhat Tran’s Website",
+    "title": "Nhat Tran",
     "section": "",
     "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "You can download my CV here: Download CV (PDF)"
+  },
+  {
+    "objectID": "cv.html#education",
+    "href": "cv.html#education",
+    "title": "Curriculum Vitae",
+    "section": "Education",
+    "text": "Education\nBoston University, Boston, MA\nM.S. in Business Analytics, GPA: 4.0\nExpected May 2026\nDrexel University, Philadelphia, PA\nB.S. in Economics, GPA: 3.7\n2017 – 2021\n- Minor: Finance\n- Dean’s List (2018–2021), A.J Drexel Scholarship"
+  },
+  {
+    "objectID": "cv.html#professional-experience",
+    "href": "cv.html#professional-experience",
+    "title": "Curriculum Vitae",
+    "section": "Professional Experience",
+    "text": "Professional Experience\nBrandywine Global Investment Management, Philadelphia, PA\nGlobal Macro Research Analyst — Feb 2022–Aug 2024\n- Automated and maintained internal database (4k+ indicators) and 11k+ charts, improving operational efficiency\n- Conducted macro analysis of Canada and inflation trends in major economies, supporting currency and fixed-income strategies\n- Built economic indices and regression models in Python using Bloomberg and Macrobond data\n- Assisted portfolio managers with marketing materials and client presentations, boosting engagement and new business\nKPIM Joint Stock Company, Hanoi, Vietnam\nBusiness Intelligence Analyst — Mar 2021–Sep 2021\n- Created Power BI dashboards to automate capital expenditure analysis, saving $15,000+ annually\n- Monitored Excel data updates (PivotTable, MATCH, COUNTIF, VLOOKUP) before Power BI conversion for merger consequence analysis\n- Evaluated transition financial performance against benchmarks, driving cost savings and risk management\n- Researched COVID infection trends in Vietnam using Ministry of Health data\nErnst & Young LLP, Hanoi, Vietnam\nIntern – Assurance Services — May 2020–Sep 2020\n- Analyzed valuation drivers (earnings quality, net indebtedness, working capital) for clients\n- Supported financial performance transformation through analytics, growth strategy, and process improvement\n- Coordinated a team of consultants across countries on advisory projects\n- Specialized in financial due diligence for acquisitions and divestitures\nCity of Philadelphia – Streets Department, Philadelphia, PA\nIntern – Office of the Deputy Commissioner of Streets — Apr 2019–Sep 2019\n- Organized $100,000+ worth of vehicle violations to uncover billing errors\n- Processed work orders and invoices for projects up to $2 million\n- Built Excel-based financial performance reports for commission distribution"
+  },
+  {
+    "objectID": "cv.html#skills",
+    "href": "cv.html#skills",
+    "title": "Curriculum Vitae",
+    "section": "Skills",
+    "text": "Skills\n\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nProgramming Languages: Python, SQL, Eviews, R\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML Models"
   }
 ]

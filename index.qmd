@@ -1,7 +1,13 @@
 ---
-title: "Nhat Tran's Website"
+title: "Nhat Tran"
+about:
+    template: trestles
+    links:
+        - icon: linkedin
+          text: LinkedIn
+          url: https://www.linkedin.com/in/nhat-tran-30999/
+        - icon: github
+          text: Github
+          url: https://github.com/nhattran309
+
 ---
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
