@@ -1,41 +1,24 @@
 ---
-<<<<<<< HEAD
 title: "About"
 ---
 
 ## 👋 Hi, I’m Nhat
 
-I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston University, where I’m focused on applying data to understand markets and improve decision-making. Before this, I studied finance and economics at Drexel University, which sparked my interest in how numbers tell the story behind business trends. I’ve worked on projects involving predictive modeling, marketing analytics, NLP, and data visualization, which has strengthened my ability to connect technical analysis with practical, real-world applications.
-=======
-title: "👋 Hi, I’m Nhat"
----
-
 I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston University, where I’m focused on applying data to understand markets and improve decision-making. Before this, I studied Economics and Finance at Drexel University, which sparked my interest in how numbers tell the story behind business trends. I’ve worked on projects involving predictive modeling, marketing analytics, NLP, and data visualization, which has strengthened my ability to connect technical analysis with practical, real-world applications.
->>>>>>> c1739b8 (update portfolio site)
 
 ---
 
 ## Skills
 
-<<<<<<< HEAD
-- **Programming:** Python; SQL; EViews; R
-- **Data Analysis Tools:** Bloomberg; Power BI; Tableau; Macrobond; Haver; Microsoft Office: Word, Excel, PowerPoint 
-- **Technical Skills:** Data Visualizations; Data Manipulation; Database Management; Macro Research; ML Models
-=======
 - **Programming:** Python, SQL, EViews, R
 - **Data Analysis Tools:** Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)
 - **Technical Skills:** Data Visualizations, Data Manipulation, Database Management, Macro Research, ML Models
->>>>>>> c1739b8 (update portfolio site)
 
 ---
 
 ## What I’m Interested In
 
-<<<<<<< HEAD
-I’m passionate about turning raw data into actionable insights that solve real-world business problems, uncover market trends, and create tools that make complex information easy to understand. Outside of work, I love exploring the world through travel, photography, and trying new cuisines, often visiting local restaurants to discover hidden gems.
-=======
 I’m passionate about turning raw data into actionable insights that solve real-world business problems, uncover market trends, and create tools that make complex information easy to understand. Outside of work, I love exploring the world through travel, photography, and trying new cuisines, especially visiting local restaurants to discover hidden gems.
->>>>>>> c1739b8 (update portfolio site)
 
 ---
 
