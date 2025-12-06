@@ -7,14 +7,12 @@ You can download my CV here: <a href="cv/Nhat_Tran_CV.pdf" target="_blank" class
 
 ## Education
 
-**Boston University**, Boston, MA  
-M.S. in Business Analytics <br>
-*Expected May 2026*
+**Boston University** – Boston, MA  
+M.S. in Business Analytics | *Expected May 2026* <br>
 
-**Drexel University**, Philadelphia, PA  
-B.S. in Economics
-**Minor:** Finance | **Concentration:** Business Economics <br>
-*2017 – 2021*  
+**Drexel University** – Philadelphia, PA  
+B.S. in Economics | *2017 – 2021* <br>
+**Minor:** Finance | **Concentration:** Business Economics
 
 ---
 
@@ -28,7 +26,7 @@ B.S. in Economics
 
 ## Professional Experience
 
-- **Brandywine Global Investment Management**, Philadelphia, PA  
+- **Brandywine Global Investment Management** - Philadelphia, PA  
   *Global Macro Research Analyst* | Feb 2022 – Aug 2024  
   - Managed and maintained large economic datasets and visualizations to support research and analysis.  
   - Conducted macroeconomic studies and built models to guide investment strategies.  
@@ -36,7 +34,7 @@ B.S. in Economics
 
 ---
 
-- **KPIM Joint Stock Company**, Hanoi, Vietnam  
+- **KPIM Joint Stock Company** - Hanoi, Vietnam  
   *Business Intelligence Analyst* | Mar 2021 – Sep 2021  
   - Developed dashboards and reports to monitor financial performance and support decision-making.  
   - Analyzed business data to identify trends, opportunities, and potential risks.  
@@ -44,7 +42,7 @@ B.S. in Economics
 
 ---
 
-- **Ernst & Young LLP**, Hanoi, Vietnam  
+- **Ernst & Young LLP** - Hanoi, Vietnam  
   *Intern – Assurance Services* | May 2020 – Sep 2020  
   - Performed financial analysis and evaluation of client performance.
   - Implemented process improvements and extracted data-driven insights for advisory projects. 
@@ -52,7 +50,7 @@ B.S. in Economics
 
 ---
 
-- **City of Philadelphia – Streets Department**, Philadelphia, PA  
+- **City of Philadelphia – Streets Department** - Philadelphia, PA  
   *Intern – Office of the Deputy Commissioner of Streets* | Apr 2019 – Sep 2019  
   - Monitored project budgets and maintained financial records.  
   - Organized and processed data to enhance reporting accuracy.
