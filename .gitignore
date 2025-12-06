@@ -1,5 +1,7 @@
 /.quarto/
 
 Assignment01
-
+_site/
+.Rhistory
+*.log
 
