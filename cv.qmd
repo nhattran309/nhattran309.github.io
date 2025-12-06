@@ -8,11 +8,19 @@ You can download my CV here: <a href="cv/Nhat_Tran_CV.pdf" target="_blank" class
 ## Education
 
 **Boston University**, Boston, MA  
+<<<<<<< HEAD
 M.S. in Business Analytics, GPA: 4.0  
 *Expected May 2026*
 
 **Drexel University**, Philadelphia, PA  
 B.S. in Economics, GPA: 3.7  
+=======
+M.S. in Business Analytics <br>
+*Expected May 2026*
+
+**Drexel University**, Philadelphia, PA  
+B.S. in Economics
+>>>>>>> c1739b8 (update portfolio site)
 **Minor:** Finance | **Concentration:** Business Economics <br>
 *2017 – 2021*  
 
