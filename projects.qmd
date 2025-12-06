@@ -1,0 +1,13 @@
+---
+title: "Selected Projects"
+---
+
+### 1. Bangladesh Garment Industry: Health and Environmental Impacts 
+<a href="https://drive.google.com/file/d/1TVS8lB6LbdHJQTsjj4K5bVkDQ_5mSXmR/view" target="_blank" class="btn btn-outline-info btn-sm" style="margin-left:1rem;">View Research Paper</a>
+
+- *Economics Seminar Research Paper* | January 2021 – March 2021
+  - Conducted a literature review on short- and long-term effects of Bangladesh's garment industry on health and environment
+  - Analyzed workers’ health, safety evaluations, and child labor issues using historical data
+  - Proposed strategies to mitigate risks while supporting sustainable industry growth
+
+---
