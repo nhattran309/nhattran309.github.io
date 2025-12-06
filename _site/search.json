@@ -1,5 +1,33 @@
 [
   {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "Curriculum Vitae",
+    "section": "",
+    "text": "You can download my CV here: Download CV (PDF)"
+  },
+  {
+    "objectID": "cv.html#education",
+    "href": "cv.html#education",
+    "title": "Curriculum Vitae",
+    "section": "Education",
+    "text": "Education\nBoston University, Boston, MA\nM.S. in Business Analytics, GPA: 4.0\nExpected May 2026\nDrexel University, Philadelphia, PA\nB.S. in Economics, GPA: 3.7\nMinor: Finance | Concentration: Business Economics  2017 – 2021"
+  },
+  {
+    "objectID": "cv.html#skills",
+    "href": "cv.html#skills",
+    "title": "Curriculum Vitae",
+    "section": "Skills",
+    "text": "Skills\n\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nProgramming Languages: Python, SQL, Eviews, R\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML Models"
+  },
+  {
+    "objectID": "cv.html#professional-experience",
+    "href": "cv.html#professional-experience",
+    "title": "Curriculum Vitae",
+    "section": "Professional Experience",
+    "text": "Professional Experience\n\nBrandywine Global Investment Management, Philadelphia, PA\nGlobal Macro Research Analyst | Feb 2022 – Aug 2024\n\nManaged and maintained large economic datasets and visualizations to support research and analysis.\n\nConducted macroeconomic studies and built models to guide investment strategies.\n\nDeveloped client presentations and marketing materials to communicate research insights.\n\n\n\n\nKPIM Joint Stock Company, Hanoi, Vietnam\nBusiness Intelligence Analyst | Mar 2021 – Sep 2021\n\nDeveloped dashboards and reports to monitor financial performance and support decision-making.\n\nAnalyzed business data to identify trends, opportunities, and potential risks.\n\nStreamlined reporting processes and coordinated with teams to ensure accuracy.\n\n\n\n\nErnst & Young LLP, Hanoi, Vietnam\nIntern – Assurance Services | May 2020 – Sep 2020\n\nPerformed financial analysis and evaluation of client performance.\nImplemented process improvements and extracted data-driven insights for advisory projects.\nCollaborated with cross-functional teams to complete engagements efficiently.\n\n\n\n\nCity of Philadelphia – Streets Department, Philadelphia, PA\nIntern – Office of the Deputy Commissioner of Streets | Apr 2019 – Sep 2019\n\nMonitored project budgets and maintained financial records.\n\nOrganized and processed data to enhance reporting accuracy.\nPrepared performance reports to inform departmental decision-making."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Nhat Tran",
@@ -61,33 +89,5 @@
     "title": "About",
     "section": "Contact",
     "text": "Contact\nFor inquiries or collaboration, please visit Contact — happy to connect anytime :)"
-  },
-  {
-    "objectID": "cv.html",
-    "href": "cv.html",
-    "title": "Curriculum Vitae",
-    "section": "",
-    "text": "You can download my CV here: Download CV (PDF)"
-  },
-  {
-    "objectID": "cv.html#education",
-    "href": "cv.html#education",
-    "title": "Curriculum Vitae",
-    "section": "Education",
-    "text": "Education\nBoston University, Boston, MA\nM.S. in Business Analytics, GPA: 4.0\nExpected May 2026\nDrexel University, Philadelphia, PA\nB.S. in Economics, GPA: 3.7\nMinor: Finance | Concentration: Business Economics  2017 – 2021"
-  },
-  {
-    "objectID": "cv.html#skills",
-    "href": "cv.html#skills",
-    "title": "Curriculum Vitae",
-    "section": "Skills",
-    "text": "Skills\n\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nProgramming Languages: Python, SQL, Eviews, R\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML Models"
-  },
-  {
-    "objectID": "cv.html#professional-experience",
-    "href": "cv.html#professional-experience",
-    "title": "Curriculum Vitae",
-    "section": "Professional Experience",
-    "text": "Professional Experience\n\nBrandywine Global Investment Management, Philadelphia, PA\nGlobal Macro Research Analyst | Feb 2022 – Aug 2024\n\nManaged and maintained large economic datasets and visualizations to support research and analysis.\n\nConducted macroeconomic studies and built models to guide investment strategies.\n\nDeveloped client presentations and marketing materials to communicate research insights.\n\n\n\n\nKPIM Joint Stock Company, Hanoi, Vietnam\nBusiness Intelligence Analyst | Mar 2021 – Sep 2021\n\nDeveloped dashboards and reports to monitor financial performance and support decision-making.\n\nAnalyzed business data to identify trends, opportunities, and potential risks.\n\nStreamlined reporting processes and coordinated with teams to ensure accuracy.\n\n\n\n\nErnst & Young LLP, Hanoi, Vietnam\nIntern – Assurance Services | May 2020 – Sep 2020\n\nPerformed financial analysis and evaluation of client performance.\nImplemented process improvements and extracted data-driven insights for advisory projects.\nCollaborated with cross-functional teams to complete engagements efficiently.\n\n\n\n\nCity of Philadelphia – Streets Department, Philadelphia, PA\nIntern – Office of the Deputy Commissioner of Streets | Apr 2019 – Sep 2019\n\nMonitored project budgets and maintained financial records.\n\nOrganized and processed data to enhance reporting accuracy.\nPrepared performance reports to inform departmental decision-making."
   }
 ]
