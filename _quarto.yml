@@ -5,7 +5,7 @@ website:
   title: "Nhat Tran"
   navbar:
     left:
-      - text: About Me
+      - text: About
         href: about.qmd
       - text: Projects
         href: projects.qmd
