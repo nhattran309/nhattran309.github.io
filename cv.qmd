@@ -13,9 +13,8 @@ M.S. in Business Analytics, GPA: 4.0
 
 **Drexel University**, Philadelphia, PA  
 B.S. in Economics, GPA: 3.7  
+- Minor: Finance | Concentration: Business Economics
 *2017 – 2021*  
-- Minor: Finance  
-- Dean’s List (2018–2021), A.J Drexel Scholarship
 
 ---
 
@@ -29,29 +28,32 @@ B.S. in Economics, GPA: 3.7
 
 ## Professional Experience
 
-**Brandywine Global Investment Management**, Philadelphia, PA  
-*Global Macro Research Analyst* — Feb 2022–Aug 2024  
-- Automated and maintained internal database (4k+ indicators) and 11k+ charts, improving operational efficiency  
-- Conducted macro analysis of Canada and inflation trends in major economies, supporting currency and fixed-income strategies  
-- Built economic indices and regression models in Python using Bloomberg and Macrobond data  
-- Assisted portfolio managers with marketing materials and client presentations, boosting engagement and new business  
+- **Brandywine Global Investment Management**, Philadelphia, PA  
+  *Global Macro Research Analyst* — Feb 2022–Aug 2024  
+  - Managed and maintained large economic datasets and visualizations to support research and analysis.  
+  - Conducted macroeconomic studies and built models to guide investment strategies.  
+  - Assisted in preparing client presentations and marketing materials.  
 
-**KPIM Joint Stock Company**, Hanoi, Vietnam  
-*Business Intelligence Analyst* — Mar 2021–Sep 2021  
-- Created Power BI dashboards to automate capital expenditure analysis, saving $15,000+ annually  
-- Monitored Excel data updates (PivotTable, MATCH, COUNTIF, VLOOKUP) before Power BI conversion for merger consequence analysis  
-- Evaluated transition financial performance against benchmarks, driving cost savings and risk management  
-- Researched COVID infection trends in Vietnam using Ministry of Health data  
+---
 
-**Ernst & Young LLP**, Hanoi, Vietnam  
-*Intern – Assurance Services* — May 2020–Sep 2020  
-- Analyzed valuation drivers (earnings quality, net indebtedness, working capital) for clients  
-- Supported financial performance transformation through analytics, growth strategy, and process improvement  
-- Coordinated a team of consultants across countries on advisory projects  
-- Specialized in financial due diligence for acquisitions and divestitures  
+- **KPIM Joint Stock Company**, Hanoi, Vietnam  
+  *Business Intelligence Analyst* — Mar 2021–Sep 2021  
+  - Developed dashboards and reports to monitor financial performance and support decision-making.  
+  - Analyzed business data to identify trends, opportunities, and potential risks.  
+  - Collaborated with teams to optimize reporting processes.  
 
-**City of Philadelphia – Streets Department**, Philadelphia, PA  
-*Intern – Office of the Deputy Commissioner of Streets* — Apr 2019–Sep 2019  
-- Organized $100,000+ worth of vehicle violations to uncover billing errors  
-- Processed work orders and invoices for projects up to $2 million  
-- Built Excel-based financial performance reports for commission distribution  
+---
+
+- **Ernst & Young LLP**, Hanoi, Vietnam  
+  *Intern – Assurance Services* — May 2020–Sep 2020  
+  - Supported financial analysis and evaluation of client performance.  
+  - Assisted in process improvement and data-driven insights for advisory projects.  
+  - Worked with cross-functional teams to complete engagements efficiently.  
+
+---
+
+- **City of Philadelphia – Streets Department**, Philadelphia, PA  
+  *Intern – Office of the Deputy Commissioner of Streets* — Apr 2019–Sep 2019  
+  - Assisted in tracking project budgets and financial records.  
+  - Processed and organized data to improve reporting accuracy.  
+  - Prepared performance reports to support department decision-making.  

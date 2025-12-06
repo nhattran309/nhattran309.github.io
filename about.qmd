@@ -2,4 +2,27 @@
 title: "About"
 ---
 
-About this site
+## 👋 Hi, I’m Nhat
+
+I’m a Business Analytics graduate student at Boston University with a background in finance and economics from Drexel University. My work focuses on building analytical models, automating workflows, and turning complex datasets into insights that support business and investment decisions.
+
+---
+
+## Skills
+
+- **Programming:** Python; SQL; EViews; R
+- **Data Analysis Tools:** Bloomberg; Power BI; Tableau; Macrobond; Haver; Microsoft Office: Word, Excel, PowerPoint 
+- **Technical Skills:** Data Visualizations; Data Manipulation; Database Management; Macro Research; ML Models
+
+---
+
+## What I’m Interested In
+
+I’m passionate about turning raw data into actionable insights that solve real-world business problems, uncover market trends, and create tools that make complex information easy to understand. Outside of work, I love exploring the world through travel, photography, and trying new cuisines, often visiting local restaurants to discover hidden gems.
+
+---
+
+## Contact
+
+For inquiries or collaboration, please visit the [Contact](contact.qmd) — happy to connect anytime.
+

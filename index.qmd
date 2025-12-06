@@ -1,13 +1,18 @@
 ---
 title: "Nhat Tran"
 about:
-    template: trestles
-    links:
-        - icon: linkedin
-          text: LinkedIn
-          url: https://www.linkedin.com/in/nhat-tran-30999/
-        - icon: github
-          text: Github
-          url: https://github.com/nhattran309
-
+  template: trestles
+  image: image/nhat_tran.JPG
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      url: https://www.linkedin.com/in/nhat-tran-30999/
+    - icon: github
+      text: GitHub
+      url: https://github.com/nhattran309
+    - icon: envelope
+      text: Email
+      url: mailto:nhattran0930@gmail.com
 ---
+
+Business Analytics graduate student at Boston University with experience in macro research, financial analytics, and data-driven decision-making, built on an academic foundation in finance and economics from Drexel University. I specialize in building automated workflows, developing analytical models, and translating complex datasets into clear, actionable insights that support business and investment strategies.

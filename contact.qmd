@@ -1,0 +1,17 @@
+---
+title: "Contact"
+---
+
+## 📫 Get in Touch
+
+I’m always happy to connect! You can reach me through any of the platforms below:
+
+<div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+  <a href="https://www.linkedin.com/in/nhat-tran-30999/" target="_blank" style="padding:0.6rem 1.2rem; background-color:#0077B5; color:white; border-radius:0.5rem; text-decoration:none; font-weight:bold;">💼 LinkedIn</a>
+  <a href="https://github.com/nhattran309" target="_blank" style="padding:0.6rem 1.2rem; background-color:#24292F; color:white; border-radius:0.5rem; text-decoration:none; font-weight:bold;">💻 GitHub</a>
+  <a href="mailto:nhattran0930@gmail.com" style="padding:0.6rem 1.2rem; background-color:#EA4335; color:white; border-radius:0.5rem; text-decoration:none; font-weight:bold;">📧 Email</a>
+</div>
+
+---
+
+You can also return to the [About Me](about.qmd) tab to learn more about me.
