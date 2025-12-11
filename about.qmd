@@ -4,7 +4,7 @@ title: "About"
 
 ## 👋 Hi, I’m Nhat
 
-I’m a Business Analytics graduate student at Boston University with a background in finance and economics from Drexel University. My work focuses on building analytical models, automating workflows, and turning complex datasets into insights that support business and investment decisions.
+I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston University, where I’m focused on applying data to understand markets and improve decision-making. Before this, I studied finance and economics at Drexel University, which sparked my interest in how numbers tell the story behind business trends. I’ve worked on projects involving predictive modeling, marketing analytics, NLP, and data visualization, which has strengthened my ability to connect technical analysis with practical, real-world applications.
 
 ---
 
@@ -24,5 +24,5 @@ I’m passionate about turning raw data into actionable insights that solve real
 
 ## Contact
 
-For inquiries or collaboration, please visit the [Contact](contact.qmd) — happy to connect anytime.
-
+For inquiries or collaboration, please visit 
+<a href="contact.qmd" class="btn btn-outline-info btn-sm" style="margin-left:0.5rem;">Contact</a> — happy to connect anytime :)
