@@ -14,4 +14,5 @@ I’m always happy to connect! You can reach me through any of the platforms bel
 
 ---
 
-You can also return to the [About Me](about.qmd) tab to learn more about me.
+You can also return to the
+<a href="about.qmd" class="btn btn-outline-info btn-sm" style="margin-left:0.5rem;">About</a> tab to learn more about me.
