@@ -4,7 +4,7 @@ title: "About"
 
 ## 👋 Hi, I’m Nhat
 
-I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston University, where I’m focused on applying data to understand markets and improve decision-making. Before this, I studied finance and economics at Drexel University, which sparked my interest in how numbers tell the story behind business trends. I’ve worked on projects involving predictive modeling, marketing analytics, NLP, and data visualization, which has strengthened my ability to connect technical analysis with practical, real-world applications.
+I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston University, where I’m focused on applying data to understand markets and improve decision-making. Prior to this, I studied finance and economics at Drexel University, which sparked my interest in how numbers tell the story behind business trends. I’ve worked on projects involving predictive modeling, marketing analytics, NLP, and data visualization, which has strengthened my ability to connect technical analysis with practical, real-world applications.
 
 ---
 
