@@ -13,7 +13,17 @@ target="_blank" class="btn btn-outline-warning btn-sm" style="margin-left:1rem;"
   - Built visualizations to assess skill demand, salary patterns, geographic variation, and gender-based differences across U.S. markets
   - Synthesized model results with academic research to deliver actionable insights on hiring behavior and gender disparities
 
-### 2. Bangladesh Garment Industry: Health and Environmental Impacts 
+### 1. Gender Disparities in Labor Force Analysis (2024)
+<a href="report/Geneva-SemesterProject.pdf" target="_blank" class="btn btn-outline-info btn-sm" style="margin-left:1rem;">Research Paper</a>
+<a href="https://docs.google.com/presentation/d/1prD3yy9D4gp4bHZKNinXs-br8ZgcmMSEO8GHfaSKT8o/edit?usp=sharing"
+target="_blank" class="btn btn-outline-warning btn-sm" style="margin-left:1rem;">PPT</a>
+
+- *Labor Market Analytics Research Project* | Sep 2025 – Dec 2025
+  - Applied Python for data visualization, regression, k-NN, classification, NLP, and clustering to analyze Airbnb pricing in Geneva
+  - Engineered features from structured and textual data to develop predictive and clustering models
+  - Produced actionable insights on pricing strategy, listing optimization, and market segmentation
+
+### 3. Bangladesh Garment Industry: Health and Environmental Impacts 
 <a href="https://drive.google.com/file/d/1TVS8lB6LbdHJQTsjj4K5bVkDQ_5mSXmR/view" target="_blank" class="btn btn-outline-info btn-sm" style="margin-left:1rem;">Research Paper</a>
 
 - *Economics Seminar Research Paper* | Jan 2021 – Mar 2021
