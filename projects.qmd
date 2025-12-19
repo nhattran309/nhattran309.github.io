@@ -13,15 +13,15 @@ target="_blank" class="btn btn-outline-warning btn-sm" style="margin-left:1rem;"
   - Built visualizations to assess skill demand, salary patterns, geographic variation, and gender-based differences across U.S. markets
   - Synthesized model results with academic research to deliver actionable insights on hiring behavior and gender disparities
 
-### 1. Gender Disparities in Labor Force Analysis (2024)
+### 2. Factors That Influence Airbnb Prices in Geneva
 <a href="report/Geneva-SemesterProject.pdf" target="_blank" class="btn btn-outline-info btn-sm" style="margin-left:1rem;">Research Paper</a>
 <a href="https://docs.google.com/presentation/d/1prD3yy9D4gp4bHZKNinXs-br8ZgcmMSEO8GHfaSKT8o/edit?usp=sharing"
 target="_blank" class="btn btn-outline-warning btn-sm" style="margin-left:1rem;">PPT</a>
 
-- *Labor Market Analytics Research Project* | Sep 2025 – Dec 2025
-  - Applied Python for data visualization, regression, k-NN, classification, NLP, and clustering to analyze Airbnb pricing in Geneva
-  - Engineered features from structured and textual data to develop predictive and clustering models
-  - Produced actionable insights on pricing strategy, listing optimization, and market segmentation
+- *Applied Machine Learning for Airbnb Pricing in Geneva* | Sep 2025 – Dec 2025
+  - Applied Python for data visualization, regression, k-NN, classification trees, NLP transformers, and clustering to analyze Airbnb pricing in Geneva
+  - Engineered features from structured and unstructured listing data to build predictive and market segmentation models
+  - Generated actionable insights to inform Airbnb hosts’ pricing decisions and listing strategies, and to support platform-level market segmentation in the Geneva market
 
 ### 3. Bangladesh Garment Industry: Health and Environmental Impacts 
 <a href="https://drive.google.com/file/d/1TVS8lB6LbdHJQTsjj4K5bVkDQ_5mSXmR/view" target="_blank" class="btn btn-outline-info btn-sm" style="margin-left:1rem;">Research Paper</a>
