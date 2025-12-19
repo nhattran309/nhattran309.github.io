@@ -4,7 +4,7 @@
     "href": "cv.html",
     "title": "Curriculum Vitae",
     "section": "",
-    "text": "You can download my CV here: Download CV (PDF)"
+    "text": "You can download my CV here: CV (PDF)"
   },
   {
     "objectID": "cv.html#education",
@@ -67,14 +67,7 @@
     "href": "projects.html",
     "title": "Selected Projects",
     "section": "",
-    "text": "1. Bangladesh Garment Industry: Health and Environmental Impacts\nResearch Paper PPT Website\n\nEconomics Seminar Research Paper | January 2021 – March 2021\n\nConducted a literature review on short- and long-term effects of Bangladesh’s garment industry on health and environment\nAnalyzed workers’ health, safety evaluations, and child labor issues using historical data\nProposed strategies to mitigate risks while supporting sustainable industry growth"
-  },
-  {
-    "objectID": "projects.html#selected-projects",
-    "href": "projects.html#selected-projects",
-    "title": "Projects",
-    "section": "",
-    "text": "The Modern Development of the Clothing Industry’s Impacts on Bangladesh’s Health and Environmental, Drexel University - January 2021 – March 2021\n\nProvided a literature review on short-term and long-term effects of Bangladesh garment industry on health and environment\nExamined Bangladeshi workers’ health and safety evaluations and child exploitation issues through historical data compilation\nIdentified potential strategies to address these concerns while maintaining a thriving and sustainable\n\n\nLink: View Research Paper"
+    "text": "1. Gender Disparities in Labor Force Analysis (2024)\nWebsite Research Paper PPT\n\nLabor Market Analytics Research Project | September 2025 – December 2025\n\nAnalyzed Lightcast and FRED data in Python, applying regression and ML models to forecast 2024 labor-market trends\nBuilt visualizations to assess skill demand, salary patterns, geographic variation, and gender-based differences across U.S. markets\nSynthesized model results with academic research to deliver actionable insights on hiring behavior and gender disparities\n\n\n\n\n2. Bangladesh Garment Industry: Health and Environmental Impacts\nResearch Paper\n\nEconomics Seminar Research Paper | January 2021 – March 2021\n\nConducted a literature review on short- and long-term effects of Bangladesh’s garment industry on health and environment\nExamined workers’ health, safety evaluations, and child labor issues using historical data\nProposed strategies to mitigate risks while supporting sustainable industry growth"
   },
   {
     "objectID": "contact.html",

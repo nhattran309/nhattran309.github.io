@@ -3,10 +3,10 @@ title: "Selected Projects"
 ---
 
 ### 1. Gender Disparities in Labor Force Analysis (2024)
+<a href="https://dinarazhorabek.github.io/ad688-employability-fall25A1-group5/" target="_blank" class="btn btn-outline-secondary btn-sm" style="margin-left:1rem;">Website</a>
 <a href="report/AD688 Team 5 - Final Report.pdf" target="_blank" class="btn btn-outline-info btn-sm" style="margin-left:1rem;">Research Paper</a>
 <a href="https://www.canva.com/design/DAG639sRGbs/2VEs0-WVFCtsTM9rrpnnsw/edit?utm_content=DAG639sRGbs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
 target="_blank" class="btn btn-outline-warning btn-sm" style="margin-left:1rem;">PPT</a>
-<a href="https://dinarazhorabek.github.io/ad688-employability-fall25A1-group5/" target="_blank" class="btn btn-outline-secondary btn-sm" style="margin-left:1rem;">Website</a>
 
 - *Labor Market Analytics Research Project* | September 2025 – December 2025
   - Analyzed Lightcast and FRED data in Python, applying regression and ML models to forecast 2024 labor-market trends
