@@ -13,10 +13,10 @@ website:
             href: coursework.qmd
           - text: Python Coursework & Notebooks
             href: pynotes.qmd
-          - text: Certifications
-            href: certifications.qmd
       - text: Projects
         href: projects.qmd
+      - text: Certifications
+        href: certifications.qmd
       - text: CV
         href: cv.qmd
       - text: Contact
