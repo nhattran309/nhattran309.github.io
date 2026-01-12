@@ -1,0 +1,170 @@
+---
+title: "Relevant Coursework"
+format:
+  html:
+    theme: minty
+---
+
+## Graduate Coursework
+
+```{=html}
+<div class="card bg-light mb-3">
+<div class="card-header text-white bg-primary fs-5 fw-bold">
+  M.S. in Business Analytics, Boston University
+</div>
+
+<div class="card-body">
+
+  <!-- Python & SQL for Business Analytics -->
+  <h5 class="mt-3 text-primary">Python & SQL for Business Analytics</h5>
+  <p>Applied data manipulation, querying, and analytics workflows using Python and SQL.</p>
+  <p>
+    <span class="badge bg-info">Python</span>
+    <span class="badge bg-info">SQL</span>
+    <span class="badge bg-info">Data Manipulation</span>
+    <span class="badge bg-info">ETL</span>
+  </p>
+
+  <!-- Business Analytics Foundations -->
+  <h5 class="mt-3 text-primary">Business Analytics Foundations</h5>
+  <p>Core analytical methods, data-driven problem solving, and statistical reasoning.</p>
+  <p>
+    <span class="badge bg-info">R</span>
+    <span class="badge bg-info">Machine Learning</span>
+    <span class="badge bg-info">Power BI</span>
+    <span class="badge bg-info">Statistical Reasoning</span>
+  </p>
+
+  <!-- Cloud Analytics for Business -->
+  <h5 class="mt-3 text-primary">Cloud Analytics for Business</h5>
+  <p>Scalable data processing, cloud-based analytics architectures, and deployment concepts.</p>
+  <p>
+    <span class="badge bg-info">Python</span>
+    <span class="badge bg-info">Machine Learning</span>
+    <span class="badge bg-info">SQL</span>
+    <span class="badge bg-info">plotly</span>
+    <span class="badge bg-info">AWS Cloud Architecture</span>
+  </p>
+
+  <!-- Marketing Analytics -->
+  <h5 class="mt-3 text-primary">Marketing Analytics</h5>
+  <p>Customer segmentation, predictive modeling, and performance measurement using data.</p>
+  <p>
+    <span class="badge bg-info">Python</span>
+    <span class="badge bg-info">Tableau</span>
+    <span class="badge bg-info">Regression</span>
+    <span class="badge bg-info">Clustering</span>
+    <span class="badge bg-info">Classification</span>
+    <span class="badge bg-info">Random Forest</span>
+  </p>
+
+<!-- Data Mining for Business Analytics -->
+<h5 class="mt-3 text-primary">Data Mining for Business Analytics</h5>
+<p>Techniques for extracting insights from structured and unstructured data using Python, R, SQL, and Power BI.</p>
+<p>
+  <span class="badge bg-info">Python</span>
+  <span class="badge bg-info">R</span>
+  <span class="badge bg-info">SQL</span>
+  <span class="badge bg-info">NLP</span>
+  <span class="badge bg-info">Clustering</span>
+  <span class="badge bg-info">Classification</span>
+</p>
+
+<!-- Enterprise Risk Analytics -->
+<h5 class="mt-3 text-primary">Enterprise Risk Analytics</h5>
+<p>Learn to leverage risk analytics to identify opportunities, mitigate threats, and enhance enterprise value using advanced analytics tools.</p>
+<p>
+  <span class="badge bg-info">Python</span>
+  <span class="badge bg-info">R</span>
+  <span class="badge bg-info">SQL</span>
+  <span class="badge bg-info">Optimization</span>
+</p>
+
+  <!-- Quantitative & Qualitative Decision Making -->
+  <h5 class="mt-3 text-primary">Quantitative & Qualitative Decision Making</h5>
+  <p>Decision analysis using quantitative models complemented by qualitative frameworks.</p>
+  <p>
+    <span class="badge bg-info">R</span>
+    <span class="badge bg-info">Optimization</span>
+    <span class="badge bg-info">Scenario Modeling</span>
+  </p>
+
+  <!-- Financial Concepts for Analytics -->
+  <h5 class="mt-3 text-primary">Financial Concepts for Analytics</h5>
+  <p>Financial statement analysis, valuation fundamentals, and analytics applications in finance.</p>
+  <p>
+    <span class="badge bg-info">Financial Modeling</span>
+  </p>
+
+</div>
+</div>
+```
+
+## Undergraduate Coursework
+
+```{=html}
+<div class="card bg-light mb-3">
+<div class="card-header text-white bg-primary fs-5 fw-bold">
+  B.S. in Economics, Drexel University
+</div>
+
+<div class="card-body">
+<!-- Undergraduate Coursework (B.S. in Economics, Drexel University) -->
+
+<h5 class="mt-3 text-primary">Microeconomics & Macroeconomics</h5>
+<p>Explored market behavior, incentives, and macroeconomic dynamics underlying business and policy decisions.</p>
+<p>
+  <span class="badge bg-info">Economic Theory</span>
+  <span class="badge bg-info">Market Analysis</span>
+</p>
+
+<h5 class="mt-3 text-primary">Applied Econometrics</h5>
+<p>Used regression, hypothesis testing, and time-series techniques to analyze economic and business data.</p>
+<p>
+  <span class="badge bg-info">Regression</span>
+  <span class="badge bg-info">Time Series</span>
+  <span class="badge bg-info">Statistical Analysis</span>
+</p>
+
+<h5 class="mt-3 text-primary">Database Design & Implementation</h5>
+<p>Designed relational databases and wrote SQL queries to manage, retrieve, and analyze data efficiently.</p>
+<p>
+  <span class="badge bg-info">SQL</span>
+  <span class="badge bg-info">Database Management</span>
+  <span class="badge bg-info">Relational Databases</span>
+</p>
+
+<h5 class="mt-3 text-primary">Management Information Systems</h5>
+<p>Applied information systems and database concepts to support business operations and decision-making.</p>
+<p>
+  <span class="badge bg-info">SQL</span>
+  <span class="badge bg-info">Business Systems</span>
+</p>
+
+<h5 class="mt-3 text-primary">Game Theory Applications</h5>
+<p>Modeled strategic decision-making and competitive behavior using game-theoretic frameworks.</p>
+<p>
+  <span class="badge bg-info">Strategic Analysis</span>
+  <span class="badge bg-info">Decision Theory</span>
+  <span class="badge bg-info">Economic Modeling</span>
+</p>
+
+<h5 class="mt-3 text-primary">Intermediate Corporate Finance</h5>
+<p>Analyzed capital structure, valuation, and investment decisions using financial theory and quantitative methods.</p>
+<p>
+  <span class="badge bg-info">Valuation</span>
+  <span class="badge bg-info">Financial Analysis</span>
+</p>
+
+<h5 class="mt-3 text-primary">Investment Securities & Markets</h5>
+<p>Studied financial markets, asset pricing, and portfolio construction across major asset classes.</p>
+<p>
+  <span class="badge bg-info">Financial Markets</span>
+  <span class="badge bg-info">Asset Pricing</span>
+  <span class="badge bg-info">Portfolio Analysis</span>
+</p>
+
+</div>
+</div>
+```
+

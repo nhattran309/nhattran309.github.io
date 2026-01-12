@@ -7,6 +7,14 @@ website:
     left:
       - text: About
         href: about.qmd
+      - text: Academics & Coursework
+        menu:
+          - text: Relevant Coursework
+            href: coursework.qmd
+          - text: Python Coursework & Notebooks
+            href: pynotes.qmd
+          - text: Certifications
+            href: certifications.qmd
       - text: Projects
         href: projects.qmd
       - text: CV
