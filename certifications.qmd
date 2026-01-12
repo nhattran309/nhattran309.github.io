@@ -1,3 +1,50 @@
 ---
 title: "Certifications"
 ---
+Verified certifications that demonstrate expertise in technology, data analytics, and financial markets.
+
+```{=html}
+<div class="card bg-light mb-3">
+  <div class="card-header text-white bg-info fs-5 fw-bold">
+    AWS Academy Cloud Foundations
+  </div>
+
+  <div class="card-body">
+    <p>Developed a strong understanding of cloud computing concepts, AWS services, architecture, security, and pricing, enhancing my ability to leverage cloud technologies for business innovation and digital transformation.</p>
+
+    <p>
+      <span class="badge bg-success me-1">AWS</span>
+      <span class="badge bg-success me-1">Cloud Computing</span>
+      <span class="badge bg-success me-1">Security</span>
+      <span class="badge bg-success me-1">Digital Transformation</span>
+    </p>
+
+    <p>
+      <a href="https://www.credly.com/badges/263bd76c-681d-4e37-ab01-06edee26c825/public_url" target="_blank" class="btn btn-outline-success btn-sm">View Credential</a>
+    </p>
+  </div>
+</div>
+```
+
+```{=html}
+<div class="card bg-light mb-3">
+  <div class="card-header text-white bg-info fs-5 fw-bold">
+    Bloomberg Market Concepts (BMC)
+  </div>
+
+  <div class="card-body">
+    <p>Completed the self-paced BMC certification, covering core pillars of the financial markets including economics, currencies, fixed income, and equities through the Bloomberg Terminal. Strengthened financial literacy, market analysis, and data-driven decision-making skills.</p>
+
+    <p>
+      <span class="badge bg-success me-1">Financial Markets</span>
+      <span class="badge bg-success me-1">Equities</span>
+      <span class="badge bg-success me-1">Fixed Income</span>
+      <span class="badge bg-success me-1">Data Analysis</span>
+    </p>
+
+    <p>
+      <a href="https://www.credly.com/badges/263bd76c-681d-4e37-ab01-06edee26c825/public_url" target="_blank" class="btn btn-outline-success btn-sm">View Credential</a>
+    </p>
+  </div>
+</div>
+```
