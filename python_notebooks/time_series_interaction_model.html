@@ -236,7 +236,9 @@ window.Quarto = {
 
 
 <p>Analyzed Six Flags stock price time series data through November 2025 using Python to identify trends, volatility, and seasonality via differencing, rolling statistics, and resampling. Built a marketing mix regression with an interaction term to quantify how influencer and email spending jointly drive conversions and improve model performance.</p>
-<div id="15f1d255-6f8f-4025-9202-6fd33633dc63" class="cell" data-execution_count="1">
+<section id="part-i-working-with-time-series-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-working-with-time-series-data">Part I: Working with Time Series Data</h2>
+<div id="980d4d81" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary functions to use</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -245,20 +247,18 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="part-i-working-with-time-series-data" class="level2">
-<h2 class="anchored" data-anchor-id="part-i-working-with-time-series-data">Part I: Working with Time Series Data</h2>
 <section id="pick-any-publicly-traded-company-that-trades-on-the-nasdaq-or-the-nyse." class="level4">
 <h4 class="anchored" data-anchor-id="pick-any-publicly-traded-company-that-trades-on-the-nasdaq-or-the-nyse.">Pick any publicly-traded company that trades on the Nasdaq or the NYSE.</h4>
 <p>I selected Six Flags Entertainment Corporation Common Stock New (ticker symbol: FUN). I chose this company because its business operations are closely aligned with Lobster Land, and it offers a useful point of comparison. It is also interesting to see how a major attraction and theme park operator performs in the market and responds to industry conditions.</p>
 </section>
 <section id="go-to-the-nasdaq-homepage-www.nasdaq.com.-enter-your-companys-ticker-symbol-in-symbol-search-area-near-the-top-of-your-screen." class="level4">
 <h4 class="anchored" data-anchor-id="go-to-the-nasdaq-homepage-www.nasdaq.com.-enter-your-companys-ticker-symbol-in-symbol-search-area-near-the-top-of-your-screen.">Go to the Nasdaq homepage: www.nasdaq.com. Enter your company’s ticker symbol in “Symbol Search” area near the top of your screen.</h4>
-<div id="23961693-b8b3-4039-81db-6164b20e2c83" class="cell" data-execution_count="2">
+<div id="23961693-b8b3-4039-81db-6164b20e2c83" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> pd.read_csv(<span class="st">"data/six_flags_ytd.csv"</span>, index_col<span class="op">=</span><span class="st">"Date"</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="c6e3f0d6-151e-4482-8195-c1f8cf72ed46" class="cell" data-execution_count="3">
+<div id="c6e3f0d6-151e-4482-8195-c1f8cf72ed46" class="cell" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>six_flags.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <div>
 
 
@@ -331,13 +331,13 @@ window.Quarto = {
 </section>
 <section id="rename-the-closelast-column-to-close" class="level4">
 <h4 class="anchored" data-anchor-id="rename-the-closelast-column-to-close">Rename the ‘Close/Last’ column to ‘Close’</h4>
-<div id="4fc57e41-3229-4984-98f9-982cfa986a08" class="cell" data-execution_count="4">
+<div id="4fc57e41-3229-4984-98f9-982cfa986a08" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.rename(columns<span class="op">=</span>{<span class="st">"Close/Last"</span>: <span class="st">"Close"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="next-call-the-info-function-on-your-dataset-and-show-your-results." class="level4">
 <h4 class="anchored" data-anchor-id="next-call-the-info-function-on-your-dataset-and-show-your-results.">Next, call the info() function on your dataset, and show your results.</h4>
-<div id="ada4f5e9-2e3b-4815-b740-8aff05e4d14a" class="cell" data-execution_count="5">
+<div id="ada4f5e9-2e3b-4815-b740-8aff05e4d14a" class="cell" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>six_flags.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -354,9 +354,9 @@ dtypes: int64(1), object(4)
 memory usage: 11.7+ KB</code></pre>
 </div>
 </div>
-<div id="51dd91d1-dead-4a64-acda-fc4f0d72a197" class="cell" data-execution_count="6">
+<div id="51dd91d1-dead-4a64-acda-fc4f0d72a197" class="cell" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>six_flags.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <div>
 
 
@@ -406,12 +406,12 @@ memory usage: 11.7+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="652295fe-9e0e-4935-acb2-18c5f42e2b9e" class="cell" data-execution_count="7">
+<div id="652295fe-9e0e-4935-acb2-18c5f42e2b9e" class="cell" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove all dollar signs and change the data type to float</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.replace({<span class="st">'</span><span class="er">\</span><span class="st">$'</span>: <span class="st">''</span>}, regex<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.astype({<span class="st">'Close'</span>: <span class="bu">float</span>, <span class="st">'Open'</span>: <span class="bu">float</span>, <span class="st">'High'</span>: <span class="bu">float</span>, <span class="st">'Low'</span>: <span class="bu">float</span>})</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>six_flags.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <div>
 
 
@@ -492,7 +492,7 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="first-just-call-.plot-on-your-dataframe-object." class="level4">
 <h4 class="anchored" data-anchor-id="first-just-call-.plot-on-your-dataframe-object.">First, just call .plot() on your dataframe object.</h4>
-<div id="3d22b637-1856-4d81-aef3-726570cb0b40" class="cell" data-execution_count="8">
+<div id="3d22b637-1856-4d81-aef3-726570cb0b40" class="cell" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>six_flags.plot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -510,7 +510,7 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="now-re-run-the-.plot-function-but-this-time-call-that-function-on-the-close-variable-only." class="level4">
 <h4 class="anchored" data-anchor-id="now-re-run-the-.plot-function-but-this-time-call-that-function-on-the-close-variable-only.">Now, re-run the .plot() function, but this time, call that function on the ‘Close’ variable only.</h4>
-<div id="10999edf-3df7-4f68-97f3-ff66cd977dc4" class="cell" data-execution_count="9">
+<div id="10999edf-3df7-4f68-97f3-ff66cd977dc4" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"Close"</span>].plot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -527,7 +527,7 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="re-plot-the-close-variable-and-add-a-horizontal-line-representing-the-average-closing-price-for-the-year." class="level4">
 <h4 class="anchored" data-anchor-id="re-plot-the-close-variable-and-add-a-horizontal-line-representing-the-average-closing-price-for-the-year.">Re-plot the ‘Close’ variable, and add a horizontal line representing the average closing price for the year.</h4>
-<div id="574b29af-d8a0-4eb0-a4da-06c61e3a14ad" class="cell" data-execution_count="32">
+<div id="574b29af-d8a0-4eb0-a4da-06c61e3a14ad" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average closing price</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>avg_close <span class="op">=</span> six_flags[<span class="st">"Close"</span>].mean()</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -552,10 +552,10 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="use-the-.diff-method-to-calculate-the-daily-change-in-the-close-price-and-store-the-result-in-a-new-column-called-daily_change." class="level4">
 <h4 class="anchored" data-anchor-id="use-the-.diff-method-to-calculate-the-daily-change-in-the-close-price-and-store-the-result-in-a-new-column-called-daily_change.">Use the .diff() method to calculate the daily change in the ‘Close’ price, and store the result in a new column called ‘daily_change’.</h4>
-<div id="c010b028-c707-4ac3-9ad9-b2a83b5a23f4" class="cell" data-execution_count="11">
+<div id="c010b028-c707-4ac3-9ad9-b2a83b5a23f4" class="cell" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"daily_change"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].diff()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>six_flags.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="47">
 <div>
 
 
@@ -634,7 +634,7 @@ memory usage: 11.7+ KB</code></pre>
 </div>
 <section id="plot-the-daily_change-variable." class="level5">
 <h5 class="anchored" data-anchor-id="plot-the-daily_change-variable.">Plot the ‘daily_change’ variable.</h5>
-<div id="39ebe505-b481-43ae-99d1-c64e6dfefb91" class="cell" data-execution_count="12">
+<div id="39ebe505-b481-43ae-99d1-c64e6dfefb91" class="cell" data-execution_count="48">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"daily_change"</span>].plot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -658,7 +658,7 @@ memory usage: 11.7+ KB</code></pre>
 <h4 class="anchored" data-anchor-id="plotting-a-subset-of-your-data">Plotting a subset of your data</h4>
 <section id="using-a-slice-operation-plot-the-daily-close-variable-from-your-dataset-for-any-one-month-period-of-your-choice." class="level5">
 <h5 class="anchored" data-anchor-id="using-a-slice-operation-plot-the-daily-close-variable-from-your-dataset-for-any-one-month-period-of-your-choice.">Using a slice operation, plot the daily ‘Close’ variable from your dataset for any one-month period of your choice.</h5>
-<div id="2b0dc53c-c2b5-47b9-aeae-cb3c2992033c" class="cell" data-execution_count="13">
+<div id="2b0dc53c-c2b5-47b9-aeae-cb3c2992033c" class="cell" data-execution_count="49">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the dataframe index</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.sort_index()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -676,7 +676,7 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="now-show-the-plot-you-drew-with-the-previous-step-but-with-a-new-figsize-line-color-and-style" class="level5">
 <h5 class="anchored" data-anchor-id="now-show-the-plot-you-drew-with-the-previous-step-but-with-a-new-figsize-line-color-and-style">Now, show the plot you drew with the previous step, but with a new figsize, line color, and style</h5>
-<div id="8a8cdf44-3617-4098-a97c-1cd9bb94b33a" class="cell" data-execution_count="31">
+<div id="8a8cdf44-3617-4098-a97c-1cd9bb94b33a" class="cell" data-execution_count="50">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags_sep.index, six_flags_sep, color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'Close'</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Six Flags Close Price (September 2025)"</span>)</span>
@@ -700,10 +700,10 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="generate-a-20-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-20-period-average-atop-the-actual-daily-closing-prices." class="level4">
 <h4 class="anchored" data-anchor-id="generate-a-20-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-20-period-average-atop-the-actual-daily-closing-prices.">Generate a 20-period moving average for your ‘Close’ variable, and create a plot that overlays this 20-period average atop the actual daily closing prices.</h4>
-<div id="3942265c-031f-47db-a243-093cca18ad7a" class="cell" data-execution_count="15">
+<div id="3942265c-031f-47db-a243-093cca18ad7a" class="cell" data-execution_count="51">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"moving_avg_20"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].rolling(window<span class="op">=</span><span class="dv">20</span>).mean()</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>six_flags.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="51">
 <div>
 
 
@@ -787,7 +787,7 @@ memory usage: 11.7+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="fb1bd40f-9d6d-4ef2-9cb4-b8c3a7756a8b" class="cell" data-execution_count="33">
+<div id="fb1bd40f-9d6d-4ef2-9cb4-b8c3a7756a8b" class="cell" data-execution_count="52">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"Close"</span>], label<span class="op">=</span><span class="st">"Close"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"moving_avg_20"</span>], label<span class="op">=</span><span class="st">"20-period MA"</span>)</span>
@@ -808,10 +808,10 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="next-generate-a-75-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-75-period-average-atop-the-actual-daily-closing-prices." class="level4">
 <h4 class="anchored" data-anchor-id="next-generate-a-75-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-75-period-average-atop-the-actual-daily-closing-prices.">Next, generate a 75-period moving average for your ‘Close’ variable, and create a plot that overlays this 75-period average atop the actual daily closing prices.</h4>
-<div id="8b05c3a2-2219-4157-a6f1-95b6c5536bce" class="cell" data-execution_count="17">
+<div id="8b05c3a2-2219-4157-a6f1-95b6c5536bce" class="cell" data-execution_count="53">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"moving_avg_75"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].rolling(window<span class="op">=</span><span class="dv">75</span>).mean()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>six_flags.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="53">
 <div>
 
 
@@ -902,7 +902,7 @@ memory usage: 11.7+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="12f66a38-5307-41ef-b36b-efc95bb1c888" class="cell" data-execution_count="34">
+<div id="12f66a38-5307-41ef-b36b-efc95bb1c888" class="cell" data-execution_count="54">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">5</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"Close"</span>], label<span class="op">=</span><span class="st">"Close"</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"moving_avg_75"</span>], label<span class="op">=</span><span class="st">"75-period MA"</span>)</span>
@@ -928,7 +928,7 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="plot-a-rolling-standard-deviation-for-your-time-series-data." class="level4">
 <h4 class="anchored" data-anchor-id="plot-a-rolling-standard-deviation-for-your-time-series-data.">Plot a rolling standard deviation for your time series data.</h4>
-<div id="51304e18-14e8-4389-b913-c718b9e3ea1b" class="cell" data-execution_count="35">
+<div id="51304e18-14e8-4389-b913-c718b9e3ea1b" class="cell" data-execution_count="55">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create rolling standard deviation (20-day window)</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"rolling_std_20"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].rolling(window<span class="op">=</span><span class="dv">20</span>).std()</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -958,11 +958,11 @@ memory usage: 11.7+ KB</code></pre>
 </section>
 <section id="resample-your-time-series-so-that-its-values-are-based-on-quarterly-time-periods-mean-values-for-close-rather-than-daily-periods." class="level4">
 <h4 class="anchored" data-anchor-id="resample-your-time-series-so-that-its-values-are-based-on-quarterly-time-periods-mean-values-for-close-rather-than-daily-periods.">Resample your time series so that its values are based on quarterly time periods’ mean values for ‘Close’, rather than daily periods.</h4>
-<div id="2384a30d-56d0-4612-a7a8-2da26b8358b5" class="cell" data-execution_count="20">
+<div id="2384a30d-56d0-4612-a7a8-2da26b8358b5" class="cell" data-execution_count="56">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resample the 'Close' column to quarterly frequency and calculate the mean</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>six_flags_closeq <span class="op">=</span> six_flags[<span class="st">'Close'</span>].resample(<span class="st">'QE'</span>).mean()</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>six_flags_closeq.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="56">
 <pre><code>Date
 2024-12-31    47.097333
 2025-03-31    42.545333
@@ -974,7 +974,7 @@ Freq: QE-DEC, Name: Close, dtype: float64</code></pre>
 </div>
 <section id="plot-this-newly-resampled-time-series-with-the-dates-on-the-x-axis-and-the-close-values-on-the-y-axis." class="level5">
 <h5 class="anchored" data-anchor-id="plot-this-newly-resampled-time-series-with-the-dates-on-the-x-axis-and-the-close-values-on-the-y-axis.">Plot this newly-resampled time series, with the dates on the x-axis, and the Close values on the y-axis.</h5>
-<div id="dc59827a-f6e0-45ac-8460-35149f5090bf" class="cell" data-execution_count="36">
+<div id="dc59827a-f6e0-45ac-8460-35149f5090bf" class="cell" data-execution_count="57">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>six_flags_closeq.plot(marker<span class="op">=</span><span class="st">'o'</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Six Flags Average Close Price (Quarterly)'</span>)</span>
@@ -1006,10 +1006,10 @@ Freq: QE-DEC, Name: Close, dtype: float64</code></pre>
 <h2 class="anchored" data-anchor-id="part-ii-marketing-mix-modeling-with-an-interaction-term">Part II: Marketing Mix Modeling with an Interaction Term</h2>
 <section id="after-reading-the-file-into-your-environment-the-first-question-that-you-will-explore-here-is-whether-there-is-any-relationship-between-marketing-spending-and-conversions." class="level4">
 <h4 class="anchored" data-anchor-id="after-reading-the-file-into-your-environment-the-first-question-that-you-will-explore-here-is-whether-there-is-any-relationship-between-marketing-spending-and-conversions.">After reading the file into your environment, the first question that you will explore here is whether there is any relationship between marketing spending and conversions.</h4>
-<div id="e55addf1-fade-4a01-bce4-445bf96b4642" class="cell" data-execution_count="22">
+<div id="e55addf1-fade-4a01-bce4-445bf96b4642" class="cell" data-execution_count="58">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign <span class="op">=</span> pd.read_csv(<span class="st">"/Users/nhattran/Downloads/MSBA/METAD654 - Marketing Analytics/assignment 5/marketing_campaign_lobster.csv"</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>lobster_campaign.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="58">
 <div>
 
 
@@ -1068,10 +1068,10 @@ Freq: QE-DEC, Name: Close, dtype: float64</code></pre>
 </section>
 <section id="to-explore-this-first-create-a-new-variable-that-shows-the-total-spending.-this-variables-value-should-be-the-sum-of-influencer_spend-email_spend-and-radio_spend." class="level4">
 <h4 class="anchored" data-anchor-id="to-explore-this-first-create-a-new-variable-that-shows-the-total-spending.-this-variables-value-should-be-the-sum-of-influencer_spend-email_spend-and-radio_spend.">To explore this, first create a new variable that shows the total spending. This variable’s value should be the sum of influencer_spend, email_spend, and radio_spend.</h4>
-<div id="2a0c73aa-147b-4a2d-9288-4942f9e0352d" class="cell" data-execution_count="23">
+<div id="2a0c73aa-147b-4a2d-9288-4942f9e0352d" class="cell" data-execution_count="59">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign[<span class="st">"total_spending"</span>] <span class="op">=</span> lobster_campaign[[<span class="st">"influencer_spend"</span>, <span class="st">"email_spend"</span>, <span class="st">"radio_spend"</span>]].<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>lobster_campaign.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="59">
 <div>
 
 
@@ -1136,7 +1136,7 @@ Freq: QE-DEC, Name: Close, dtype: float64</code></pre>
 </section>
 <section id="now-find-the-correlation-between-this-new-total-spending-variable-and-conversions." class="level4">
 <h4 class="anchored" data-anchor-id="now-find-the-correlation-between-this-new-total-spending-variable-and-conversions.">Now, find the correlation between this new total spending variable and conversions.</h4>
-<div id="cd249b06-3385-401f-ae90-af54949f49bd" class="cell" data-execution_count="24">
+<div id="cd249b06-3385-401f-ae90-af54949f49bd" class="cell" data-execution_count="60">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign_corr <span class="op">=</span> lobster_campaign[<span class="st">"total_spending"</span>].corr(lobster_campaign[<span class="st">"conversions"</span>])</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The correlation between total spending and conversions: </span><span class="sc">{</span>lobster_campaign_corr<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1158,7 +1158,7 @@ Freq: QE-DEC, Name: Close, dtype: float64</code></pre>
 </section>
 <section id="next-lets-explore-the-relationship-among-the-influencer-ad-spending-email-ad-spending-and-radio-ad-spending-variables.-examine-the-correlations-among-these-three-variables." class="level4">
 <h4 class="anchored" data-anchor-id="next-lets-explore-the-relationship-among-the-influencer-ad-spending-email-ad-spending-and-radio-ad-spending-variables.-examine-the-correlations-among-these-three-variables.">Next, let’s explore the relationship among the influencer ad spending, email ad spending, and radio ad spending variables. Examine the correlations among these three variables.</h4>
-<div id="df91925b-9b70-4b74-8782-d41106a46c46" class="cell" data-execution_count="25">
+<div id="df91925b-9b70-4b74-8782-d41106a46c46" class="cell" data-execution_count="61">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation matrix for the three spending variables</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> lobster_campaign[[<span class="st">'influencer_spend'</span>,<span class="st">'email_spend'</span>,<span class="st">'radio_spend'</span>]].corr()</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1182,7 +1182,7 @@ Freq: QE-DEC, Name: Close, dtype: float64</code></pre>
 </section>
 <section id="now-build-a-model-that-uses-conversions-as-the-outcome-variable-with-influencer-spending-email-ad-spending-and-radio-ad-spending-as-the-input-variables." class="level4">
 <h4 class="anchored" data-anchor-id="now-build-a-model-that-uses-conversions-as-the-outcome-variable-with-influencer-spending-email-ad-spending-and-radio-ad-spending-as-the-input-variables.">Now, build a model that uses conversions as the outcome variable, with influencer spending, email ad spending, and radio ad spending as the input variables.</h4>
-<div id="ff94ae61-1fdc-4861-a932-323119cbaa33" class="cell" data-execution_count="26">
+<div id="ff94ae61-1fdc-4861-a932-323119cbaa33" class="cell" data-execution_count="62">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define predictors (X) and outcome (y)</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> lobster_campaign[[<span class="st">'influencer_spend'</span>, <span class="st">'email_spend'</span>, <span class="st">'radio_spend'</span>]]</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> lobster_campaign[<span class="st">'conversions'</span>]</span>
@@ -1197,7 +1197,7 @@ Dep. Variable:            conversions   R-squared:                       0.902
 Model:                            OLS   Adj. R-squared:                  0.900
 Method:                 Least Squares   F-statistic:                     449.0
 Date:                Tue, 13 Jan 2026   Prob (F-statistic):           1.80e-73
-Time:                        00:09:25   Log-Likelihood:                -679.66
+Time:                        00:23:16   Log-Likelihood:                -679.66
 No. Observations:                 150   AIC:                             1367.
 Df Residuals:                     146   BIC:                             1379.
 Df Model:                           3                                         
@@ -1233,7 +1233,7 @@ Notes:
 <h4 class="anchored" data-anchor-id="lobster-lands-marketing-team-is-investigating-how-different-types-of-advertising-spend-impact-the-number-of-conversions.-they-need-you-to-create-an-interaction-plot-to-visualize-the-relationship-between-influencer_spend-and-conversions-across-different-levels-of-email_spend.">Lobster Land’s marketing team is investigating how different types of advertising spend impact the number of conversions. They need you to create an interaction plot to visualize the relationship between influencer_spend and conversions, across different levels of email_spend.</h4>
 <section id="first-create-a-new-variable-called-email_spend_group-by-dividing-email_spend-into-three-groups-low-medium-and-high." class="level5">
 <h5 class="anchored" data-anchor-id="first-create-a-new-variable-called-email_spend_group-by-dividing-email_spend-into-three-groups-low-medium-and-high.">First, create a new variable called email_spend_group by dividing email_spend into three groups: low, medium, and high.</h5>
-<div id="1f758aad-3b78-4f51-8e12-4fa38eef6739" class="cell" data-execution_count="27">
+<div id="1f758aad-3b78-4f51-8e12-4fa38eef6739" class="cell" data-execution_count="63">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign[<span class="st">'email_spend_group'</span>] <span class="op">=</span> pd.qcut(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    lobster_campaign[<span class="st">'email_spend'</span>],</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    q<span class="op">=</span><span class="dv">3</span>,</span>
@@ -1264,7 +1264,7 @@ Notes:
 </section>
 <section id="use-seaborn.lmplot-or-something-similar-to-draw-trend-lines-for-each-group." class="level5">
 <h5 class="anchored" data-anchor-id="use-seaborn.lmplot-or-something-similar-to-draw-trend-lines-for-each-group.">Use seaborn.lmplot() or something similar to draw trend lines for each group.</h5>
-<div id="bda38746-697a-4648-bd77-2bb9441ee931" class="cell" data-execution_count="28">
+<div id="bda38746-697a-4648-bd77-2bb9441ee931" class="cell" data-execution_count="64">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>lobster_campaign,</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'influencer_spend'</span>,</span>
@@ -1293,7 +1293,7 @@ Notes:
 </section>
 <section id="build-yet-another-model-this-time-you-will-again-use-conversions-as-the-outcome-variable.-your-inputs-will-be-influencer-ad-spending-email-ad-spending-and-an-interaction-variable-for-influencer-ad-spending-email-ad-spending." class="level4">
 <h4 class="anchored" data-anchor-id="build-yet-another-model-this-time-you-will-again-use-conversions-as-the-outcome-variable.-your-inputs-will-be-influencer-ad-spending-email-ad-spending-and-an-interaction-variable-for-influencer-ad-spending-email-ad-spending.">Build yet another model – this time, you will again use conversions as the outcome variable. Your inputs will be influencer ad spending, email ad spending, and an interaction variable for influencer ad spending &amp; email ad spending.</h4>
-<div id="105fa8c2-bd90-45b3-9942-66a961e9ca03" class="cell" data-execution_count="29">
+<div id="105fa8c2-bd90-45b3-9942-66a961e9ca03" class="cell" data-execution_count="65">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an interaction variable for influencer ad spendinng and email ad spending</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>lobster_campaign[<span class="st">'interaction'</span>] <span class="op">=</span> (lobster_campaign[<span class="st">'influencer_spend'</span>] <span class="op">*</span> lobster_campaign[<span class="st">'email_spend'</span>])</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster_campaign[[<span class="st">'influencer_spend'</span>,<span class="st">'email_spend'</span>,<span class="st">'interaction'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1314,7 +1314,7 @@ Notes:
 [150 rows x 3 columns]</code></pre>
 </div>
 </div>
-<div id="1f6a3960-084a-4e68-a685-2f81c5233308" class="cell" data-execution_count="30">
+<div id="1f6a3960-084a-4e68-a685-2f81c5233308" class="cell" data-execution_count="66">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define predictors (X) and outcome (y)</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> lobster_campaign[[<span class="st">'influencer_spend'</span>, <span class="st">'email_spend'</span>, <span class="st">'interaction'</span>]]</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> lobster_campaign[<span class="st">'conversions'</span>]</span>
@@ -1329,7 +1329,7 @@ Dep. Variable:            conversions   R-squared:                       0.954
 Model:                            OLS   Adj. R-squared:                  0.953
 Method:                 Least Squares   F-statistic:                     1011.
 Date:                Tue, 13 Jan 2026   Prob (F-statistic):           2.03e-97
-Time:                        00:09:26   Log-Likelihood:                -622.98
+Time:                        00:23:17   Log-Likelihood:                -622.98
 No. Observations:                 150   AIC:                             1254.
 Df Residuals:                     146   BIC:                             1266.
 Df Model:                           3                                         
