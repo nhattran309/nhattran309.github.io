@@ -32,7 +32,7 @@
     "href": "cv.html#skills",
     "title": "Curriculum Vitae",
     "section": "Skills",
-    "text": "Skills\n\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nProgramming Languages: Python, SQL, Eviews, R\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML Models"
+    "text": "Skills\n\nProgramming Languages: Python, SQL, Eviews, R\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML, GenAI, Regression, XGBoost, Random Forest"
   },
   {
     "objectID": "cv.html#professional-experience",
@@ -221,7 +221,7 @@
     "href": "about.html#skills",
     "title": "About",
     "section": "Skills",
-    "text": "Skills\n\nProgramming: Python; SQL; EViews; R\nData Analysis Tools: Bloomberg; Power BI; Tableau; Macrobond; Haver; Microsoft Office: Word, Excel, PowerPoint\nTechnical Skills: Data Visualizations; Data Manipulation; Database Management; Macro Research; ML Models"
+    "text": "Skills\n\nProgramming Languages: Python, SQL, Eviews, R\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML, GenAI, Regression, XGBoost, Random Forest"
   },
   {
     "objectID": "about.html#what-im-interested-in",
