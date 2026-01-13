@@ -2,9 +2,9 @@
   {
     "listing": "/pynotes.html",
     "items": [
-      "/python_notebooks/time_series_interaction_model.html",
       "/python_notebooks/classification.html",
       "/python_notebooks/data_exploration_visualization.html",
+      "/python_notebooks/time_series_interaction_model.html",
       "/python_notebooks/market_segment_conjoint.html",
       "/python_notebooks/statistical_testing.html"
     ]
