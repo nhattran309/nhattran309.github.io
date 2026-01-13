@@ -481,7 +481,7 @@ dtype: int64</code></pre>
 </section>
 <section id="rename-the-food_rev-column-to-foodbev_rev." class="level4">
 <h4 class="anchored" data-anchor-id="rename-the-food_rev-column-to-foodbev_rev.">Rename the ‘Food_Rev’ column to ‘FoodBev_Rev’.</h4>
-<div id="09a625f6-5ff7-48f3-aa8a-6d83f9e69856" class="cell">
+<div id="09a625f6-5ff7-48f3-aa8a-6d83f9e69856" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lobster25 <span class="op">=</span> lobster25.rename(columns<span class="op">=</span>{<span class="st">'Revenue_Food'</span>:<span class="st">'Revenue_FoodBev'</span>}) <span class="co">#rename the columns</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># There is no 'Food_Rev' so I'm assuming it's 'Revenue_Food' and replace it with 'Revenue_FoodBev'</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster25.columns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -541,7 +541,7 @@ memory usage: 924.0+ bytes</code></pre>
 </div>
 </div>
 <p>Python currently views this variable as an object.</p>
-<div id="395993a2-b8bc-4b1f-89cc-71eb9bc6242d" class="cell">
+<div id="395993a2-b8bc-4b1f-89cc-71eb9bc6242d" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting the variable into a datetime object.</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(lobster25[<span class="st">'Date'</span>])</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -678,7 +678,7 @@ memory usage: 924.0+ bytes</code></pre>
 </section>
 <section id="lobster-land-management-has-decided-that-they-wont-be-using-the-zone_id-variable.-remove-it-and-demonstrate-that-its-no-longer-part-of-the-dataset-going-forward." class="level4">
 <h4 class="anchored" data-anchor-id="lobster-land-management-has-decided-that-they-wont-be-using-the-zone_id-variable.-remove-it-and-demonstrate-that-its-no-longer-part-of-the-dataset-going-forward.">Lobster Land management has decided that they won’t be using the Zone_ID variable. Remove it, and demonstrate that it’s no longer part of the dataset going forward.</h4>
-<div id="5d7bc02d-3d1a-4e28-9bfa-0acd0e7607f4" class="cell">
+<div id="5d7bc02d-3d1a-4e28-9bfa-0acd0e7607f4" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lobster25 <span class="op">=</span> lobster25.drop(columns<span class="op">=</span>[<span class="st">'Zone_ID'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-check</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster25.columns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1008,7 +1008,7 @@ Name: International_Visitors, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="5c2c1304-c0ac-4bc2-8cd8-97cd4b672ffe" class="cell">
+<div id="5c2c1304-c0ac-4bc2-8cd8-97cd4b672ffe" class="cell" data-execution_count="49">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter attraction tier to gold zone which is 1, copy() from lobster25() dataframe</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>gold_zone <span class="op">=</span> lobster25.query(<span class="st">'Attraction_Tier==1'</span>).copy() </span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1018,7 +1018,7 @@ Name: International_Visitors, dtype: float64</code></pre>
 <pre><code>[1]</code></pre>
 </div>
 </div>
-<div id="0d1a468d-b31a-4853-b92d-0962b999d490" class="cell">
+<div id="0d1a468d-b31a-4853-b92d-0962b999d490" class="cell" data-execution_count="50">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a 'Total_Spend' column to record the total spending of gold zone by multiplying total visitors by per visitor spend</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>gold_zone[<span class="st">'Total_Spend'</span>] <span class="op">=</span> gold_zone[<span class="st">'Total_Visitors'</span>]<span class="op">*</span>gold_zone[<span class="st">'Per_Capita_Spend'</span>]</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1074,7 +1074,7 @@ Name: International_Visitors, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="742db92b-070c-43c9-9818-9cb08359e1ba" class="cell">
+<div id="742db92b-070c-43c9-9818-9cb08359e1ba" class="cell" data-execution_count="70">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregrate the total spending of gol</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>gold_spend_weekly <span class="op">=</span> gold_zone.groupby(<span class="st">'season_week_rel'</span>)[<span class="st">'Total_Spend'</span>].<span class="bu">sum</span>().reset_index()</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>

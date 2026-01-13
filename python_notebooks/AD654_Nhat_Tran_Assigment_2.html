@@ -179,27 +179,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part-i-segmentation" id="toc-part-i-segmentation" class="nav-link active" data-scroll-target="#part-i-segmentation">Part I: Segmentation</a>
-  <ul class="collapse">
-  <li><a href="#call-the-describe-function-on-your-dataset." id="toc-call-the-describe-function-on-your-dataset." class="nav-link" data-scroll-target="#call-the-describe-function-on-your-dataset.">Call the describe() function on your dataset.</a></li>
-  <li><a href="#missing-values-impossible-values" id="toc-missing-values-impossible-values" class="nav-link" data-scroll-target="#missing-values-impossible-values">Missing values / Impossible values</a></li>
-  <li><a href="#variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model." id="toc-variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model." class="nav-link" data-scroll-target="#variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model.">Variable selection. Select any 5 variables from the potential set of inputs in order to build your k-means clustering model.</a></li>
-  <li><a href="#data-scaling" id="toc-data-scaling" class="nav-link" data-scroll-target="#data-scaling">Data Scaling</a></li>
-  <li><a href="#elbow-chart" id="toc-elbow-chart" class="nav-link" data-scroll-target="#elbow-chart">Elbow Chart</a></li>
-  <li><a href="#build-a-k-means-model-with-your-desired-number-of-clusters." id="toc-build-a-k-means-model-with-your-desired-number-of-clusters." class="nav-link" data-scroll-target="#build-a-k-means-model-with-your-desired-number-of-clusters.">Build a k-means model with your desired number of clusters.</a></li>
-  <li><a href="#generate-centroid-values" id="toc-generate-centroid-values" class="nav-link" data-scroll-target="#generate-centroid-values">Generate Centroid Values</a></li>
-  <li><a href="#build-four-simple-visualizations-to-help-management-better-understand-your-clusters" id="toc-build-four-simple-visualizations-to-help-management-better-understand-your-clusters" class="nav-link" data-scroll-target="#build-four-simple-visualizations-to-help-management-better-understand-your-clusters">Build four simple visualizations to help management better understand your clusters</a></li>
-  <li><a href="#cluster-descriptions" id="toc-cluster-descriptions" class="nav-link" data-scroll-target="#cluster-descriptions">Cluster Descriptions</a></li>
-  <li><a href="#how-can-lobster-land-use-this-model" id="toc-how-can-lobster-land-use-this-model" class="nav-link" data-scroll-target="#how-can-lobster-land-use-this-model">How can Lobster Land use this model?</a></li>
-  </ul></li>
-  <li><a href="#part-ii-conjoint-analysis-with-a-linear-model" id="toc-part-ii-conjoint-analysis-with-a-linear-model" class="nav-link" data-scroll-target="#part-ii-conjoint-analysis-with-a-linear-model">Part II: Conjoint Analysis with a Linear Model</a>
-  <ul class="collapse">
-  <li><a href="#use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable." id="toc-use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable." class="nav-link" data-scroll-target="#use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable.">Use the pandas get_dummies() function in order to prepare these variables for use in a linear model. Inside this function, include this argument: drop_first = True. Doing this will save us from the multicollinearity problem that would make our model unreliable.</a></li>
-  <li><a href="#it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle." id="toc-it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle." class="nav-link" data-scroll-target="#it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle.">It might seem tempting here to just skip the model-building step – instead of building a model, we could just rank the bundles by average rating, in descending order, and then just tell Lobster Land to implement all the features in the highest-rated bundle.</a></li>
-  <li><a href="#build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs." id="toc-build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs." class="nav-link" data-scroll-target="#build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs.">Build a linear model with your data, using the average rating as the outcome variable, and with all of your other variables (other than the bundleID) as inputs.</a></li>
-  <li><a href="#display-the-coefficient-values-of-your-model-inputs." id="toc-display-the-coefficient-values-of-your-model-inputs." class="nav-link" data-scroll-target="#display-the-coefficient-values-of-your-model-inputs.">Display the coefficient values of your model inputs.</a></li>
-  <li><a href="#write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you." id="toc-write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you." class="nav-link" data-scroll-target="#write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you.">Write two-three paragraphs for Lobster Land management about what your model is showing you.</a></li>
-  </ul></li>
+  <li><a href="#part-i-segmentation" id="toc-part-i-segmentation" class="nav-link active" data-scroll-target="#part-i-segmentation">Part I: Segmentation</a></li>
+  <li><a href="#part-ii-conjoint-analysis-with-a-linear-model" id="toc-part-ii-conjoint-analysis-with-a-linear-model" class="nav-link" data-scroll-target="#part-ii-conjoint-analysis-with-a-linear-model">Part II: Conjoint Analysis with a Linear Model</a></li>
   </ul>
 </nav>
     </div>
@@ -225,6 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Analyzed Lobster Land’s operations using k-means clustering to segment park days based on attendance, pricing, weather, and spending behavior, uncovering distinct day types to inform staffing, pricing, and marketing decisions. Conducted a conjoint analysis with a linear regression model to quantify how entertainment features, crowding, and experience design impact guest satisfaction, translating insights into actionable recommendations for revenue and experience optimization.</p>
 <div id="c9ca770b-32ec-48c6-873d-1cc76867942d" class="cell" data-execution_count="78">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -467,8 +449,8 @@ memory usage: 12.1 KB</code></pre>
 <li><strong>Categorical Variables:</strong> Day_ID, Day_of_Week, season_week_rel, Is_Holiday, Weather_Type, Is_Special_Event</li>
 </ul>
 <p>In my opinion, it’s not a great idea to use categorical inputs in a k-means model because the algorithm calculates distances between data points, and turning categories into numbers can be misleading. Take season_week_rel for example, it uses values from 1 to 15 to represent different weeks, but those numbers don’t really capture how similar or different the weeks are in terms of things like visitor patterns or revenue. The model might end up grouping week 1 and week 2 together just because their numbers are close, even if they behave very differently. Since k-means tries to minimize distance within clusters, it could create groups that look related mathematically but don’t actually make much sense in the real-world context of the data.</p>
-<section id="call-the-describe-function-on-your-dataset." class="level3">
-<h3 class="anchored" data-anchor-id="call-the-describe-function-on-your-dataset.">Call the describe() function on your dataset.</h3>
+<section id="call-the-describe-function-on-your-dataset." class="level4">
+<h4 class="anchored" data-anchor-id="call-the-describe-function-on-your-dataset.">Call the describe() function on your dataset.</h4>
 <div id="a4513628-c99f-4621-810b-7a9405d97573" class="cell" data-execution_count="85">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>day_25.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="85">
@@ -632,8 +614,8 @@ memory usage: 12.1 KB</code></pre>
 <p>When I run the describe() function on this dataset, it provides a concise statistical summary of each numeric column, including the count, mean, standard deviation, and range values. This snapshot helps me quickly understand the distribution and behavior of each variable, which is essential for assessing data quality and preparing for modeling.</p>
 <p>In this case, the summary reveals several problematic entries that need attention. For example, <em>Total_Visitors</em>, <em>International_Visitors</em>, and <em>Avg_Ticket_Price</em> contain negative values, which are not realistic in the context of theme park operations. Another noticeable issue in the summary table is that <em>Revenue_Food</em> shows a maximum value of 999,999.99, which exceeds the <em>Total_Revenue</em> maximum of 423,019.37, even though <em>Total_Revenue</em> should represent the combined daily revenue across all categories (gate, food, merchandise, and arcade). Identifying these issues early allows me to flag potential data entry errors or outliers and decide whether to clean, transform, or exclude certain records. This step is crucial for ensuring that the model is built on reliable and interpretable data.</p>
 </section>
-<section id="missing-values-impossible-values" class="level3">
-<h3 class="anchored" data-anchor-id="missing-values-impossible-values">Missing values / Impossible values</h3>
+<section id="missing-values-impossible-values" class="level4">
+<h4 class="anchored" data-anchor-id="missing-values-impossible-values">Missing values / Impossible values</h4>
 <div id="38092c0f-346f-4a11-a0c9-ac02adde3bb1" class="cell" data-execution_count="86">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>day_25.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="86">
@@ -903,6 +885,7 @@ dtype: int64</code></pre>
 <p>The results showed three impossible values in <em>Total_Visitors, International_Visitors, and Avg_Ticket_Price</em>. These values are considered impossible because visitor counts cannot be negative - they must be zero or greater. Similarly, ticket prices are typically non-negative, unless there’s a rare case involving refunds or discounts. In this context, negative values likely indicate data entry errors or corrupted records.</p>
 <p>The summary statistics also showed that <em>Revenue_Food</em> has a maximum value of 999,999.99, whereas Total_Revenue only has a maximum of 423,019.37. Because Total_Revenue should include all revenue categories, this should be corrected or reviewed before any further analysis.</p>
 <p>Another entry that appears suspicious is <em>High_Temperature</em>, which shows a maximum value of 200°F. While temperature ranges can vary by region, typical readings in the United States generally fall between 0°F and a little over 100°F. Even Boston’s recent heatwave only reached a record high of 102°F, so a value of 200°F is unrealistic. To verify, I filtered the <em>High_Temperature</em> variable for values greater than 120°F and found only one record, suggesting this is likely a data entry or recording error.</p>
+</section>
 <section id="if-so-handle-them-in-any-way-that-you-see-fit." class="level4">
 <h4 class="anchored" data-anchor-id="if-so-handle-them-in-any-way-that-you-see-fit.">If so, handle them in any way that you see fit.</h4>
 <div id="92b526c6-2b3b-46fc-97c5-df3250db639a" class="cell" data-execution_count="91">
@@ -968,17 +951,17 @@ dtype: int64</code></pre>
 </div>
 <p>I chose to drop the rows with impossible values rather than replace them with the median or mode because the errors are rare and clearly invalid. According to data_25.info() results above, I know that there are 99 entries for each variables. With only 5 affected entries out of 99, removing them avoids introducing assumptions that could distort relationships between variables. Replacing with typical values like the median might mask underlying issues or flatten meaningful variation, especially when the context behind the error is unknown. Dropping ensures the dataset remains clean and reasonable.</p>
 </section>
-</section>
-<section id="variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model." class="level3">
-<h3 class="anchored" data-anchor-id="variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model.">Variable selection. Select any 5 variables from the potential set of inputs in order to build your k-means clustering model.</h3>
+<section id="variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model." class="level4">
+<h4 class="anchored" data-anchor-id="variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model.">Variable selection. Select any 5 variables from the potential set of inputs in order to build your k-means clustering model.</h4>
 <div id="16270567-239a-40bc-b71c-40e21eadbe79" class="cell" data-execution_count="95">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>var_selected <span class="op">=</span> day25[[<span class="st">"Total_Visitors"</span>,<span class="st">"Avg_Ticket_Price"</span>,</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"High_Temperature"</span>,<span class="st">"Passholder_Percentage"</span>,<span class="st">"Per_Capita_Spend"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To build a meaningful k-means clustering model, I selected the following five variables from the dataset: <em>Total_Visitors, Avg_Ticket_Price, High_Temperature, Passholder_Percentage, and Per_Capita_Spend</em>. These five variables were chosen to capture key aspects of daily park dynamics. <em>Total_Visitors</em> reflects overall attendance, giving a sense of how busy the park is. <em>Avg_Ticket_Price</em> ties into pricing strategy and its potential influence on visitor volume. <em>High_Temperature</em> displays a weather factor that can affect both attendance and spending. <em>Passholder_Percentage</em> helps distinguish between loyal visitors and one-time guests, which may impact behavior and spending habits. <em>Per_Capita_Spend</em> offers a normalized view of how much each visitor contributes financially, combining attendance and revenue into a single meaningful metric.</p>
 </section>
-<section id="data-scaling" class="level3">
-<h3 class="anchored" data-anchor-id="data-scaling">Data Scaling</h3>
+<section id="data-scaling" class="level4">
+<h4 class="anchored" data-anchor-id="data-scaling">Data Scaling</h4>
+</section>
 <section id="do-your-variables-need-to-be-standardized-why-or-why-not" class="level4">
 <h4 class="anchored" data-anchor-id="do-your-variables-need-to-be-standardized-why-or-why-not">Do your variables need to be standardized? Why or why not?</h4>
 <p>Yes, I do think my variables should be standardized before applying k-means clustering. This is because they are measured on very different scales. For instance, <em>Avg_Ticket_Price</em> is no more than about $83, while Total_Visitors can reach nearly 4,000, which is a much larger numerical range. Similarly, <em>Passholder_Percentage</em> is expressed as a proportion (0–100%), and <em>High_Temperature</em> and <em>Per_Capita_Spend</em> also exist on their own distinct scales. Since k-means uses Euclidean distance to group observations, variables with larger numeric ranges would otherwise dominate the clustering process. Standardizing the data ensures that each variable contributes equally to distance calculations, leading to more balanced and meaningful clusters.</p>
@@ -1010,9 +993,8 @@ dtype: int64</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="elbow-chart" class="level3">
-<h3 class="anchored" data-anchor-id="elbow-chart">Elbow Chart</h3>
+<section id="elbow-chart" class="level4">
+<h4 class="anchored" data-anchor-id="elbow-chart">Elbow Chart</h4>
 <div id="d67e0f21-3576-4f91-b356-08d3dd1c0f95" class="cell" data-execution_count="97">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define X with 5 selected columns from the standardized data</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> var_scaled_df[[<span class="st">"Total_Visitors"</span>,</span>
@@ -1046,14 +1028,14 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
+</section>
 <section id="how-many-clusters-will-you-use-for-your-k-means-model" class="level4">
 <h4 class="anchored" data-anchor-id="how-many-clusters-will-you-use-for-your-k-means-model">How many clusters will you use for your k-means model?</h4>
 <p>The elbow chart above shows the SSE decreasing sharply from around 480 to approximately 175 as the number of clusters increases. The most significant drop occurs between 1 and 4 clusters, after which the curve begins to flatten, suggesting diminishing returns from adding more clusters. Based on this pattern, I selected k = 4 for the k-means model, as it captures most of the variance in the data while maintaining a manageable number of segments.</p>
 <p>A smaller number of clusters (e.g., 2 or 3) would likely combine distinct park-day types, such as slower weekdays and peak weekends - into the same group, masking meaningful operational differences. By using four clusters, the park can better understand how key factors like visitor volume, pricing, weather, and spending behavior interact across different day types.</p>
 </section>
-</section>
-<section id="build-a-k-means-model-with-your-desired-number-of-clusters." class="level3">
-<h3 class="anchored" data-anchor-id="build-a-k-means-model-with-your-desired-number-of-clusters.">Build a k-means model with your desired number of clusters.</h3>
+<section id="build-a-k-means-model-with-your-desired-number-of-clusters." class="level4">
+<h4 class="anchored" data-anchor-id="build-a-k-means-model-with-your-desired-number-of-clusters.">Build a k-means model with your desired number of clusters.</h4>
 <div id="1548702f-c1e3-4789-8539-787bf696f1de" class="cell" data-execution_count="98">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build and fit the K-Means model on the standardized DataFrame 'X'</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>kmeans_model <span class="op">=</span> KMeans(n_clusters <span class="op">=</span> <span class="dv">4</span>, random_state <span class="op">=</span> <span class="dv">616</span>)</span>
@@ -1097,8 +1079,8 @@ dtype: int64</code></pre>
 </div>
 <p>I built the k-means model using a data frame containing only the 5 selected variables. By setting random_state = 616, I ensured that the clustering results remain consistent across runs. I selected 3 clusters to achieve a more detailed and meaningful segmentation of the park.</p>
 </section>
-<section id="generate-centroid-values" class="level3">
-<h3 class="anchored" data-anchor-id="generate-centroid-values">Generate Centroid Values</h3>
+<section id="generate-centroid-values" class="level4">
+<h4 class="anchored" data-anchor-id="generate-centroid-values">Generate Centroid Values</h4>
 <div id="d875049e-46e5-4c64-b8e5-548602efa563" class="cell" data-execution_count="99">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate centroid values for each cluster</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> var_scaled_df.groupby(<span class="st">'Cluster'</span>).mean()</span>
@@ -1137,8 +1119,9 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </section>
-<section id="build-four-simple-visualizations-to-help-management-better-understand-your-clusters" class="level3">
-<h3 class="anchored" data-anchor-id="build-four-simple-visualizations-to-help-management-better-understand-your-clusters">Build four simple visualizations to help management better understand your clusters</h3>
+<section id="build-four-simple-visualizations-to-help-management-better-understand-your-clusters" class="level4">
+<h4 class="anchored" data-anchor-id="build-four-simple-visualizations-to-help-management-better-understand-your-clusters">Build four simple visualizations to help management better understand your clusters</h4>
+</section>
 <section id="visualization-1-histogram-of-total-visitors-by-cluster" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-1-histogram-of-total-visitors-by-cluster">Visualization 1: Histogram of Total Visitors by Cluster</h4>
 <div id="e2b29716-545e-4671-abbe-0283a27b2729" class="cell" data-scrolled="true" data-execution_count="101">
@@ -1220,9 +1203,9 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>This boxplot shows how standardized high temperatures vary across the four clusters identified by the model. Cluster 1 (orange) has the highest median temperature, representing hotter days, while Clusters 0 (green) and 3 (pink) are generally cooler. Cluster 2 (blue) shows the widest temperature range, including both hot and cool days, which may reflect mixed or transitional seasonal conditions at Lobster Land.</p>
 </section>
+<section id="cluster-descriptions" class="level4">
+<h4 class="anchored" data-anchor-id="cluster-descriptions">Cluster Descriptions</h4>
 </section>
-<section id="cluster-descriptions" class="level3">
-<h3 class="anchored" data-anchor-id="cluster-descriptions">Cluster Descriptions</h3>
 <section id="cluster-0-chill-sparse" class="level4">
 <h4 class="anchored" data-anchor-id="cluster-0-chill-sparse">Cluster 0: “Chill &amp; Sparse”</h4>
 <p>These are the cool, calm days with lower visitor counts, below-average ticket prices, and a higher share of passholders. Spending per person is lighter, creating an easygoing park atmosphere that appeals to loyal guests and locals who enjoy a quieter visit. - <strong>Targeting:</strong> LobsterLand can focus on community connections and rewarding frequent visitors on these days. Promotions highlighting relaxed park experiences, quiet attractions, or weekday benefits can draw local families and passholders seeking a slower, more comfortable visit.</p>
@@ -1239,9 +1222,8 @@ Name: count, dtype: int64</code></pre>
 <h4 class="anchored" data-anchor-id="cluster-3-balanced-buzz">Cluster 3: “Balanced Buzz”</h4>
 <p>This cluster shows moderate temperatures, mixed visitor counts, and steady spending levels. Ticket prices remain close to the average, and the lower passholder percentage suggests a healthy mix of new and returning guests. - <strong>Targeting:</strong> With a blend of loyal customers and newcomers, LobsterLand can use this opportunity to run limited-time offers, themed events, or new experiences can help identify emerging interests.</p>
 </section>
-</section>
-<section id="how-can-lobster-land-use-this-model" class="level3">
-<h3 class="anchored" data-anchor-id="how-can-lobster-land-use-this-model">How can Lobster Land use this model?</h3>
+<section id="how-can-lobster-land-use-this-model" class="level4">
+<h4 class="anchored" data-anchor-id="how-can-lobster-land-use-this-model">How can Lobster Land use this model?</h4>
 <p>Lobster Land can use this day-type clustering model as a practical tool to help the team make better decisions about staffing, pricing, and creating great experiences for guests. By figuring out which cluster an upcoming day fits into, like a busy “Gold Rush Day” or a quieter “Chill &amp; Sparse” day, the team can get ahead of operations instead of just reacting. On high-traffic days, the park can bring in extra staff, stay open later, and offer special upgrades that guests will actually want. On slower days, there’s room to focus on rewarding regulars, running leaner operations, or taking care of behind-the-scenes maintenance that’s hard to do when the park is packed.</p>
 <p>The marketing team can also use these insights to shape promotions that actually fit the day. Take “Scorch &amp; Stroll” days, for instance. These hot, leisurely days might be perfect for promoting cold drink bundles or access to shaded seating areas. “Balannced Buzz” days, with their unexpected energy, could be a testing ground for new attractions or digital campaigns to see what resonates. As Lobster Land builds out this approach, weaving in weather forecasts and calendar events could help predict cluster assignments days or even weeks ahead. That shifts the park from reactive scrambling to a proactive, rhythm-based planning style that aligns operations with real guest patterns and business priorities.</p>
 <p>If the team could predict which cluster a day might fall into, it would make planning feel a lot more purposeful and efficient. For instance, if an upcoming weekend looks like a “Gold Rush Day,” the park could bring in extra staff, stock up on food and drinks, and roll out seasonal specials like fall-inspired treats or Halloween-themed beverages to attract both new visitors and returning fans. On the other hand, if a slower Tuesday seems to fall into the “Chill &amp; Sparse” cluster, Lobster Land could use the opportunity to run local promotions, offer discounted afternoon passes, or host a cozy themed dining night for family and friends. This kind of planning helps the park stay balanced—keeping operations efficient, guests happy, and business decisions aligned with real demand.</p>
@@ -1421,8 +1403,8 @@ dtypes: category(7), float64(1), int64(3)
 memory usage: 2.7 MB</code></pre>
 </div>
 </div>
-<section id="use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable." class="level3">
-<h3 class="anchored" data-anchor-id="use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable.">Use the pandas get_dummies() function in order to prepare these variables for use in a linear model. Inside this function, include this argument: drop_first = True. Doing this will save us from the multicollinearity problem that would make our model unreliable.</h3>
+<section id="use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable." class="level4">
+<h4 class="anchored" data-anchor-id="use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable.">Use the pandas get_dummies() function in order to prepare these variables for use in a linear model. Inside this function, include this argument: drop_first = True. Doing this will save us from the multicollinearity problem that would make our model unreliable.</h4>
 <div id="e16ede5d-2536-434e-8baf-4c2cc901e3d8" class="cell" data-execution_count="111">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before dummifying the variables, check to see if the dataset has any null input</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>night_show.isnull().values.<span class="bu">any</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1619,18 +1601,18 @@ memory usage: 2.7 MB</code></pre>
       dtype='object')</code></pre>
 </div>
 </div>
+</section>
 <section id="why-should-the-numeric-input-variables-based-on-this-survey-data-be-dummified" class="level4">
 <h4 class="anchored" data-anchor-id="why-should-the-numeric-input-variables-based-on-this-survey-data-be-dummified">Why should the numeric input variables based on this survey data be dummified?</h4>
 <p>Numeric input variables from survey data should be converted into dummy variables because even though they appear as numbers, they represent discrete categories rather than continuous measurements. Take <em>show_length</em> for example, it might include values such as 30, 70, 110, and 150 minutes. These values are not part of a linear scale but rather specific options provided by the survey design. Treating them as continuous would incorrectly assume that the difference between 30 and 70 minutes has the same proportional relationship as the difference between 110 and 150 minutes, which may not reflect reality.</p>
 <p>By converting these numeric inputs into dummy variables, the model can assign independent effects to each category without imposing misleading linear assumptions. This approach improves both the accuracy and interpretability of the model while ensuring that the analysis respects the categorical structure inherent in survey-based numeric data.</p>
 </section>
-</section>
-<section id="it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle." class="level3">
-<h3 class="anchored" data-anchor-id="it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle.">It might seem tempting here to just skip the model-building step – instead of building a model, we could just rank the bundles by average rating, in descending order, and then just tell Lobster Land to implement all the features in the highest-rated bundle.</h3>
+<section id="it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle." class="level4">
+<h4 class="anchored" data-anchor-id="it-might-seem-tempting-here-to-just-skip-the-model-building-step-instead-of-building-a-model-we-could-just-rank-the-bundles-by-average-rating-in-descending-order-and-then-just-tell-lobster-land-to-implement-all-the-features-in-the-highest-rated-bundle.">It might seem tempting here to just skip the model-building step – instead of building a model, we could just rank the bundles by average rating, in descending order, and then just tell Lobster Land to implement all the features in the highest-rated bundle.</h4>
 <p>Ranking bundles by their average rating might seem ideal, but it hides the true drivers of guest satisfaction. Without building a model, it’s difficult to tell which specific features within each bundle actually influence ratings or how they interact with one another. For example, a highly rated bundle might include both a live musical and unlimited re-entry, but we would not know that the musical boosts satisfaction while the re-entry option reduces it. A conjoint analysis model solves this by estimating the independent effect of each feature across all bundles, allowing Lobster Land to predict how new combinations would perform and design offerings that maximize impact while keeping costs manageable. In short, the model provides a deeper, data-driven understanding of guest preferences that simple ranking cannot achieve.</p>
 </section>
-<section id="build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs." class="level3">
-<h3 class="anchored" data-anchor-id="build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs.">Build a linear model with your data, using the average rating as the outcome variable, and with all of your other variables (other than the bundleID) as inputs.</h3>
+<section id="build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs." class="level4">
+<h4 class="anchored" data-anchor-id="build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs.">Build a linear model with your data, using the average rating as the outcome variable, and with all of your other variables (other than the bundleID) as inputs.</h4>
 <p>I build a linear regression model using all dummified input features to predict the average rating. This allows to estimate how each individual feature contributes to guest satisfaction.</p>
 <div id="b2390689-881f-427f-a56b-56e36edafa11" class="cell" data-execution_count="116">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Linear Regression model</span></span>
@@ -2144,8 +2126,8 @@ Notes:
 </div>
 </div>
 </section>
-<section id="display-the-coefficient-values-of-your-model-inputs." class="level3">
-<h3 class="anchored" data-anchor-id="display-the-coefficient-values-of-your-model-inputs.">Display the coefficient values of your model inputs.</h3>
+<section id="display-the-coefficient-values-of-your-model-inputs." class="level4">
+<h4 class="anchored" data-anchor-id="display-the-coefficient-values-of-your-model-inputs.">Display the coefficient values of your model inputs.</h4>
 <p>I extract and display the model’s coefficients to understand the direction and strength of each feature’s impact on ratings.</p>
 <div id="e7aa8f8a-d7a9-424f-94a4-94007f496a34" class="cell" data-execution_count="120">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>coef_df <span class="op">=</span> pd.DataFrame(regressor.coef_, X.columns, columns<span class="op">=</span>[<span class="st">'Coefficient'</span>])</span>
@@ -2257,8 +2239,8 @@ Notes:
 </div>
 </div>
 </section>
-<section id="write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you." class="level3">
-<h3 class="anchored" data-anchor-id="write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you.">Write two-three paragraphs for Lobster Land management about what your model is showing you.</h3>
+<section id="write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you." class="level4">
+<h4 class="anchored" data-anchor-id="write-two-three-paragraphs-for-lobster-land-management-about-what-your-model-is-showing-you.">Write two-three paragraphs for Lobster Land management about what your model is showing you.</h4>
 <p>Dear Lobster Land Management Team,</p>
 <p>I wanted to share some important findings from our conjoint analysis that can help guide decisions around evening entertainment programming. By examining guest survey responses across different features—headliner type, show length, sound levels, re-entry policies, and more—the analysis provides a clearer picture of what actually drives satisfaction and what might be holding the park back. The results show some strong patterns. Live Musical performances (coefficient of 1.03) and having a live host (0.84) make a significant positive impact on guest ratings, while unlimited re-entry (-1.59) and extremely loud sound at 105 dB (-0.89) actively hurt the experience. Shows running around 110 minutes (0.97) appear to be the ideal length, and high crowding levels (negative 0.60 at maximum capacity) clearly diminish satisfaction. These numbers help clarify not just what guests prefer, but how much each element matters when prioritizing investments and operational changes.</p>
 <p>From a short-term planning perspective, there are several actionable takeaways. The 110-minute show format seems to be the best option where guests feel they’re getting a full experience without it dragging on or feeling rushed. Although the unlimited re-entry sounds captivating, guests actually prefer having just one opportunity to leave and return, likely because unlimited access signals overcrowding or diminishes the sense of exclusivity. A simple re-entry policy could make guests feel they’re getting more value while also helping manage crowds better. Live musicals clearly offer the best experiences, but they also come with higher costs, tighter schedules, and more moving parts than drone shows or fireworks. The team will need to think carefully about when and how often to host live performances, especially during busy seasons when multiple shows a night could stretch both staff and resources.</p>
