@@ -699,10 +699,10 @@ memory usage: 924.0+ bytes</code></pre>
 <h2 class="anchored" data-anchor-id="ii.-visualization">II. Visualization</h2>
 <section id="using-any-plotting-tool-in-python-generate-a-bar-plot-that-shows-promo_type-on-one-axis-and-average-gate-revenue-on-the-other.-be-sure-to-give-your-plot-a-clear-descriptive-title." class="level4">
 <h4 class="anchored" data-anchor-id="using-any-plotting-tool-in-python-generate-a-bar-plot-that-shows-promo_type-on-one-axis-and-average-gate-revenue-on-the-other.-be-sure-to-give-your-plot-a-clear-descriptive-title.">Using any plotting tool in Python, generate a bar plot that shows Promo_Type on one axis and average gate revenue on the other. Be sure to give your plot a clear, descriptive title.</h4>
-<div id="a8f9f248-34f3-4c30-85da-4270df63affa" class="cell" data-execution_count="58">
+<div id="a8f9f248-34f3-4c30-85da-4270df63affa" class="cell" data-execution_count="78">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(x <span class="op">=</span> <span class="st">"Promo_Type"</span>, y <span class="op">=</span> <span class="st">"Gate_Revenue"</span>, data <span class="op">=</span> lobster25, hue<span class="op">=</span><span class="st">"Promo_Type"</span>, palette<span class="op">=</span><span class="st">"Set2"</span>, dodge<span class="op">=</span><span class="va">False</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)<span class="op">;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Promotion Type"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Gate Revenue"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. Gate Revenue ($)"</span>)</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average Gate Revenue during Promotion Types"</span>)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -717,11 +717,11 @@ memory usage: 924.0+ bytes</code></pre>
 </section>
 <section id="lobster-land-management-wants-to-better-understand-how-visitor-counts-vary-across-the-days-of-the-week.-generate-a-barplot-that-shows-average-total-visitors-by-day-of-week." class="level4">
 <h4 class="anchored" data-anchor-id="lobster-land-management-wants-to-better-understand-how-visitor-counts-vary-across-the-days-of-the-week.-generate-a-barplot-that-shows-average-total-visitors-by-day-of-week.">Lobster Land management wants to better understand how visitor counts vary across the days of the week. Generate a barplot that shows average total visitors by day of Week.</h4>
-<div id="114d05e1-160c-4b1d-85f7-7104f82176ca" class="cell" data-execution_count="57">
+<div id="114d05e1-160c-4b1d-85f7-7104f82176ca" class="cell" data-execution_count="79">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version 1: y-axis starting at 0</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(x <span class="op">=</span> <span class="st">"Day_of_Week"</span>, y <span class="op">=</span> <span class="st">"Gate_Revenue"</span>, data <span class="op">=</span> lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)<span class="op">;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Day of the Week"</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Gate Revenue"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg Gate Revenue ($)"</span>)</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average Gate Revenue on Days of the Week"</span>)</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -733,14 +733,14 @@ memory usage: 924.0+ bytes</code></pre>
 </div>
 </div>
 </div>
-<div id="b4557140-6e2b-4361-8e4e-4111ff7f3869" class="cell" data-execution_count="59">
+<div id="b4557140-6e2b-4361-8e4e-4111ff7f3869" class="cell" data-execution_count="80">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version 2: y-axis zoomed to highlight differences</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>avg_values <span class="op">=</span> lobster25.groupby(<span class="st">"Day_of_Week"</span>)[<span class="st">"Gate_Revenue"</span>].mean()</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Day_of_Week"</span>, y<span class="op">=</span><span class="st">"Gate_Revenue"</span>, data<span class="op">=</span>lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Day of the Week"</span>)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Gate Revenue"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg Gate Revenue ($)"</span>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average Gate Revenue on Days of the Week"</span>)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Set y-axis limits slightly beyond min and max average values</span></span>
@@ -791,10 +791,10 @@ memory usage: 924.0+ bytes</code></pre>
 </section>
 <section id="one-member-of-the-lobster-land-board-of-directors-thinks-that-people-tend-to-buy-more-merch-on-hot-days.-lets-see-whether-the-data-supports-this-theory-generate-a-scatterplot-with-the-days-high-temperature-on-the-x-axis-and-with-total-merch-revenue-on-the-y-axis.-be-sure-to-give-your-plot-a-clear-descriptive-title." class="level4">
 <h4 class="anchored" data-anchor-id="one-member-of-the-lobster-land-board-of-directors-thinks-that-people-tend-to-buy-more-merch-on-hot-days.-lets-see-whether-the-data-supports-this-theory-generate-a-scatterplot-with-the-days-high-temperature-on-the-x-axis-and-with-total-merch-revenue-on-the-y-axis.-be-sure-to-give-your-plot-a-clear-descriptive-title.">One member of the Lobster Land Board of Directors thinks that people tend to buy more merch on hot days. Let’s see whether the data supports this theory! Generate a scatterplot with the day’s high temperature on the x-axis, and with total merch revenue on the y-axis. Be sure to give your plot a clear, descriptive title.</h4>
-<div id="7d7a2226-0e62-4993-bce7-075534d0cb50" class="cell" data-execution_count="62">
+<div id="7d7a2226-0e62-4993-bce7-075534d0cb50" class="cell" data-execution_count="81">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x <span class="op">=</span> <span class="st">"High_Temperature"</span>, y <span class="op">=</span> <span class="st">"Revenue_Merch"</span>, data <span class="op">=</span> lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>)<span class="op">;</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"High Temperature"</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Merch Revenue"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. Merch Revenue ($)"</span>)</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Merch Revenue on Hot Temperature Day"</span>)</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -827,17 +827,23 @@ memory usage: 924.0+ bytes</code></pre>
 </section>
 <section id="create-a-barplot-that-shows-average-daily-total-visitors-by-month." class="level4">
 <h4 class="anchored" data-anchor-id="create-a-barplot-that-shows-average-daily-total-visitors-by-month.">Create a barplot that shows average daily total visitors by month.</h4>
-<div id="f319b23e-2691-4cc0-8cbb-a8aa6e3fe345" class="cell" data-execution_count="65">
+<div id="f319b23e-2691-4cc0-8cbb-a8aa6e3fe345" class="cell" data-execution_count="83">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a new 'Month' column extracted from 'Date'</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'Month'</span>] <span class="op">=</span> lobster25[<span class="st">'Date'</span>].dt.month_name()</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>monthly_avg <span class="op">=</span> lobster25.groupby(<span class="st">'Month'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'Total_Visitors'</span>].mean()</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Month"</span>, y<span class="op">=</span><span class="st">"Total_Visitors"</span>, data<span class="op">=</span>monthly_avg, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Month"</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Average Daily Total Visitors"</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Daily Total Visitors at Lobsterland by Month"</span>)</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Month"</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Total_Visitors"</span>, </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>monthly_avg, </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="st">"Month"</span>, </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>            palette<span class="op">=</span><span class="st">"Set2"</span>, </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>            dodge<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>            edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Month"</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. Daily Total Visitors"</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Daily Total Visitors at Lobsterland by Month"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -873,13 +879,21 @@ Name: International_Visitors, dtype: float64</code></pre>
       dtype='object', name='Special_Events')</code></pre>
 </div>
 </div>
-<div id="ce7de892-2e72-40e4-af2e-24afdc4a43f5" class="cell" data-execution_count="68">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Special_Events"</span>, y<span class="op">=</span><span class="st">"International_Visitors"</span>, data<span class="op">=</span>lobster25, order<span class="op">=</span>order_event, errorbar<span class="op">=</span><span class="va">None</span>, hue<span class="op">=</span><span class="st">"Special_Events"</span>, palette<span class="op">=</span><span class="st">"Set3"</span>, dodge<span class="op">=</span><span class="va">False</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Special Events"</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"International_Visitors"</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Number of International Visitors on Special Events"</span>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ce7de892-2e72-40e4-af2e-24afdc4a43f5" class="cell" data-execution_count="84">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Special_Events"</span>, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"International_Visitors"</span>, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>lobster25, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>            order<span class="op">=</span>order_event, </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>            errorbar<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="st">"Special_Events"</span>, </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>            palette<span class="op">=</span><span class="st">"Set3"</span>, </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>            dodge<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Special Events"</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. International Visitors"</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average International Visitors on Special Events"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -993,21 +1007,21 @@ Name: International_Visitors, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="5c2c1304-c0ac-4bc2-8cd8-97cd4b672ffe" class="cell" data-execution_count="49">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#filter attraction tier to gold zone which is 1, copy() from lobster25() dataframe</span></span>
+<div id="5c2c1304-c0ac-4bc2-8cd8-97cd4b672ffe" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter attraction tier to gold zone which is 1, copy() from lobster25() dataframe</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>gold_zone <span class="op">=</span> lobster25.query(<span class="st">'Attraction_Tier==1'</span>).copy() </span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#double-check to see if there's any zone other than 1</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-check to see if there's any zone other than 1</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gold_zone[<span class="st">'Attraction_Tier'</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]</code></pre>
 </div>
 </div>
-<div id="0d1a468d-b31a-4853-b92d-0962b999d490" class="cell" data-execution_count="50">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add a 'Total_Spend' column to record the total spending of gold zone by multiplying total visitors by per visitor spend</span></span>
+<div id="0d1a468d-b31a-4853-b92d-0962b999d490" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a 'Total_Spend' column to record the total spending of gold zone by multiplying total visitors by per visitor spend</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>gold_zone[<span class="st">'Total_Spend'</span>] <span class="op">=</span> gold_zone[<span class="st">'Total_Visitors'</span>]<span class="op">*</span>gold_zone[<span class="st">'Per_Capita_Spend'</span>]</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#double-check to see if the tier and the calculation is correct</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-check to see if the tier and the calculation is correct</span></span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>gold_zone[[<span class="st">'Attraction_Tier'</span>,<span class="st">'Total_Spend'</span>,<span class="st">'season_week_rel'</span>]].tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="50">
 <div>
@@ -1059,11 +1073,11 @@ Name: International_Visitors, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<div id="742db92b-070c-43c9-9818-9cb08359e1ba" class="cell" data-execution_count="70">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#aggregrate the total spending of gol</span></span>
+<div id="742db92b-070c-43c9-9818-9cb08359e1ba" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregrate the total spending of gol</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>gold_spend_weekly <span class="op">=</span> gold_zone.groupby(<span class="st">'season_week_rel'</span>)[<span class="st">'Total_Spend'</span>].<span class="bu">sum</span>().reset_index()</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot the line chart</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the line chart</span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>gold_spend_weekly, x<span class="op">=</span><span class="st">'season_week_rel'</span>,y<span class="op">=</span><span class="st">'Total_Spend'</span>, color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Week of the Season"</span>)</span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Total Spending"</span>)</span>
