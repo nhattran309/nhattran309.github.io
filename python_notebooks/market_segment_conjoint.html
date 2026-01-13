@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Analyzed Lobster Land’s operations using k-means clustering to segment park days based on attendance, pricing, weather, and spending behavior, uncovering distinct day types to inform staffing, pricing, and marketing decisions. Conducted a conjoint analysis with a linear regression model to quantify how entertainment features, crowding, and experience design impact guest satisfaction, translating insights into actionable recommendations for revenue and experience optimization.</p>
-<div id="c9ca770b-32ec-48c6-873d-1cc76867942d" class="cell" data-execution_count="78">
+<div id="c9ca770b-32ec-48c6-873d-1cc76867942d" class="cell" data-execution_count="121">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -217,11 +217,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="part-i-segmentation" class="level2">
 <h2 class="anchored" data-anchor-id="part-i-segmentation">Part I: Segmentation</h2>
-<div id="ad418274-2ee0-478c-ad8a-81e14e1be166" class="cell" data-execution_count="79">
+<div id="ad418274-2ee0-478c-ad8a-81e14e1be166" class="cell" data-execution_count="122">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import day_25.csv files into python for use</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>day_25 <span class="op">=</span> pd.read_csv(<span class="st">"data/days25.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="0964cf49-9956-4fb7-a169-299cfe918043" class="cell" data-execution_count="80">
+<div id="0964cf49-9956-4fb7-a169-299cfe918043" class="cell" data-execution_count="123">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then use info() and head() function to show how the data is stored</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>day_25.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -253,9 +253,9 @@ dtypes: float64(11), int64(6), object(2)
 memory usage: 14.8+ KB</code></pre>
 </div>
 </div>
-<div id="93f6cd73-0daa-41cb-9248-3fe07434ff16" class="cell" data-execution_count="81">
+<div id="93f6cd73-0daa-41cb-9248-3fe07434ff16" class="cell" data-execution_count="124">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>day_25.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="81">
+<div class="cell-output cell-output-display" data-execution_count="124">
 <div>
 
 
@@ -401,19 +401,19 @@ memory usage: 14.8+ KB</code></pre>
 </div>
 </div>
 </div>
-<div id="57d68b18-7bca-4c32-8a4b-422881c7052c" class="cell" data-execution_count="82">
+<div id="57d68b18-7bca-4c32-8a4b-422881c7052c" class="cell" data-execution_count="125">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert binary flags (0,1) including: Is_Holiday and Is_Special_Event to categorical</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>day_25[[<span class="st">'Is_Holiday'</span>,<span class="st">'Is_Special_Event'</span>]] <span class="op">=</span> day_25[[<span class="st">'Is_Holiday'</span>,<span class="st">'Is_Special_Event'</span>]].astype(<span class="st">'category'</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert season_week_rel, Day_of_Week and Weather_Type from object to categorical variables</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>day_25[[<span class="st">'Day_of_Week'</span>,<span class="st">'season_week_rel'</span>,<span class="st">'Weather_Type'</span>]] <span class="op">=</span> day_25[[<span class="st">'Day_of_Week'</span>,<span class="st">'season_week_rel'</span>,<span class="st">'Weather_Type'</span>]].astype(<span class="st">'category'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a144dde0-a438-43d0-a40b-719045b8a0e3" class="cell" data-execution_count="83">
+<div id="a144dde0-a438-43d0-a40b-719045b8a0e3" class="cell" data-execution_count="126">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the Day_ID variable</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>day_25 <span class="op">=</span> day_25.drop(columns<span class="op">=</span>[<span class="st">"Day_ID"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In this case, I decided to drop Day_ID because it’s just a sequential label and doesn’t seem to offer meaningful insight for analysis or prediction. Since it might unintentionally influence models by introducing artificial patterns, it felt more appropriate to leave it out of the feature set.</p>
-<div id="5d3f1821-e71a-4394-9ec0-99d4a0ad1b79" class="cell" data-execution_count="84">
+<div id="5d3f1821-e71a-4394-9ec0-99d4a0ad1b79" class="cell" data-execution_count="127">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Double check to see if all the variables are stored as the appropriate data type</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>day_25.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -451,9 +451,9 @@ memory usage: 12.1 KB</code></pre>
 <p>In my opinion, it’s not a great idea to use categorical inputs in a k-means model because the algorithm calculates distances between data points, and turning categories into numbers can be misleading. Take season_week_rel for example, it uses values from 1 to 15 to represent different weeks, but those numbers don’t really capture how similar or different the weeks are in terms of things like visitor patterns or revenue. The model might end up grouping week 1 and week 2 together just because their numbers are close, even if they behave very differently. Since k-means tries to minimize distance within clusters, it could create groups that look related mathematically but don’t actually make much sense in the real-world context of the data.</p>
 <section id="call-the-describe-function-on-your-dataset." class="level4">
 <h4 class="anchored" data-anchor-id="call-the-describe-function-on-your-dataset.">Call the describe() function on your dataset.</h4>
-<div id="a4513628-c99f-4621-810b-7a9405d97573" class="cell" data-execution_count="85">
+<div id="a4513628-c99f-4621-810b-7a9405d97573" class="cell" data-execution_count="128">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>day_25.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="85">
+<div class="cell-output cell-output-display" data-execution_count="128">
 <div>
 
 
@@ -616,9 +616,9 @@ memory usage: 12.1 KB</code></pre>
 </section>
 <section id="missing-values-impossible-values" class="level4">
 <h4 class="anchored" data-anchor-id="missing-values-impossible-values">Missing values / Impossible values</h4>
-<div id="38092c0f-346f-4a11-a0c9-ac02adde3bb1" class="cell" data-execution_count="86">
+<div id="38092c0f-346f-4a11-a0c9-ac02adde3bb1" class="cell" data-execution_count="129">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>day_25.isnull().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="86">
+<div class="cell-output cell-output-display" data-execution_count="129">
 <pre><code>Day_of_Week               0
 season_week_rel           0
 Is_Holiday                0
@@ -641,9 +641,9 @@ dtype: int64</code></pre>
 </div>
 </div>
 <p>After running the code and checking the results for missing values, the output indicates that all columns contain zero missing values, suggesting that the dataset is complete and no data cleaning through imputation or row removal is necessary.</p>
-<div id="96c50b6d-1bce-466e-978a-a1a7ea8dee45" class="cell" data-execution_count="87">
+<div id="96c50b6d-1bce-466e-978a-a1a7ea8dee45" class="cell" data-execution_count="130">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>day_25.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).lt(<span class="dv">0</span>).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="87">
+<div class="cell-output cell-output-display" data-execution_count="130">
 <pre><code>Total_Visitors            1
 Passholder_Percentage     0
 Day_Tickets_Sold          0
@@ -660,12 +660,12 @@ Per_Capita_Spend          0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="01a570fd-7890-4e6b-b2b4-e93fcad01440" class="cell" data-execution_count="88">
+<div id="01a570fd-7890-4e6b-b2b4-e93fcad01440" class="cell" data-execution_count="131">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look for rows with negative values in Total_Visitors, Avg_Ticket_Price and International_Visitors </span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>day_25[(day_25[<span class="st">"Total_Visitors"</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>       (day_25[<span class="st">"Avg_Ticket_Price"</span>] <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">|</span> </span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       (day_25[<span class="st">"International_Visitors"</span>] <span class="op">&lt;</span> <span class="dv">0</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="88">
+<div class="cell-output cell-output-display" data-execution_count="131">
 <div>
 
 
@@ -763,10 +763,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="cefcda4e-b0cf-41bd-9855-8ab6d3c84982" class="cell" data-execution_count="89">
+<div id="cefcda4e-b0cf-41bd-9855-8ab6d3c84982" class="cell" data-execution_count="132">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find rows with suspiciously high food revenue</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>day_25[day_25[<span class="st">"Revenue_Food"</span>] <span class="op">&gt;</span> day_25[<span class="st">"Total_Revenue"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="89">
+<div class="cell-output cell-output-display" data-execution_count="132">
 <div>
 
 
@@ -822,10 +822,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="bd702d81-a304-471f-b49e-d2218ad56e52" class="cell" data-execution_count="90">
+<div id="bd702d81-a304-471f-b49e-d2218ad56e52" class="cell" data-execution_count="133">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find rows with suspiciosly high temperature </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>day_25[day_25[<span class="st">"High_Temperature"</span>] <span class="op">&gt;</span> <span class="dv">120</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="90">
+<div class="cell-output cell-output-display" data-execution_count="133">
 <div>
 
 
@@ -888,17 +888,17 @@ dtype: int64</code></pre>
 </section>
 <section id="if-so-handle-them-in-any-way-that-you-see-fit." class="level4">
 <h4 class="anchored" data-anchor-id="if-so-handle-them-in-any-way-that-you-see-fit.">If so, handle them in any way that you see fit.</h4>
-<div id="92b526c6-2b3b-46fc-97c5-df3250db639a" class="cell" data-execution_count="91">
+<div id="92b526c6-2b3b-46fc-97c5-df3250db639a" class="cell" data-execution_count="134">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows where Food_Revenue exceeds Total_Revenue</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>day_25 <span class="op">=</span> day_25[day_25[<span class="st">"Revenue_Food"</span>] <span class="op">&lt;=</span> day_25[<span class="st">"Total_Revenue"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In this case, the simplest and most reasonable solution is to remove the entire row, since even if I replaced <em>Revenue_Food</em> with a typical value (like the median), <em>Total_Revenue</em> would still end up smaller than the sum of its parts, which doesn’t make sense for this dataset.</p>
-<div id="3e43fa5d-5c8d-4d65-bb31-56f8afca23fa" class="cell" data-execution_count="92">
+<div id="3e43fa5d-5c8d-4d65-bb31-56f8afca23fa" class="cell" data-execution_count="135">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop rows where  High_Temperature is abnormally high</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>day_25 <span class="op">=</span> day_25[day_25[<span class="st">"High_Temperature"</span>] <span class="op">&lt;=</span> <span class="dv">120</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I decided to remove the row with the unusually high temperature value instead of imputing it with the median, since it appeared to be an outlier that could distort the results. By removing it, I ensure the dataset remains accurate and free from unrealistic values.</p>
-<div id="491b9140-c226-438e-b51f-81f4d428df79" class="cell" data-execution_count="93">
+<div id="491b9140-c226-438e-b51f-81f4d428df79" class="cell" data-execution_count="136">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter so that all variables is non-negative</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>day25 <span class="op">=</span> day_25[</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    (day_25[<span class="st">"Total_Visitors"</span>] <span class="op">&gt;=</span> <span class="dv">0</span>) <span class="op">&amp;</span></span>
@@ -907,7 +907,7 @@ dtype: int64</code></pre>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>day25.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).lt(<span class="dv">0</span>).<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="93">
+<div class="cell-output cell-output-display" data-execution_count="136">
 <pre><code>Total_Visitors            0
 Passholder_Percentage     0
 Day_Tickets_Sold          0
@@ -924,10 +924,10 @@ Per_Capita_Spend          0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="f7e4e303-8b4a-4228-bf4f-af24a5f4f105" class="cell" data-scrolled="true" data-execution_count="94">
+<div id="f7e4e303-8b4a-4228-bf4f-af24a5f4f105" class="cell" data-scrolled="true" data-execution_count="137">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, day25 dataframe has 94 entries for each variable after dropping the 5 impossible rows.</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>day25.count()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="94">
+<div class="cell-output cell-output-display" data-execution_count="137">
 <pre><code>Day_of_Week               94
 season_week_rel           94
 Is_Holiday                94
@@ -953,7 +953,7 @@ dtype: int64</code></pre>
 </section>
 <section id="variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model." class="level4">
 <h4 class="anchored" data-anchor-id="variable-selection.-select-any-5-variables-from-the-potential-set-of-inputs-in-order-to-build-your-k-means-clustering-model.">Variable selection. Select any 5 variables from the potential set of inputs in order to build your k-means clustering model.</h4>
-<div id="16270567-239a-40bc-b71c-40e21eadbe79" class="cell" data-execution_count="95">
+<div id="16270567-239a-40bc-b71c-40e21eadbe79" class="cell" data-execution_count="138">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>var_selected <span class="op">=</span> day25[[<span class="st">"Total_Visitors"</span>,<span class="st">"Avg_Ticket_Price"</span>,</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"High_Temperature"</span>,<span class="st">"Passholder_Percentage"</span>,<span class="st">"Per_Capita_Spend"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -968,7 +968,7 @@ dtype: int64</code></pre>
 </section>
 <section id="if-your-data-requires-standardization-use-python-to-convert-your-values-into-z-scores-and-store-the-normalized-data-in-a-new-dataframe.-if-not-proceed-to-the-next-step-without-changing-the-variables." class="level4">
 <h4 class="anchored" data-anchor-id="if-your-data-requires-standardization-use-python-to-convert-your-values-into-z-scores-and-store-the-normalized-data-in-a-new-dataframe.-if-not-proceed-to-the-next-step-without-changing-the-variables.">If your data requires standardization, use Python to convert your values into z-scores, and store the normalized data in a new dataframe. If not, proceed to the next step without changing the variables.</h4>
-<div id="97673bec-65fb-48ed-a448-1512eb25c92c" class="cell" data-execution_count="96">
+<div id="97673bec-65fb-48ed-a448-1512eb25c92c" class="cell" data-execution_count="139">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import scaler function to standardize dataframe</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>var_scaled <span class="op">=</span> scaler.fit_transform(var_selected)</span>
@@ -995,7 +995,7 @@ dtype: int64</code></pre>
 </section>
 <section id="elbow-chart" class="level4">
 <h4 class="anchored" data-anchor-id="elbow-chart">Elbow Chart</h4>
-<div id="d67e0f21-3576-4f91-b356-08d3dd1c0f95" class="cell" data-execution_count="97">
+<div id="d67e0f21-3576-4f91-b356-08d3dd1c0f95" class="cell" data-execution_count="140">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define X with 5 selected columns from the standardized data</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> var_scaled_df[[<span class="st">"Total_Visitors"</span>,</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Avg_Ticket_Price"</span>,</span>
@@ -1036,7 +1036,7 @@ dtype: int64</code></pre>
 </section>
 <section id="build-a-k-means-model-with-your-desired-number-of-clusters." class="level4">
 <h4 class="anchored" data-anchor-id="build-a-k-means-model-with-your-desired-number-of-clusters.">Build a k-means model with your desired number of clusters.</h4>
-<div id="1548702f-c1e3-4789-8539-787bf696f1de" class="cell" data-execution_count="98">
+<div id="1548702f-c1e3-4789-8539-787bf696f1de" class="cell" data-execution_count="141">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build and fit the K-Means model on the standardized DataFrame 'X'</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>kmeans_model <span class="op">=</span> KMeans(n_clusters <span class="op">=</span> <span class="dv">4</span>, random_state <span class="op">=</span> <span class="dv">616</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>kmeans_model.fit(X)</span>
@@ -1081,7 +1081,7 @@ dtype: int64</code></pre>
 </section>
 <section id="generate-centroid-values" class="level4">
 <h4 class="anchored" data-anchor-id="generate-centroid-values">Generate Centroid Values</h4>
-<div id="d875049e-46e5-4c64-b8e5-548602efa563" class="cell" data-execution_count="99">
+<div id="d875049e-46e5-4c64-b8e5-548602efa563" class="cell" data-execution_count="142">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate centroid values for each cluster</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> var_scaled_df.groupby(<span class="st">'Cluster'</span>).mean()</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1103,7 +1103,7 @@ Cluster
 3                    -1.079094          0.882159  </code></pre>
 </div>
 </div>
-<div id="75cb45cf-a26f-43cb-b25d-d68103c69d92" class="cell" data-execution_count="100">
+<div id="75cb45cf-a26f-43cb-b25d-d68103c69d92" class="cell" data-execution_count="143">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>cluster_counts <span class="op">=</span> var_scaled_df[<span class="st">'Cluster'</span>].value_counts().sort_index()</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Cluster Counts:"</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cluster_counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1124,7 +1124,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="visualization-1-histogram-of-total-visitors-by-cluster" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-1-histogram-of-total-visitors-by-cluster">Visualization 1: Histogram of Total Visitors by Cluster</h4>
-<div id="e2b29716-545e-4671-abbe-0283a27b2729" class="cell" data-scrolled="true" data-execution_count="101">
+<div id="e2b29716-545e-4671-abbe-0283a27b2729" class="cell" data-scrolled="true" data-execution_count="144">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>var_scaled_df, x<span class="op">=</span><span class="st">"Total_Visitors"</span>, hue<span class="op">=</span><span class="st">"Cluster"</span>, multiple<span class="op">=</span><span class="st">"stack"</span>, palette<span class="op">=</span><span class="st">"Set2"</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Total Visitors by Cluster"</span>)</span>
@@ -1145,7 +1145,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="visualization-2-barplot-average-ticket-price-per-cluster" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-2-barplot-average-ticket-price-per-cluster">Visualization 2: Barplot Average Ticket Price per Cluster</h4>
-<div id="b81e6f04-3e0f-4acb-bf98-bc70ee72701a" class="cell" data-execution_count="102">
+<div id="b81e6f04-3e0f-4acb-bf98-bc70ee72701a" class="cell" data-execution_count="145">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(data<span class="op">=</span>var_scaled_df, x<span class="op">=</span><span class="st">"Cluster"</span>, y<span class="op">=</span><span class="st">"Avg_Ticket_Price"</span>, hue<span class="op">=</span><span class="st">"Cluster"</span>, palette<span class="op">=</span><span class="st">"Set2"</span>, dodge<span class="op">=</span><span class="va">False</span>, legend<span class="op">=</span><span class="va">False</span>, edgecolor<span class="op">=</span><span class="st">"black"</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Ticket Price per Cluster"</span>)</span>
@@ -1165,7 +1165,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="visualization-3-scatterplot-of-passholder-percentage-vs-per-capita-spend-colored-by-cluster" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-3-scatterplot-of-passholder-percentage-vs-per-capita-spend-colored-by-cluster">Visualization 3: Scatterplot of Passholder Percentage vs Per Capita Spend colored by Cluster</h4>
-<div id="286283be-7317-457f-b0f1-40139730b337" class="cell" data-execution_count="103">
+<div id="286283be-7317-457f-b0f1-40139730b337" class="cell" data-execution_count="146">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>var_scaled_df, x<span class="op">=</span><span class="st">"Passholder_Percentage"</span>, y<span class="op">=</span><span class="st">"Per_Capita_Spend"</span>, hue<span class="op">=</span><span class="st">"Cluster"</span>, palette<span class="op">=</span><span class="st">"Set2"</span>)</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Passholder Percentage vs Per Capita Spend by Cluster"</span>)</span>
@@ -1185,7 +1185,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="visualization-4-boxplot-high_temperature-per-cluster" class="level4">
 <h4 class="anchored" data-anchor-id="visualization-4-boxplot-high_temperature-per-cluster">Visualization 4: Boxplot High_Temperature per Cluster</h4>
-<div id="d93002a1-27c4-49b6-b523-dfc8c444b3e0" class="cell" data-execution_count="104">
+<div id="d93002a1-27c4-49b6-b523-dfc8c444b3e0" class="cell" data-execution_count="147">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>var_scaled_df, x<span class="op">=</span><span class="st">"Cluster"</span>, y<span class="op">=</span><span class="st">"High_Temperature"</span>, hue<span class="op">=</span><span class="st">"Cluster"</span>, palette<span class="op">=</span><span class="st">"Set2"</span>, dodge<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"High Temperature by Cluster"</span>)</span>
@@ -1231,11 +1231,11 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="part-ii-conjoint-analysis-with-a-linear-model" class="level2">
 <h2 class="anchored" data-anchor-id="part-ii-conjoint-analysis-with-a-linear-model">Part II: Conjoint Analysis with a Linear Model</h2>
-<div id="759336ef-19f5-40f8-afce-bec08ff8a747" class="cell" data-execution_count="105">
+<div id="759336ef-19f5-40f8-afce-bec08ff8a747" class="cell" data-execution_count="148">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import night_show.csv files into python for use</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>night_show <span class="op">=</span> pd.read_csv(<span class="st">"/Users/nhattran/Downloads/MSBA/METAD654 - Marketing Analytics/assignment 2/night_show.csv"</span>,keep_default_na<span class="op">=</span><span class="va">False</span>, na_values<span class="op">=</span>[])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="9e96f2ce-46b5-486a-a143-3ef65ac31ce0" class="cell" data-execution_count="106">
+<div id="9e96f2ce-46b5-486a-a143-3ef65ac31ce0" class="cell" data-execution_count="149">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>night_show.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -1259,9 +1259,9 @@ dtypes: float64(1), int64(4), object(7)
 memory usage: 6.8+ MB</code></pre>
 </div>
 </div>
-<div id="fdf8fb76-e03e-4ac0-af7b-6b7463f587cf" class="cell" data-execution_count="107">
+<div id="fdf8fb76-e03e-4ac0-af7b-6b7463f587cf" class="cell" data-execution_count="150">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>night_show.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="107">
+<div class="cell-output cell-output-display" data-execution_count="150">
 <div>
 
 
@@ -1370,17 +1370,17 @@ memory usage: 6.8+ MB</code></pre>
 <li><p><strong>Categorical Variables:</strong> bundleID, headliner, music_atmosphere, viewing_zone, dining_bundle, re_entry, live_host, and charity_tie_in, as they represent distinct categories or labels rather than quantities with mathematical meaning.</p></li>
 <li><p>I also dropped bundleID from the dataset because it functions solely as a sequential identifier without providing any analytical or predictive value. Including it could potentially create misleading patterns in the model, so excluding it prevents future problems.</p></li>
 </ul>
-<div id="29c53136-bec9-40b6-b2f8-98eae2e4f778" class="cell" data-execution_count="108">
+<div id="29c53136-bec9-40b6-b2f8-98eae2e4f778" class="cell" data-execution_count="151">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>night_show <span class="op">=</span> night_show.drop(columns<span class="op">=</span>[<span class="st">"bundleID"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="532086d9-09bb-4a7c-a19e-a8205c5769e9" class="cell" data-execution_count="109">
+<div id="532086d9-09bb-4a7c-a19e-a8205c5769e9" class="cell" data-execution_count="152">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the columns to convert</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> [<span class="st">"headliner"</span>, <span class="st">"music_atmosphere"</span>, <span class="st">"viewing_zone"</span>, <span class="st">"dining_bundle"</span>,</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"re_entry"</span>, <span class="st">"live_host"</span>, <span class="st">"charity_tie_in"</span>]</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to category dtype</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>night_show[categorical_cols] <span class="op">=</span> night_show[categorical_cols].astype(<span class="st">'category'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="1cf2c92a-5141-4c10-97b0-caa09c1105f9" class="cell" data-execution_count="110">
+<div id="1cf2c92a-5141-4c10-97b0-caa09c1105f9" class="cell" data-execution_count="153">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>night_show.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
@@ -1405,29 +1405,29 @@ memory usage: 2.7 MB</code></pre>
 </div>
 <section id="use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable." class="level4">
 <h4 class="anchored" data-anchor-id="use-the-pandas-get_dummies-function-in-order-to-prepare-these-variables-for-use-in-a-linear-model.-inside-this-function-include-this-argument-drop_first-true.-doing-this-will-save-us-from-the-multicollinearity-problem-that-would-make-our-model-unreliable.">Use the pandas get_dummies() function in order to prepare these variables for use in a linear model. Inside this function, include this argument: drop_first = True. Doing this will save us from the multicollinearity problem that would make our model unreliable.</h4>
-<div id="e16ede5d-2536-434e-8baf-4c2cc901e3d8" class="cell" data-execution_count="111">
+<div id="e16ede5d-2536-434e-8baf-4c2cc901e3d8" class="cell" data-execution_count="154">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Before dummifying the variables, check to see if the dataset has any null input</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>night_show.isnull().values.<span class="bu">any</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="111">
+<div class="cell-output cell-output-display" data-execution_count="154">
 <pre><code>np.False_</code></pre>
 </div>
 </div>
-<div id="6bd2bded-0ab1-4785-9cda-f95b6fb1eea0" class="cell" data-execution_count="112">
+<div id="6bd2bded-0ab1-4785-9cda-f95b6fb1eea0" class="cell" data-execution_count="155">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>night_show.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="112">
+<div class="cell-output cell-output-display" data-execution_count="155">
 <pre><code>Index(['headliner', 'music_atmosphere', 'show_length', 'peak_dB_Level',
        'crowding_index', 'viewing_zone', 'dining_bundle', 're_entry',
        'live_host', 'charity_tie_in', 'ratings'],
       dtype='object')</code></pre>
 </div>
 </div>
-<div id="2d1e4f8c-c61f-4e02-a38c-89b884cca97b" class="cell" data-execution_count="113">
+<div id="2d1e4f8c-c61f-4e02-a38c-89b884cca97b" class="cell" data-execution_count="156">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>night_show_dm <span class="op">=</span> pd.get_dummies(night_show, drop_first<span class="op">=</span><span class="va">True</span>, columns<span class="op">=</span>[<span class="st">'headliner'</span>, <span class="st">'music_atmosphere'</span>, <span class="st">'show_length'</span>, <span class="st">'peak_dB_Level'</span>,</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>       <span class="st">'crowding_index'</span>, <span class="st">'viewing_zone'</span>, <span class="st">'dining_bundle'</span>, <span class="st">'re_entry'</span>,<span class="st">'live_host'</span>, <span class="st">'charity_tie_in'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e62deb42-3a70-44f6-979e-19f04533345f" class="cell" data-execution_count="114">
+<div id="e62deb42-3a70-44f6-979e-19f04533345f" class="cell" data-execution_count="157">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>night_show_dm.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="114">
+<div class="cell-output cell-output-display" data-execution_count="157">
 <div>
 
 
@@ -1586,9 +1586,9 @@ memory usage: 2.7 MB</code></pre>
 </div>
 </div>
 </div>
-<div id="4aea5413-e167-470e-87f7-6f9c07708c42" class="cell" data-execution_count="115">
+<div id="4aea5413-e167-470e-87f7-6f9c07708c42" class="cell" data-execution_count="158">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>night_show_dm.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="115">
+<div class="cell-output cell-output-display" data-execution_count="158">
 <pre><code>Index(['ratings', 'headliner_Drone Light Show', 'headliner_Fireworks',
        'headliner_Live Musical', 'music_atmosphere_Pop Soundtrack',
        'show_length_70', 'show_length_110', 'show_length_150',
@@ -1614,7 +1614,7 @@ memory usage: 2.7 MB</code></pre>
 <section id="build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs." class="level4">
 <h4 class="anchored" data-anchor-id="build-a-linear-model-with-your-data-using-the-average-rating-as-the-outcome-variable-and-with-all-of-your-other-variables-other-than-the-bundleid-as-inputs.">Build a linear model with your data, using the average rating as the outcome variable, and with all of your other variables (other than the bundleID) as inputs.</h4>
 <p>I build a linear regression model using all dummified input features to predict the average rating. This allows to estimate how each individual feature contributes to guest satisfaction.</p>
-<div id="b2390689-881f-427f-a56b-56e36edafa11" class="cell" data-execution_count="116">
+<div id="b2390689-881f-427f-a56b-56e36edafa11" class="cell" data-execution_count="159">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Linear Regression model</span></span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> night_show_dm[[<span class="st">'headliner_Drone Light Show'</span>, <span class="st">'headliner_Fireworks'</span>,</span>
 <span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>       <span class="st">'headliner_Live Musical'</span>, <span class="st">'music_atmosphere_Pop Soundtrack'</span>,</span>
@@ -1627,14 +1627,14 @@ memory usage: 2.7 MB</code></pre>
 <span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>       <span class="st">'live_host_Yes'</span>, <span class="st">'charity_tie_in_Yes'</span>]]</span>
 <span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> night_show_dm[<span class="st">"ratings"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="353699ed-a1e0-49b2-8e14-9687eb33a31f" class="cell" data-execution_count="117">
+<div id="353699ed-a1e0-49b2-8e14-9687eb33a31f" class="cell" data-execution_count="160">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import LinearRegression function from scikit‑learn</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>regressor <span class="op">=</span> LinearRegression()</span>
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>regressor.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="117">
-<style>#sk-container-id-2 {
+<div class="cell-output cell-output-display" data-execution_count="160">
+<style>#sk-container-id-3 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1665,15 +1665,15 @@ memory usage: 2.7 MB</code></pre>
   }
 }
 
-#sk-container-id-2 {
+#sk-container-id-3 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-2 pre {
+#sk-container-id-3 pre {
   padding: 0;
 }
 
-#sk-container-id-2 input.sk-hidden--visually {
+#sk-container-id-3 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1685,7 +1685,7 @@ memory usage: 2.7 MB</code></pre>
   width: 1px;
 }
 
-#sk-container-id-2 div.sk-dashed-wrapped {
+#sk-container-id-3 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1693,7 +1693,7 @@ memory usage: 2.7 MB</code></pre>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-2 div.sk-container {
+#sk-container-id-3 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1703,7 +1703,7 @@ memory usage: 2.7 MB</code></pre>
   position: relative;
 }
 
-#sk-container-id-2 div.sk-text-repr-fallback {
+#sk-container-id-3 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1719,14 +1719,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-2 div.sk-parallel-item::after {
+#sk-container-id-3 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-2 div.sk-parallel {
+#sk-container-id-3 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1734,28 +1734,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-2 div.sk-parallel-item {
+#sk-container-id-3 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-2 div.sk-parallel-item:first-child::after {
+#sk-container-id-3 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-2 div.sk-parallel-item:last-child::after {
+#sk-container-id-3 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-2 div.sk-parallel-item:only-child::after {
+#sk-container-id-3 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-2 div.sk-serial {
+#sk-container-id-3 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1773,14 +1773,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-2 div.sk-toggleable {
+#sk-container-id-3 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-2 label.sk-toggleable__label {
+#sk-container-id-3 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1793,13 +1793,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-2 label.sk-toggleable__label .caption {
+#sk-container-id-3 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-2 label.sk-toggleable__label-arrow:before {
+#sk-container-id-3 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1807,13 +1807,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-2 div.sk-toggleable__content {
+#sk-container-id-3 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1822,12 +1822,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-2 div.sk-toggleable__content.fitted {
+#sk-container-id-3 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-2 div.sk-toggleable__content pre {
+#sk-container-id-3 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1835,79 +1835,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-2 div.sk-toggleable__content.fitted pre {
+#sk-container-id-3 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-2 div.sk-label label.sk-toggleable__label,
-#sk-container-id-2 div.sk-label label {
+#sk-container-id-3 div.sk-label label.sk-toggleable__label,
+#sk-container-id-3 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-2 div.sk-label label {
+#sk-container-id-3 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-2 div.sk-label-container {
+#sk-container-id-3 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-2 div.sk-estimator {
+#sk-container-id-3 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1917,18 +1917,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-2 div.sk-estimator.fitted {
+#sk-container-id-3 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-2 div.sk-estimator:hover {
+#sk-container-id-3 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-2 div.sk-estimator.fitted:hover {
+#sk-container-id-3 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -2016,7 +2016,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-2 a.estimator_doc_link {
+#sk-container-id-3 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -2031,35 +2031,35 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-2 a.estimator_doc_link.fitted {
+#sk-container-id-3 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-2 a.estimator_doc_link:hover {
+#sk-container-id-3 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-2 a.estimator_doc_link.fitted:hover {
+#sk-container-id-3 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked=""><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.linear_model.LinearRegression.html">?<span>Documentation for LinearRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearRegression()</pre></div> </div></div></div></div>
+</style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked=""><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.linear_model.LinearRegression.html">?<span>Documentation for LinearRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LinearRegression()</pre></div> </div></div></div></div>
 </div>
 </div>
-<div id="a86aa868-a542-49b4-b954-b4b35ed9dc3c" class="cell" data-execution_count="118">
+<div id="a86aa868-a542-49b4-b954-b4b35ed9dc3c" class="cell" data-execution_count="161">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>regressor.intercept_</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intercept: </span><span class="sc">{</span>regressor<span class="sc">.</span>intercept_<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intercept: 4.953</code></pre>
 </div>
 </div>
-<div id="37616f71-e460-4d83-ace4-9d975a359e31" class="cell" data-execution_count="119">
+<div id="37616f71-e460-4d83-ace4-9d975a359e31" class="cell" data-execution_count="162">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define outcome and predictors</span></span>
@@ -2083,7 +2083,7 @@ Dep. Variable:                ratings   R-squared:                       0.345
 Model:                            OLS   Adj. R-squared:                  0.345
 Method:                 Least Squares   F-statistic:                     1766.
 Date:                Mon, 12 Jan 2026   Prob (F-statistic):               0.00
-Time:                        22:53:46   Log-Likelihood:            -1.4678e+05
+Time:                        23:18:18   Log-Likelihood:            -1.4678e+05
 No. Observations:               73728   AIC:                         2.936e+05
 Df Residuals:                   73705   BIC:                         2.938e+05
 Df Model:                          22                                         
@@ -2129,10 +2129,10 @@ Notes:
 <section id="display-the-coefficient-values-of-your-model-inputs." class="level4">
 <h4 class="anchored" data-anchor-id="display-the-coefficient-values-of-your-model-inputs.">Display the coefficient values of your model inputs.</h4>
 <p>I extract and display the model’s coefficients to understand the direction and strength of each feature’s impact on ratings.</p>
-<div id="e7aa8f8a-d7a9-424f-94a4-94007f496a34" class="cell" data-execution_count="120">
+<div id="e7aa8f8a-d7a9-424f-94a4-94007f496a34" class="cell" data-execution_count="163">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>coef_df <span class="op">=</span> pd.DataFrame(regressor.coef_, X.columns, columns<span class="op">=</span>[<span class="st">'Coefficient'</span>])</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>coef_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="120">
+<div class="cell-output cell-output-display" data-execution_count="163">
 <div>
 
 

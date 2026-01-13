@@ -2,9 +2,9 @@
   {
     "listing": "/pynotes.html",
     "items": [
-      "/python_notebooks/statistical_testing.html",
       "/python_notebooks/data_exploration_visualization.html",
-      "/python_notebooks/market_segment_conjoint.html"
+      "/python_notebooks/market_segment_conjoint.html",
+      "/python_notebooks/statistical_testing.html"
     ]
   }
 ]
