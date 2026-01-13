@@ -10,9 +10,9 @@ I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston Un
 
 ## Skills
 
-- **Programming:** Python; SQL; EViews; R
-- **Data Analysis Tools:** Bloomberg; Power BI; Tableau; Macrobond; Haver; Microsoft Office: Word, Excel, PowerPoint 
-- **Technical Skills:** Data Visualizations; Data Manipulation; Database Management; Macro Research; ML Models
+- **Programming Languages:** Python, SQL, Eviews, R
+- **Data Analysis Tools:** Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)  
+- **Technical Skills:** Data Visualizations, Data Manipulation, Database Management, Macro Research, ML, GenAI, Regression, XGBoost, Random Forest
 
 ---
 
