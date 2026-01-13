@@ -181,7 +181,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#part-i-logistic-regression-model" id="toc-part-i-logistic-regression-model" class="nav-link active" data-scroll-target="#part-i-logistic-regression-model">Part I: Logistic Regression Model</a>
   <ul class="collapse">
-  <li><a href="#for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do." id="toc-for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do." class="nav-link" data-scroll-target="#for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do.">For any variables that need to be dummified, dummify them, being sure to drop one level as you do.</a></li>
   <li><a href="#iteration-1" id="toc-iteration-1" class="nav-link" data-scroll-target="#iteration-1">Iteration #1</a></li>
   <li><a href="#iteration-2" id="toc-iteration-2" class="nav-link" data-scroll-target="#iteration-2">Iteration #2</a></li>
   </ul></li>
@@ -212,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Will this Passholder Renew for Next Season?</strong></p>
+<p><strong>Will this Passholder Renew for Next Season?</strong> <br> Built and evaluated logistic regression and random forest models in Python to predict passholder renewal behavior using demographic, behavioral, and engagement data. Applied data cleaning, feature engineering, model interpretation, and performance evaluation to generate actionable insights for targeted marketing and retention strategy, complemented by an interactive Tableau KPI dashboard.</p>
 <section id="part-i-logistic-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="part-i-logistic-regression-model">Part I: Logistic Regression Model</h2>
 <div id="f4b9b679-9b24-4eb4-b930-0cefd55f9aeb" class="cell" data-execution_count="1">
@@ -937,8 +936,8 @@ Distance_From_Park_Miles  0.100           -0.094             0.065          -0.0
 <h4 class="anchored" data-anchor-id="are-there-any-correlations-here-that-are-so-high-as-to-present-a-likely-problem-with-multicollinearity">Are there any correlations here that are so high as to present a likely problem with multicollinearity?</h4>
 <p>The correlation table indicates that none of the variables are strongly related to one another, as all coefficients are well below the typical threshold for multicollinearity (r ≥ 0.8). The highest correlation, 0.135 between Age and Total_Spend_2024 indicating older renewers tend to spend more than the younger audience, is too weak to raise any concerns. Therefore, I can keep all numeric predictors for the modeling stage.</p>
 </section>
-<section id="for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do." class="level3">
-<h3 class="anchored" data-anchor-id="for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do.">For any variables that need to be dummified, dummify them, being sure to drop one level as you do.</h3>
+<section id="for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do." class="level4">
+<h4 class="anchored" data-anchor-id="for-any-variables-that-need-to-be-dummified-dummify-them-being-sure-to-drop-one-level-as-you-do.">For any variables that need to be dummified, dummify them, being sure to drop one level as you do.</h4>
 <div id="7ac3e87a-fe4c-497b-90e5-6ff80a4827f1" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dummify all categorical variables and dropping one category per variable to avoid multicollinearity</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>passholder <span class="op">=</span> pd.get_dummies(passholder, columns<span class="op">=</span>[</span>
@@ -1091,6 +1090,7 @@ Distance_From_Park_Miles  0.100           -0.094             0.065          -0.0
 </div>
 </div>
 <p>After dummifying the categorical variables, I set the following reference levels: Home_State – MA, Preferred_Attraction – Entertainment, Referral_Source – Ad/Other, and Dining_Plan – Upgraded. These serve as the baseline categories against which other levels are compared in the model. The Renewed_Pass variable is already numeric and binary, so it does not require dummification.</p>
+</section>
 <section id="create-a-data-partition.-assign-40-of-your-rows-to-your-test-set-and-60-to-your-training-set." class="level4">
 <h4 class="anchored" data-anchor-id="create-a-data-partition.-assign-40-of-your-rows-to-your-test-set-and-60-to-your-training-set.">Create a data partition. Assign 40% of your rows to your test set, and 60% to your training set.</h4>
 <div id="37855b73-5e5f-4e14-b7e5-fa9cd37925e6" class="cell" data-execution_count="22">
@@ -1215,11 +1215,10 @@ Test set size: 396 rows</code></pre>
 <li><strong>Dining_Plan_None:</strong> Non-renewers are more likely to have no dining plan (35.81%) compared to renewers (31.99%), suggesting that opting out of the food plan may correlate with lower overall commitment or value perception.</li>
 </ul>
 </section>
-</section>
 <section id="iteration-1" class="level3">
 <h3 class="anchored" data-anchor-id="iteration-1">Iteration #1</h3>
-<section id="build-a-logistic-regression-model-using-statsmodels-with-the-outcome-variable-renewed_pass.-use-the-rest-of-the-remaining-variables-from-the-dataset-as-inputs.-remember-to-use-only-your-training-data-to-build-this-model." class="level4">
-<h4 class="anchored" data-anchor-id="build-a-logistic-regression-model-using-statsmodels-with-the-outcome-variable-renewed_pass.-use-the-rest-of-the-remaining-variables-from-the-dataset-as-inputs.-remember-to-use-only-your-training-data-to-build-this-model.">Build a logistic regression model using statsmodels, with the outcome variable ‘Renewed_Pass’. Use the rest of the remaining variables from the dataset as inputs. Remember to use only your training data to build this model.</h4>
+<section id="build-a-logistic-regression-model-using-statsmodels-with-the-outcome-variable-renewed_pass." class="level4">
+<h4 class="anchored" data-anchor-id="build-a-logistic-regression-model-using-statsmodels-with-the-outcome-variable-renewed_pass.">Build a logistic regression model using statsmodels, with the outcome variable ‘Renewed_Pass’.</h4>
 <div id="769186ec-1c4e-44f1-97fa-e560232c39a1" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>passholder.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">

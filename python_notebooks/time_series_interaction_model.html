@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>time_series_interaction_model – Nhat Tran</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1db3f541d99483cdc7a0d9cf38862b2c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Nhat Tran</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-academics" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Academics</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-academics">    
+        <li>
+    <a class="dropdown-item" href="../coursework.html">
+ <span class="dropdown-text">Relevant Coursework</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../pynotes.html">
+ <span class="dropdown-text">Python Notebooks</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../certifications.html"> 
+<span class="menu-text">Certifications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../contact.html"> 
+<span class="menu-text">Contact</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-i-working-with-time-series-data" id="toc-part-i-working-with-time-series-data" class="nav-link active" data-scroll-target="#part-i-working-with-time-series-data">Part I: Working with Time Series Data</a></li>
+  <li><a href="#f-.-rolling-windows" id="toc-f-.-rolling-windows" class="nav-link" data-scroll-target="#f-.-rolling-windows">F . Rolling windows</a></li>
+  <li><a href="#g.-plot-a-rolling-standard-deviation-for-your-time-series-data.-you-should-be-showing-the-rolling-standard-deviation-for-the-close-variable-for-this-purpose.-you-can-pick-the-size-of-the-window-for-the-rolling-standard-deviation." id="toc-g.-plot-a-rolling-standard-deviation-for-your-time-series-data.-you-should-be-showing-the-rolling-standard-deviation-for-the-close-variable-for-this-purpose.-you-can-pick-the-size-of-the-window-for-the-rolling-standard-deviation." class="nav-link" data-scroll-target="#g.-plot-a-rolling-standard-deviation-for-your-time-series-data.-you-should-be-showing-the-rolling-standard-deviation-for-the-close-variable-for-this-purpose.-you-can-pick-the-size-of-the-window-for-the-rolling-standard-deviation.">G. Plot a rolling standard deviation for your time series data. You should be showing the rolling standard deviation for the ‘Close’ variable for this purpose. You can pick the size of the window for the rolling standard deviation.</a></li>
+  <li><a href="#h.-next-we-will-try-something-called-resampling." id="toc-h.-next-we-will-try-something-called-resampling." class="nav-link" data-scroll-target="#h.-next-we-will-try-something-called-resampling.">H. Next, we will try something called resampling.</a></li>
+  <li><a href="#part-ii-marketing-mix-modeling-with-an-interaction-term" id="toc-part-ii-marketing-mix-modeling-with-an-interaction-term" class="nav-link" data-scroll-target="#part-ii-marketing-mix-modeling-with-an-interaction-term">Part II: Marketing Mix Modeling with an Interaction Term</a></li>
+  <li><a href="#part-iii-wildcard-google-trends" id="toc-part-iii-wildcard-google-trends" class="nav-link" data-scroll-target="#part-iii-wildcard-google-trends">Part III: Wildcard: Google Trends</a></li>
+  <li><a href="#uber-eats" id="toc-uber-eats" class="nav-link" data-scroll-target="#uber-eats">Uber Eats:</a></li>
+  <li><a href="#doordash" id="toc-doordash" class="nav-link" data-scroll-target="#doordash">DoorDash:</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p>Nhat Tran <br> METAD654: Marketing Analytics <br> Professor Gregory Page <br> # Assignment 5 - Handling Time Series Data &amp; Modeling with an Interaction Term</p>
+<div id="15f1d255-6f8f-4025-9202-6fd33633dc63" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary functions to use</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="part-i-working-with-time-series-data" class="level3">
+<h3 class="anchored" data-anchor-id="part-i-working-with-time-series-data">Part I: Working with Time Series Data</h3>
+<section id="a.-pick-any-publicly-traded-company-that-trades-on-the-nasdaq-or-the-nyse." class="level4">
+<h4 class="anchored" data-anchor-id="a.-pick-any-publicly-traded-company-that-trades-on-the-nasdaq-or-the-nyse.">A. Pick any publicly-traded company that trades on the Nasdaq or the NYSE.</h4>
+</section>
+<section id="a.-what-company-did-you-select-and-what-is-it-sticker-symbol-why-did-you-pick-this-company" class="level4">
+<h4 class="anchored" data-anchor-id="a.-what-company-did-you-select-and-what-is-it-sticker-symbol-why-did-you-pick-this-company">a. What company did you select, and what is it sticker symbol? Why did you pick this company?</h4>
+<p>I selected Six Flags Entertainment Corporation Common Stock New (ticker symbol: FUN). I chose this company because its business operations are closely aligned with Lobster Land, and it offers a useful point of comparison. It is also interesting to see how a major attraction and theme park operator performs in the market and responds to industry conditions.</p>
+</section>
+<section id="b.-go-to-the-nasdaq-homepage-www.nasdaq.com.-enter-your-companys-ticker-symbol-in-symbol-search-area-near-the-top-of-your-screen.-next-click-on-historical-quotes-and-adjust-the-settings-so-that-it-shows-one-years-worth-of-share-price-data.-then-click-on-download-historical-data-to-download-this-data-as-a-csv." class="level4">
+<h4 class="anchored" data-anchor-id="b.-go-to-the-nasdaq-homepage-www.nasdaq.com.-enter-your-companys-ticker-symbol-in-symbol-search-area-near-the-top-of-your-screen.-next-click-on-historical-quotes-and-adjust-the-settings-so-that-it-shows-one-years-worth-of-share-price-data.-then-click-on-download-historical-data-to-download-this-data-as-a-csv.">B. Go to the Nasdaq homepage: www.nasdaq.com. Enter your company’s ticker symbol in “Symbol Search” area near the top of your screen. Next, click on “Historical Quotes” and adjust the settings so that it shows one year’s worth of share price data. Then, click on “Download Historical Data” to download this data as a CSV.</h4>
+</section>
+<section id="c.-bring-the-dataset-into-your-environment.-for-this-step-bring-the-dataset-into-your-environment-using-read_csv-from-pandas-but-now-add-some-extra-parameters-to-that-function-index_col-date-and-parse_datestrue." class="level4">
+<h4 class="anchored" data-anchor-id="c.-bring-the-dataset-into-your-environment.-for-this-step-bring-the-dataset-into-your-environment-using-read_csv-from-pandas-but-now-add-some-extra-parameters-to-that-function-index_col-date-and-parse_datestrue.">C. Bring the dataset into your environment. For this step, bring the dataset into your environment using read_csv() from pandas – but now, add some extra parameters to that function: index_col= ‘Date’ and parse_dates=True.</h4>
+</section>
+<section id="a.-use-the-head-function-to-explore-the-variables-and-show-your-results." class="level4">
+<h4 class="anchored" data-anchor-id="a.-use-the-head-function-to-explore-the-variables-and-show-your-results.">a. Use the head() function to explore the variables, and show your results.</h4>
+<div id="23961693-b8b3-4039-81db-6164b20e2c83" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> pd.read_csv(<span class="st">"/Users/nhattran/Downloads/MSBA/METAD654 - Marketing Analytics/assignment 5/six_flags_ytd.csv"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                           index_col<span class="op">=</span><span class="st">"Date"</span>, parse_dates<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c6e3f0d6-151e-4482-8195-c1f8cf72ed46" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>six_flags.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b.-rename-the-closelast-column-to-close" class="level4">
+<h4 class="anchored" data-anchor-id="b.-rename-the-closelast-column-to-close">b. Rename the ‘Close/Last’ column to ‘Close’</h4>
+<div id="4fc57e41-3229-4984-98f9-982cfa986a08" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.rename(columns<span class="op">=</span>{<span class="st">"Close/Last"</span>: <span class="st">"Close"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="c.-next-call-the-info-function-on-your-dataset-and-show-your-results." class="level4">
+<h4 class="anchored" data-anchor-id="c.-next-call-the-info-function-on-your-dataset-and-show-your-results.">c.&nbsp;Next, call the info() function on your dataset, and show your results.</h4>
+<div id="ada4f5e9-2e3b-4815-b740-8aff05e4d14a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>six_flags.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="51dd91d1-dead-4a64-acda-fc4f0d72a197" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>six_flags.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="652295fe-9e0e-4935-acb2-18c5f42e2b9e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove all dollar signs and change the data type to float</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.replace({<span class="st">'</span><span class="er">\</span><span class="st">$'</span>: <span class="st">''</span>}, regex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.astype({<span class="st">'Close'</span>: <span class="bu">float</span>, <span class="st">'Open'</span>: <span class="bu">float</span>, <span class="st">'High'</span>: <span class="bu">float</span>, <span class="st">'Low'</span>: <span class="bu">float</span>})</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>six_flags.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In this step, I removed the dollar signs from the price columns and converted them into float values so the data can be analyzed properly. Once cleaned, the dataset is ready for any calculations or modeling.</p>
+</section>
+<section id="d.-is-this-dataframe-indexed-by-time-values-how-do-you-know-this" class="level4">
+<h4 class="anchored" data-anchor-id="d.-is-this-dataframe-indexed-by-time-values-how-do-you-know-this">D. Is this dataframe indexed by time values? How do you know this?</h4>
+<p>Yes, this dataframe is indexed by time. I can tell because the index is made up of dates (e.g.&nbsp;“2025-11-14,” “2025-11-13”), which indicates that each row is organized and labeled by a specific point in time rather than by a simple numeric index.</p>
+</section>
+<section id="e.-lets-visualize-the-entire-time-series." class="level4">
+<h4 class="anchored" data-anchor-id="e.-lets-visualize-the-entire-time-series.">E. Let’s visualize the entire time series.</h4>
+</section>
+<section id="a.-first-just-call-.plot-on-your-dataframe-object." class="level4">
+<h4 class="anchored" data-anchor-id="a.-first-just-call-.plot-on-your-dataframe-object.">a. First, just call .plot() on your dataframe object.</h4>
+<div id="3d22b637-1856-4d81-aef3-726570cb0b40" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>six_flags.plot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-describe-what-you-see-here.-why-is-this-a-challeging-graph-to-interpret-what-would-make-it-easier-to-understand" class="level5">
+<h5 class="anchored" data-anchor-id="i.-describe-what-you-see-here.-why-is-this-a-challeging-graph-to-interpret-what-would-make-it-easier-to-understand">i. Describe what you see here. Why is this a challeging graph to interpret? What would make it easier to understand?</h5>
+<p>This graph shows five stock metrics: Close, Volume, Open, High, and Low, plotted from November 2024 to November 2025. Each metric is shown as a different colored line, but the y-axis combines both price values and Volume, which reaches into over the millions units. Because the price-based metrics stay within a much smaller range, their lines appear compressed while Volume dominates the scale.</p>
+<p>The graph is hard to interpret because the shared y-axis has to stretch to fit the huge Volume values, which makes the price lines look almost flat. It would be much easier to read if Volume had its own y-axis or subplot, and if the chart included clearer labels or a legend to show which line represents each metric.</p>
+</section>
+</section>
+<section id="b.-now-re-run-the-.plot-function-but-this-time-call-that-function-on-the-close-variable-only." class="level4">
+<h4 class="anchored" data-anchor-id="b.-now-re-run-the-.plot-function-but-this-time-call-that-function-on-the-close-variable-only.">b. Now, re-run the .plot() function, but this time, call that function on the ‘Close’ variable only.</h4>
+<div id="10999edf-3df7-4f68-97f3-ff66cd977dc4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"Close"</span>].plot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-now-in-a-couple-sentences-describe-what-you-see.-why-is-this-graph-more-easily-interpretable-than-the-one-you-plotted-in-the-previous-step" class="level5">
+<h5 class="anchored" data-anchor-id="i.-now-in-a-couple-sentences-describe-what-you-see.-why-is-this-graph-more-easily-interpretable-than-the-one-you-plotted-in-the-previous-step">i. Now, in a couple sentences, describe what you see. Why is this graph more easily interpretable than the one you plotted in the previous step?</h5>
+<p>When I only plot the ‘Close’ variable, the graph clearly shows a downward trend in closing prices over time, with a slight fluctuations. The line is clear easy to follow, making it simple to see how the stock’s value declined from November 2024 to November 2025. This graph is easier to interpret than the previous plot because it focuses on a single variable with a consistent scale. By removing Volume, the y-axis now matches the scale of the prices, making it easy to see how the closing price changes over time.</p>
+</section>
+</section>
+<section id="c.-re-plot-the-close-variable-and-add-a-horizontal-line-representing-the-average-closing-price-for-the-year." class="level4">
+<h4 class="anchored" data-anchor-id="c.-re-plot-the-close-variable-and-add-a-horizontal-line-representing-the-average-closing-price-for-the-year.">c.&nbsp;Re-plot the ‘Close’ variable, and add a horizontal line representing the average closing price for the year.</h4>
+<div id="574b29af-d8a0-4eb0-a4da-06c61e3a14ad" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average closing price</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>avg_close <span class="op">=</span> six_flags[<span class="st">"Close"</span>].mean()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> six_flags[<span class="st">"Close"</span>].plot(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>), title<span class="op">=</span><span class="st">"Six Flags Close Price"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span>avg_close, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Average: $</span><span class="sc">{</span>avg_close<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Close Price ($)"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="what-does-this-line-help-you-see-more-clearly" class="level5">
+<h5 class="anchored" data-anchor-id="what-does-this-line-help-you-see-more-clearly">What does this line help you see more clearly?</h5>
+<p>Adding a horizontal line for the average closing price makes the graph much easier to read by providing a clear benchmark. In this case, the red dashed line at $33.92 shows that the stock spent most of the year below its average, especially in the second half. This also makes it easy to compare the stock’s daily movements to its overall trend, highlighting when it was consistently above or below the average. Therefore, it easy to spot long-term trends and periods of underperformance or outperformance.</p>
+</section>
+</section>
+<section id="d.-use-the-.diff-method-to-calculate-the-daily-change-in-the-close-price-and-store-the-result-in-a-new-column-called-daily_change." class="level4">
+<h4 class="anchored" data-anchor-id="d.-use-the-.diff-method-to-calculate-the-daily-change-in-the-close-price-and-store-the-result-in-a-new-column-called-daily_change.">d.&nbsp;Use the .diff() method to calculate the daily change in the ‘Close’ price, and store the result in a new column called ‘daily_change’.</h4>
+<div id="c010b028-c707-4ac3-9ad9-b2a83b5a23f4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"daily_change"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].diff()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>six_flags.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-plot-the-daily_change-variable." class="level5">
+<h5 class="anchored" data-anchor-id="i.-plot-the-daily_change-variable.">i. Plot the ‘daily_change’ variable.</h5>
+<div id="39ebe505-b481-43ae-99d1-c64e6dfefb91" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"daily_change"</span>].plot()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ii-.-what-does-this-show-that-the-original-closing-price-plot-did-not" class="level5">
+<h5 class="anchored" data-anchor-id="ii-.-what-does-this-show-that-the-original-closing-price-plot-did-not">ii . What does this show that the original closing price plot did not?</h5>
+<p>For Six Flags, plotting the daily_change variable reveals the day-to-day volatility in the stock that the original closing price graph did not show. Instead of a smooth downward trend, the values oscillate around zero with both positive and negative spikes, highlighting short-term gains and losses. This makes it clear that Six Flags’ stock movement was more turbulent than the overall decline suggests, providing insight into its momentum and risk.</p>
+</section>
+<section id="iii.-do-you-notice-any-periods-of-unusually-high-or-low-movement" class="level5">
+<h5 class="anchored" data-anchor-id="iii.-do-you-notice-any-periods-of-unusually-high-or-low-movement">iii. Do you notice any periods of unusually high or low movement?</h5>
+<p>Yes, there are periods of unusually high and low movement. For example, there’s a sharp upward spike followed closely by a steep drop around mid-2025, suggesting a possible earnings announcement or noticable event that quickly affected market reactions. These significant swings stand out clearly in the daily_change graph and would be difficult to detect in the original closing price plot. Such periods are critical for analysts to investigate further, as they may signal turning points or underlying volatility that affects investment decisions.</p>
+</section>
+</section>
+<section id="e.-plotting-a-subset-of-your-data" class="level4">
+<h4 class="anchored" data-anchor-id="e.-plotting-a-subset-of-your-data">e. Plotting a subset of your data</h4>
+<section id="i.-using-a-slice-operation-plot-the-daily-close-variable-from-your-dataset-for-any-one-month-period-of-your-choice." class="level5">
+<h5 class="anchored" data-anchor-id="i.-using-a-slice-operation-plot-the-daily-close-variable-from-your-dataset-for-any-one-month-period-of-your-choice.">i. Using a slice operation, plot the daily ‘Close’ variable from your dataset for any one-month period of your choice.</h5>
+<div id="2b0dc53c-c2b5-47b9-aeae-cb3c2992033c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the dataframe index</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>six_flags <span class="op">=</span> six_flags.sort_index()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice the data for September 2025</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>six_flags_sep <span class="op">=</span> six_flags[<span class="st">"Close"</span>][<span class="st">"2025-09-01"</span>:<span class="st">"2025-09-30"</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>six_flags_sep.plot(title<span class="op">=</span><span class="st">"Six Flags Close Price (September 2025)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ii.-now-show-the-plot-you-drew-with-the-previous-step-but-with-a-new-figsize-line-color-and-style" class="level5">
+<h5 class="anchored" data-anchor-id="ii.-now-show-the-plot-you-drew-with-the-previous-step-but-with-a-new-figsize-line-color-and-style">ii. Now, show the plot you drew with the previous step, but with a new figsize, line color, and style</h5>
+<div id="8a8cdf44-3617-4098-a97c-1cd9bb94b33a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags_sep.index, six_flags_sep, color<span class="op">=</span><span class="st">'blue'</span>, label<span class="op">=</span><span class="st">'Close'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Six Flags Close Price (September 2025)"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Price ($)"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This chart shows Six Flags’ closing stock price throughout September 2025, fluctuating between roughly \$21 and \$26. The overall movement appears choppy, with no clear upward or downward trend, suggesting short-term volatility rather than directional momentum during that month.</p>
+</section>
+</section>
+</section>
+<section id="f-.-rolling-windows" class="level3">
+<h3 class="anchored" data-anchor-id="f-.-rolling-windows">F . Rolling windows</h3>
+<section id="a.-generate-a-20-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-20-period-average-atop-the-actual-daily-closing-prices." class="level4">
+<h4 class="anchored" data-anchor-id="a.-generate-a-20-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-20-period-average-atop-the-actual-daily-closing-prices.">a. Generate a 20-period moving average for your ‘Close’ variable, and create a plot that overlays this 20-period average atop the actual daily closing prices.</h4>
+<div id="3942265c-031f-47db-a243-093cca18ad7a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"moving_avg_20"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].rolling(window<span class="op">=</span><span class="dv">20</span>).mean()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>six_flags.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fb1bd40f-9d6d-4ef2-9cb4-b8c3a7756a8b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"Close"</span>], label<span class="op">=</span><span class="st">"Close"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"moving_avg_20"</span>], label<span class="op">=</span><span class="st">"20-period MA"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Price"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Closing Price with 20-Period Moving Average"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b.-next-generate-a-75-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-75-period-average-atop-the-actual-daily-closing-prices." class="level4">
+<h4 class="anchored" data-anchor-id="b.-next-generate-a-75-period-moving-average-for-your-close-variable-and-create-a-plot-that-overlays-this-75-period-average-atop-the-actual-daily-closing-prices.">b. Next, generate a 75-period moving average for your ‘Close’ variable, and create a plot that overlays this 75-period average atop the actual daily closing prices.</h4>
+<div id="8b05c3a2-2219-4157-a6f1-95b6c5536bce" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"moving_avg_75"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].rolling(window<span class="op">=</span><span class="dv">75</span>).mean()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>six_flags.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="12f66a38-5307-41ef-b36b-efc95bb1c888" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"Close"</span>], label<span class="op">=</span><span class="st">"Close"</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags[<span class="st">"moving_avg_75"</span>], label<span class="op">=</span><span class="st">"75-period MA"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Price"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Closing Price with 75-Period Moving Average"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="c.-how-are-your-two-moving-average-plots-different-from-one-another-what-are-some-pros-and-cons-of-shorter-and-longer-moving-average-windows" class="level4">
+<h4 class="anchored" data-anchor-id="c.-how-are-your-two-moving-average-plots-different-from-one-another-what-are-some-pros-and-cons-of-shorter-and-longer-moving-average-windows">c.&nbsp;How are your two moving average plots different from one another? What are some pros and cons of shorter and longer moving average windows?</h4>
+<p>The two moving average plots differ in the length of the window used to smooth the closing price data. The 20-period moving average reacts quickly to short-term fluctuations and closely follows the daily ups and downs, making it more jagged. The 75-period moving average smooths out more noise, highlighting the broader trend over time, but it lags behind recent price movements and adjusts more slowly.</p>
+<p>Shorter windows like 20 periods are helpful for spotting short-term momentum and quick shifts in direction, though they can be sensitive to noise and produce false signals. Longer windows like 75 periods are better for identifying long-term trends and filtering out daily volatility, but they respond more slowly, which can delay recognition of turning points.</p>
+</section>
+</section>
+<section id="g.-plot-a-rolling-standard-deviation-for-your-time-series-data.-you-should-be-showing-the-rolling-standard-deviation-for-the-close-variable-for-this-purpose.-you-can-pick-the-size-of-the-window-for-the-rolling-standard-deviation." class="level3">
+<h3 class="anchored" data-anchor-id="g.-plot-a-rolling-standard-deviation-for-your-time-series-data.-you-should-be-showing-the-rolling-standard-deviation-for-the-close-variable-for-this-purpose.-you-can-pick-the-size-of-the-window-for-the-rolling-standard-deviation.">G. Plot a rolling standard deviation for your time series data. You should be showing the rolling standard deviation for the ‘Close’ variable for this purpose. You can pick the size of the window for the rolling standard deviation.</h3>
+<div id="51304e18-14e8-4389-b913-c718b9e3ea1b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create rolling standard deviation (20-day window)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>six_flags[<span class="st">"rolling_std_20"</span>] <span class="op">=</span> six_flags[<span class="st">"Close"</span>].rolling(window<span class="op">=</span><span class="dv">20</span>).std()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.plot(six_flags.index, six_flags[<span class="st">"rolling_std_20"</span>], color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Six Flags Close Price: 20-Day Rolling Standard Deviation"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Date"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Standard Deviation"</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="a.-what-does-your-rolling-standard-deviation-plot-show-you-about-your-time-series-note-this-question-is-asking-you-about-your-results.-its-not-asking-about-what-a-rolling-standard-deviation-shows-in-general." class="level4">
+<h4 class="anchored" data-anchor-id="a.-what-does-your-rolling-standard-deviation-plot-show-you-about-your-time-series-note-this-question-is-asking-you-about-your-results.-its-not-asking-about-what-a-rolling-standard-deviation-shows-in-general.">a. What does your rolling standard deviation plot show you about your time series? (Note: this question is asking you about your results. It’s not asking about what a rolling standard deviation shows, in general).</h4>
+<p>The rolling standard deviation plot for ‘Close’ prices shows how the Six Flags’ stock volatility changed throughout 2025. Using a 20-day window, the graph highlights peaks and troughs, with spikes in mid-2025 indicating periods of higher uncertainty, and lower stretches where volatility drops closer to 1.</p>
+<p>These bursts of volatility correspond to real-world events. In Q2 2025, Six Flags reported a net loss due to adverse weather and merger-related challenges, and in Q3 2025, the company recorded a large non-cash impairment charge. Such events likely caused rapid day-to-day price movements, explaining the spikes seen in the rolling standard deviation. Overall, the plot shows that the stock’s decline was not smooth or predictable. High-volatility periods meant greater uncertainty for investors, while low-volatility stretches offered more stable performance, providing a clearer picture of risk throughout the year.</p>
+<p><strong>References:</strong> https://www.tipranks.com/news/company-announcements/six-flags-reports-q2-2025-earnings-amid-weather-challenges</p>
+</section>
+</section>
+<section id="h.-next-we-will-try-something-called-resampling." class="level3">
+<h3 class="anchored" data-anchor-id="h.-next-we-will-try-something-called-resampling.">H. Next, we will try something called resampling.</h3>
+<section id="a.-resample-your-time-series-so-that-its-values-are-based-on-quarterly-time-periods-mean-values-for-close-rather-than-daily-periods." class="level4">
+<h4 class="anchored" data-anchor-id="a.-resample-your-time-series-so-that-its-values-are-based-on-quarterly-time-periods-mean-values-for-close-rather-than-daily-periods.">a. Resample your time series so that its values are based on quarterly time periods’ mean values for ‘Close’, rather than daily periods.</h4>
+<div id="2384a30d-56d0-4612-a7a8-2da26b8358b5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resample the 'Close' column to quarterly frequency and calculate the mean</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>six_flags_closeq <span class="op">=</span> six_flags[<span class="st">'Close'</span>].resample(<span class="st">'QE'</span>).mean()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>six_flags_closeq.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-plot-this-newly-resampled-time-series-with-the-dates-on-the-x-axis-and-the-close-values-on-the-y-axis." class="level5">
+<h5 class="anchored" data-anchor-id="i.-plot-this-newly-resampled-time-series-with-the-dates-on-the-x-axis-and-the-close-values-on-the-y-axis.">i. Plot this newly-resampled time series, with the dates on the x-axis, and the Close values on the y-axis.</h5>
+<div id="dc59827a-f6e0-45ac-8460-35149f5090bf" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>six_flags_closeq.plot(marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Six Flags Average Close Price (Quarterly)'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Date'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Close Price ($)'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate the data points</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> date, value <span class="kw">in</span> <span class="bu">zip</span>(six_flags_closeq.index, six_flags_closeq.values):</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    plt.text(date, value <span class="op">+</span> <span class="fl">0.5</span>, <span class="ss">f'</span><span class="sc">{</span>value<span class="sc">:.2f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This chart shows a steady decline in Six Flags’ average closing stock price over five consecutive quarters, falling from \$47.10 in late 2024 to \$21.34 by Q4 2025, with the steepest drop between Q1 and Q2 of 2025. By using quarterly averages, the chart smooths out daily fluctuations and highlights the overall trend more clearly. This makes it easier to see sustained downward pressure on the stock and identify periods of significant change.</p>
+</section>
+<section id="ii.-provide-an-example-that-explains-why-someone-might-care-about-resampling-a-time-series.-to-answer-this-you-may-use-any-other-example-that-you-can-think-of-or-discover-from-any-field-that-uses-time-series-data-health-weather-etc.---but-do-not-mention-stock-market-data-for-this-answer-since-weve-already-covered-it-here.-you-dont-need-to-perform-any-outside-research-or-go-too-deeply-into-domain-knowledge-here-3-4-thoughful-sentences-are-all-you-need." class="level5">
+<h5 class="anchored" data-anchor-id="ii.-provide-an-example-that-explains-why-someone-might-care-about-resampling-a-time-series.-to-answer-this-you-may-use-any-other-example-that-you-can-think-of-or-discover-from-any-field-that-uses-time-series-data-health-weather-etc.---but-do-not-mention-stock-market-data-for-this-answer-since-weve-already-covered-it-here.-you-dont-need-to-perform-any-outside-research-or-go-too-deeply-into-domain-knowledge-here-3-4-thoughful-sentences-are-all-you-need.">ii. Provide an example that explains why someone might care about resampling a time series. To answer this, you may use ANY other example that you can think of, or discover, from any field that uses time series data (health, weather, etc.) - but do not mention stock market data for this answer, since we’ve already covered it here. You don’t need to perform any outside research or go too deeply into domain knowledge here – 3-4 thoughful sentences are all you need.</h5>
+<p>A retail analyst tracking daily sales at a chain of toy stores can see a lot of fluctuations in the raw data. Resampling the data into weekly or monthly averages makes it easier to compare different periods, such as the holiday season or Black Friday versus regular months. For example, December and the week of Black Friday consistently show higher average sales than other months, helping the business plan inventory, staffing, and promotions more effectively. By smoothing out daily noise, resampling provides a clearer picture of these seasonal patterns and supports smarter operational decisions.</p>
+</section>
+</section>
+</section>
+<section id="part-ii-marketing-mix-modeling-with-an-interaction-term" class="level3">
+<h3 class="anchored" data-anchor-id="part-ii-marketing-mix-modeling-with-an-interaction-term">Part II: Marketing Mix Modeling with an Interaction Term</h3>
+<section id="i.-after-reading-the-file-into-your-environment-the-first-question-that-you-will-explore-here-is-whether-there-is-any-relationship-between-marketing-spending-and-conversions." class="level4">
+<h4 class="anchored" data-anchor-id="i.-after-reading-the-file-into-your-environment-the-first-question-that-you-will-explore-here-is-whether-there-is-any-relationship-between-marketing-spending-and-conversions.">I. After reading the file into your environment, the first question that you will explore here is whether there is any relationship between marketing spending and conversions.</h4>
+<div id="e55addf1-fade-4a01-bce4-445bf96b4642" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign <span class="op">=</span> pd.read_csv(<span class="st">"/Users/nhattran/Downloads/MSBA/METAD654 - Marketing Analytics/assignment 5/marketing_campaign_lobster.csv"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>lobster_campaign.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="a.-to-explore-this-first-create-a-new-variable-that-shows-the-total-spending.-this-variables-value-should-be-the-sum-of-influencer_spend-email_spend-and-radio_spend." class="level4">
+<h4 class="anchored" data-anchor-id="a.-to-explore-this-first-create-a-new-variable-that-shows-the-total-spending.-this-variables-value-should-be-the-sum-of-influencer_spend-email_spend-and-radio_spend.">a. To explore this, first create a new variable that shows the total spending. This variable’s value should be the sum of influencer_spend, email_spend, and radio_spend.</h4>
+<div id="2a0c73aa-147b-4a2d-9288-4942f9e0352d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign[<span class="st">"total_spending"</span>] <span class="op">=</span> lobster_campaign[[<span class="st">"influencer_spend"</span>, <span class="st">"email_spend"</span>, <span class="st">"radio_spend"</span>]].<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>lobster_campaign.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="b.-now-find-the-correlation-between-this-new-total-spending-variable-and-conversions." class="level4">
+<h4 class="anchored" data-anchor-id="b.-now-find-the-correlation-between-this-new-total-spending-variable-and-conversions.">b. Now, find the correlation between this new total spending variable and conversions.</h4>
+<div id="cd249b06-3385-401f-ae90-af54949f49bd" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign_corr <span class="op">=</span> lobster_campaign[<span class="st">"total_spending"</span>].corr(lobster_campaign[<span class="st">"conversions"</span>])</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The correlation between total spending and conversions: </span><span class="sc">{</span>lobster_campaign_corr<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i-.-what-is-the-correlation-between-these-variables" class="level5">
+<h5 class="anchored" data-anchor-id="i-.-what-is-the-correlation-between-these-variables">i . What is the correlation between these variables?</h5>
+<p>The correlation between total marketing spending (sum of influencer, email, and radio spend) and conversions is 0.8832, which indicates a strong positive relationship.</p>
+</section>
+<section id="ii.-what-does-this-correlation-suggest-about-the-relationship-between-total-marketing-spending-and-conversion" class="level5">
+<h5 class="anchored" data-anchor-id="ii.-what-does-this-correlation-suggest-about-the-relationship-between-total-marketing-spending-and-conversion">ii. What does this correlation suggest about the relationship between total marketing spending and conversion?</h5>
+<p>This strong correlation shows that higher total marketing spending is generally associated with more conversions. In other words, when more is invested in advertising, the dataset suggests conversion numbers tend to be higher.</p>
+</section>
+<section id="iii.-why-cant-we-conclude-from-this-that-more-ad-spending-leads-to-more-conversions" class="level5">
+<h5 class="anchored" data-anchor-id="iii.-why-cant-we-conclude-from-this-that-more-ad-spending-leads-to-more-conversions">iii. Why can’t we conclude from this that more ad spending leads to more conversions?</h5>
+<p>However, this does not prove that higher ad spending directly causes more conversions. Other factors, such as seasonality, product quality, or external events, could be influencing both spending and results. Without testing the relationship through a controlled experiment or using a causal model, it is impossible to determine whether higher ad spending actually drives more conversions or if other factors are the main reason.</p>
+</section>
+</section>
+<section id="c.-next-lets-explore-the-relationship-among-the-influencer-ad-spending-email-ad-spending-and-radio-ad-spending-variables.-examine-the-correlations-among-these-three-variables." class="level4">
+<h4 class="anchored" data-anchor-id="c.-next-lets-explore-the-relationship-among-the-influencer-ad-spending-email-ad-spending-and-radio-ad-spending-variables.-examine-the-correlations-among-these-three-variables.">c.&nbsp;Next, let’s explore the relationship among the influencer ad spending, email ad spending, and radio ad spending variables. Examine the correlations among these three variables.</h4>
+<div id="df91925b-9b70-4b74-8782-d41106a46c46" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation matrix for the three spending variables</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> lobster_campaign[[<span class="st">'influencer_spend'</span>,<span class="st">'email_spend'</span>,<span class="st">'radio_spend'</span>]].corr()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the heatmap</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">4</span>))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Heatmap of Ad Spending Variables"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-are-any-of-these-correlations-so-high-that-we-might-not-be-able-to-use-them-together-in-a-linear-model" class="level5">
+<h5 class="anchored" data-anchor-id="i.-are-any-of-these-correlations-so-high-that-we-might-not-be-able-to-use-them-together-in-a-linear-model">i. Are any of these correlations so high that we might not be able to use them together in a linear model?</h5>
+<p>None of the ad spending variables are highly correlated, so multicollinearity is not a concern for a linear model. The highest correlation is only 0.11 between influencer and radio spend, which is very low. This means each variable gives mostly separate information, so they can be used together in a regression without messing up the results.</p>
+</section>
+</section>
+<section id="d.-now-build-a-model-that-uses-conversions-as-the-outcome-variable-with-influencer-spending-email-ad-spending-and-radio-ad-spending-as-the-input-variables." class="level4">
+<h4 class="anchored" data-anchor-id="d.-now-build-a-model-that-uses-conversions-as-the-outcome-variable-with-influencer-spending-email-ad-spending-and-radio-ad-spending-as-the-input-variables.">d.&nbsp;Now, build a model that uses conversions as the outcome variable, with influencer spending, email ad spending, and radio ad spending as the input variables.</h4>
+<div id="ff94ae61-1fdc-4861-a932-323119cbaa33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define predictors (X) and outcome (y)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> lobster_campaign[[<span class="st">'influencer_spend'</span>, <span class="st">'email_spend'</span>, <span class="st">'radio_spend'</span>]]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> lobster_campaign[<span class="st">'conversions'</span>]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-whats-the-p-value-and-the-f-statistic-for-this-model-what-does-this-suggest-about-the-model" class="level5">
+<h5 class="anchored" data-anchor-id="i.-whats-the-p-value-and-the-f-statistic-for-this-model-what-does-this-suggest-about-the-model">i. What’s the p-value and the F-statistic for this model? What does this suggest about the model?</h5>
+<p>The F-statistic for the model is 449.0, with a p-value of 1.80e-73, which is extremely small. This indicates that the overall model is statistically significant, meaning at least one of the predictors meaningfully explains variation in conversions and the model does a good job fitting the data.</p>
+</section>
+<section id="ii.-what-are-the-p-values-for-each-of-the-individual-predictors-used-in-this-model-what-does-this-suggest-about-these-predictors" class="level5">
+<h5 class="anchored" data-anchor-id="ii.-what-are-the-p-values-for-each-of-the-individual-predictors-used-in-this-model-what-does-this-suggest-about-these-predictors">ii. What are the p-values for each of the individual predictors used in this model? What does this suggest about these predictors?</h5>
+<p>Looking at the individual predictors, influencer spend and email spend both have p-values of 0.000, showing they are significant contributors to conversions. Radio spend, on the other hand, has a p-value of 0.430, which is not significant. This suggests that radio spend does not have a meaningful effect on conversions in this model and may not be as helpful as other variables with prediction.</p>
+</section>
+</section>
+<section id="e.-lobster-lands-marketing-team-is-investigating-how-different-types-of-advertising-spend-impact-the-number-of-conversions.-in-particular-they-want-to-understand-whether-the-effect-of-influencer-marketing-depends-on-the-level-of-email-marketing-spend.-they-need-you-to-create-an-interaction-plot-to-visualize-the-relationship-between-influencer_spend-and-conversions-across-different-levels-of-email_spend." class="level4">
+<h4 class="anchored" data-anchor-id="e.-lobster-lands-marketing-team-is-investigating-how-different-types-of-advertising-spend-impact-the-number-of-conversions.-in-particular-they-want-to-understand-whether-the-effect-of-influencer-marketing-depends-on-the-level-of-email-marketing-spend.-they-need-you-to-create-an-interaction-plot-to-visualize-the-relationship-between-influencer_spend-and-conversions-across-different-levels-of-email_spend.">e. Lobster Land’s marketing team is investigating how different types of advertising spend impact the number of conversions. In particular, they want to understand whether the effect of influencer marketing depends on the level of email marketing spend. They need you to create an interaction plot to visualize the relationship between influencer_spend and conversions, across different levels of email_spend.</h4>
+<section id="i.-first-create-a-new-variable-called-email_spend_group-by-dividing-email_spend-into-three-groups-low-medium-and-high-you-can-use-pd.qcut-for-this." class="level5">
+<h5 class="anchored" data-anchor-id="i.-first-create-a-new-variable-called-email_spend_group-by-dividing-email_spend-into-three-groups-low-medium-and-high-you-can-use-pd.qcut-for-this.">i. First, create a new variable called email_spend_group by dividing email_spend into three groups: low, medium, and high (you can use pd.qcut() for this).</h5>
+<div id="1f758aad-3b78-4f51-8e12-4fa38eef6739" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>lobster_campaign[<span class="st">'email_spend_group'</span>] <span class="op">=</span> pd.qcut(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    lobster_campaign[<span class="st">'email_spend'</span>],</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    q<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    labels<span class="op">=</span>[<span class="st">'Low'</span>,<span class="st">'Medium'</span>,<span class="st">'High'</span>]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster_campaign[[<span class="st">'email_spend'</span>,<span class="st">'email_spend_group'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ii.-then-plot-conversions-against-influencer_spend-using-different-colored-lines-for-each-email_spend_group." class="level5">
+<h5 class="anchored" data-anchor-id="ii.-then-plot-conversions-against-influencer_spend-using-different-colored-lines-for-each-email_spend_group.">ii. Then, plot conversions against influencer_spend, using different colored lines for each email_spend_group.</h5>
+</section>
+<section id="iii.-use-seaborn.lmplot-or-something-similar-to-draw-trend-lines-for-each-group." class="level5">
+<h5 class="anchored" data-anchor-id="iii.-use-seaborn.lmplot-or-something-similar-to-draw-trend-lines-for-each-group.">iii. Use seaborn.lmplot() or something similar to draw trend lines for each group.</h5>
+<div id="bda38746-697a-4648-bd77-2bb9441ee931" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>lobster_campaign,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'influencer_spend'</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'conversions'</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'email_spend_group'</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    aspect<span class="op">=</span><span class="fl">1.2</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    palette<span class="op">=</span><span class="st">'Set1'</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Interaction Plot: Influencer Spend vs Conversions by Email Spend Group"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="iv.-what-đo-the-different-slopes-tell-you-is-there-visual-evidence-of-an-interaction-between-influencer_spend-and-email_spend-how-would-the-lines-appear-if-there-were-no-interaction" class="level5">
+<h5 class="anchored" data-anchor-id="iv.-what-đo-the-different-slopes-tell-you-is-there-visual-evidence-of-an-interaction-between-influencer_spend-and-email_spend-how-would-the-lines-appear-if-there-were-no-interaction">iv. What đo the different slopes tell you? Is there visual evidence of an interaction between influencer_spend and email_spend? How would the lines appear if there were no interaction?</h5>
+<p>The different slopes show that the effect of influencer spend on conversions depends on the level of email spend. For instance, the green “High” group has the steepest slope, meaning influencer marketing drives the most conversions when email spend is also high. The red “Low” group has a much flatter slope, indicating that influencer spend is less effective at lower levels of email spend.</p>
+<p>There is visual evidence of an interaction because the lines diverge rather than staying parallel, showing that the impact of influencer spend varies with email spend. If there were no interaction, the lines would be roughly parallel, indicating that influencer spend affects conversions the same way regardless of email spending level. The vertical position of each line might differ (due to additive effects), but the slopes would be similar.</p>
+</section>
+</section>
+<section id="f.-build-yet-another-model-this-time-you-will-again-use-conversions-as-the-outcome-variable.-your-inputs-will-be-influencer-ad-spending-email-ad-spending-and-an-interaction-variable-for-influencer-ad-spending-email-ad-spending." class="level4">
+<h4 class="anchored" data-anchor-id="f.-build-yet-another-model-this-time-you-will-again-use-conversions-as-the-outcome-variable.-your-inputs-will-be-influencer-ad-spending-email-ad-spending-and-an-interaction-variable-for-influencer-ad-spending-email-ad-spending.">f.&nbsp;Build yet another model – this time, you will again use conversions as the outcome variable. Your inputs will be influencer ad spending, email ad spending, and an interaction variable for influencer ad spending &amp; email ad spending.</h4>
+<div id="105fa8c2-bd90-45b3-9942-66a961e9ca03" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an interaction variable for influencer ad spendinng and email ad spending</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>lobster_campaign[<span class="st">'interaction'</span>] <span class="op">=</span> (lobster_campaign[<span class="st">'influencer_spend'</span>] <span class="op">*</span> lobster_campaign[<span class="st">'email_spend'</span>])</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster_campaign[[<span class="st">'influencer_spend'</span>,<span class="st">'email_spend'</span>,<span class="st">'interaction'</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="1f6a3960-084a-4e68-a685-2f81c5233308" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define predictors (X) and outcome (y)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> lobster_campaign[[<span class="st">'influencer_spend'</span>, <span class="st">'email_spend'</span>, <span class="st">'interaction'</span>]]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> lobster_campaign[<span class="st">'conversions'</span>]</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>model_interaction <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model_interaction.summary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="i.-what-do-you-notice-about-the-p-values-for-each-of-these-predictors" class="level5">
+<h5 class="anchored" data-anchor-id="i.-what-do-you-notice-about-the-p-values-for-each-of-these-predictors">i. What do you notice about the p-values for each of these predictors?</h5>
+<p>In the interaction model, all three predictors are statistically significant. Influencer spend has a positive effect on conversions (coef = 0.4262, p = 0.000), and email spend also contributes meaningfully (coef = 0.3122, p = 0.004). The interaction term is positive and highly significant (coef = 0.0147, p = 0.000), showing that conversions are not driven by either channel on its own. Instead, the two variables complement with each other, and the impact of influencer marketing becomes stronger when email marketing spend is higher. This combined effect definitely improves performance.</p>
+</section>
+<section id="ii.-how-does-the-r-squared-of-this-model-compared-to-the-r-squared-of-the-model-built-to-predict-conversions-but-with-only-influencer-speding-and-email-ad-spending-but-without-the-interaction-you-will-need-to-generate-another-model-to-answer-this-but-it-wont-take-long" class="level5">
+<h5 class="anchored" data-anchor-id="ii.-how-does-the-r-squared-of-this-model-compared-to-the-r-squared-of-the-model-built-to-predict-conversions-but-with-only-influencer-speding-and-email-ad-spending-but-without-the-interaction-you-will-need-to-generate-another-model-to-answer-this-but-it-wont-take-long">ii. How does the R-squared of this model compared to the R-squared of the model built to predict conversions, but with only influencer speding and email ad spending, but without the interaction? (you will need to generate another model to answer this, but it won’t take long?</h5>
+<p>The model with the interaction term explains about 95 percent of the variation in conversions (R² = 0.954). In comparison, the model without the interaction shows about 90 percent (R² = 0.902). Both models perform well, but the interaction model captures the data more effectively. The increase in R² indicates that adding the interaction term provides meaningful predictive value and offers a more realistic view of how the marketing team at Lobster Land would optimize their budget.</p>
+</section>
+<section id="iii.-demonstrate-what-your-model-would-predict-for-a-marketer-using-100-units-of-influencer-ad-spending-and-50-units-of-email-ad-spending.-what-conversions-outcome-should-this-marketer-expect-to-see" class="level5">
+<h5 class="anchored" data-anchor-id="iii.-demonstrate-what-your-model-would-predict-for-a-marketer-using-100-units-of-influencer-ad-spending-and-50-units-of-email-ad-spending.-what-conversions-outcome-should-this-marketer-expect-to-see">iii. Demonstrate what your model would predict for a marketer using 100 units of influencer ad spending and 50 units of email ad spending. What conversions outcome should this marketer expect to see?</h5>
+<p><span class="math display">\[
+\text{conversions} = \beta_0
++ \beta_1 \cdot \text{influencer\_spend}
++ \beta_2 \cdot \text{email\_spend}
++ \beta_3 \cdot (\text{influencer\_spend} \times \text{email\_spend})
+\]</span></p>
+<p>Whereas, the coefficients are: - Intercept (<span class="math inline">\(\beta_0\)</span>) = -1.4199<br>
+- Influencer spend (<span class="math inline">\(\beta_1\)</span>) = 0.4262<br>
+- Email spend (<span class="math inline">\(\beta_2\)</span>) = 0.3122<br>
+- Interaction (<span class="math inline">\(\beta_3\)</span>) = 0.0147</p>
+<p>And given the Influencer spend = 100; Email spend = 50 - Interaction = 100 × 50 = 5000</p>
+<p>The predicted conversion is: <span class="math display">\[
+\text{conversions} = -1.4199
++ (0.4262 \times 100)
++ (0.3122 \times 50)
++ (0.0147 \times 5000)
+\]</span></p>
+<p><span class="math display">\[
+= -1.4199 + 42.62 + 15.61 + 73.5
+\]</span></p>
+<p><span class="math display">\[
+= 130.3
+\]</span></p>
+<p>This prediction translates the regression results into a practical forecast: with 100 units of influencer spend and 50 units of email spend, the team should expect about 131 conversions. The interaction term alone contributes roughly 73.5 of these conversions, which is more than the individual contributions from influencer or email spend. This shows that the combined effect of the two channels is a major driver of total conversions.</p>
+</section>
+<section id="iv.-in-a-few-sentences-how-do-you-interpret-the-interaction-effect-between-influencer-ad-spending-and-email-ad-spending-what-is-this-effect-showing-us" class="level5">
+<h5 class="anchored" data-anchor-id="iv.-in-a-few-sentences-how-do-you-interpret-the-interaction-effect-between-influencer-ad-spending-and-email-ad-spending-what-is-this-effect-showing-us">iv. In a few sentences, how do you interpret the interaction effect between influencer ad spending and email ad spending? What is this effect showing us?</h5>
+<p>The interaction effect shows that influencer spend becomes more effective when it is paired with an increase in email spend. Instead of operating independently, the two channels complement one another, meaning the impact of influencer campaigns increases when email marketing is also strong. For Lobster Land, this suggests that bundling influencer and email efforts will produce better conversion outcomes than investing in either channel on its own. One suggestion is that Lobster Land could boost results by running influencer promotions that drive users to sign up for an email offer, then following up with targeted emails that convert that traffic into purchases.</p>
+</section>
+</section>
+<section id="g.-find-an-example-or-make-up-an-example-of-an-interaction-term-in-a-model-this-can-be-from-the-world-of-marketing-or-from-anywhere-else.-a-very-good-answer-to-the-last-part-of-this-question-will-include-some-genuine-reaction-from-you-finding-an-example-of-an-interaction-effect-is-only-a-half-credit-answer-here." class="level4">
+<h4 class="anchored" data-anchor-id="g.-find-an-example-or-make-up-an-example-of-an-interaction-term-in-a-model-this-can-be-from-the-world-of-marketing-or-from-anywhere-else.-a-very-good-answer-to-the-last-part-of-this-question-will-include-some-genuine-reaction-from-you-finding-an-example-of-an-interaction-effect-is-only-a-half-credit-answer-here.">g. Find an example, or make up an example, of an interaction term in a model (this can be from the world of marketing, or from anywhere else). A very good answer to the last part of this question will include some genuine reaction from you – finding an example of an interaction effect is only a ‘half-credit’ answer here.</h4>
+<section id="i.-in-a-3-5-sentence-paragraph-describe-what-you-found-or-invented.-what-are-the-variables-that-make-up-this-interactions-is-the-effect-of-their-interaction-on-the-outcome-positive-or-negative-how-do-you-feel-about-the-interaction-does-it-make-sense-to-you-or-does-it-surprise-you" class="level5">
+<h5 class="anchored" data-anchor-id="i.-in-a-3-5-sentence-paragraph-describe-what-you-found-or-invented.-what-are-the-variables-that-make-up-this-interactions-is-the-effect-of-their-interaction-on-the-outcome-positive-or-negative-how-do-you-feel-about-the-interaction-does-it-make-sense-to-you-or-does-it-surprise-you">i. In a 3-5 sentence paragraph describe what you found (or invented). What are the variables that make up this interactions? Is the effect of their interaction on the outcome positive, or negative? How do you feel about the interaction? Does it make sense to you? Or does it surprise you?</h5>
+<p>I revisited the previous example of interaction between price promotions and seasonality, and it feels especially relevant with Thanksgiving, Black Friday, and Christmas coming up. A discount on its own usually increases sales, but the effect shifts depending on how strong natural demand already is. During this holiday period, people are already motivated to shop for gifts, so promotions often create a smaller incremental lift compared to slower months when a discount can genuinely change purchase behavior. I also notice this firsthand during Black Friday, which is considered the biggest shopping holiday in the U.S. Brands advertise massive 30 to 70 percent discounts, but when I actually go into stores or shop online, the “big sale” items are often past-season inventory, while newer items are excluded from the promotion, so the real savings feel much smaller than advertised. It makes me realize that timing, product mix, and shopper expectations all interact with the promotion itself, which explains why the true effect isn’t always as strong as it looks on paper.</p>
+</section>
+</section>
+</section>
+<section id="part-iii-wildcard-google-trends" class="level3">
+<h3 class="anchored" data-anchor-id="part-iii-wildcard-google-trends">Part III: Wildcard: Google Trends</h3>
+<p>I chose Uber Eats vs.&nbsp;DoorDash, two of the most popular food delivery apps, for my Google Trends comparison. As a student who’s at times too busy to cook and doesn’t own a car, these food delivery apps are very convenient, and since I personally use Uber Eats far more often, I expected its search interest to dominate. To my surprise, the trend data showed that DoorDash actually comes out on top overall. I also adjusted the timeframe to the past 90 days since we’re entering the transition from fall to winter, when people tend to order delivery more during colder weather.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="time_series_interaction_model_files/figure-html/9e4aa523-583c-42be-a115-956fc4db819c-1-02b40c11-35a3-42db-8687-6338d59d82c2.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+<p>From the Google Trends map, DoorDash shows clear nationwide dominance, while Uber Eats has slightly higher relative interest in places such as Hawaii, Washington D.C., New York, Florida, and Connecticut, though still only accounting for around 29% to 36% of total search interest.</p>
+<p>One major factor that helps explain DoorDash’s widespread popularity is its strategic partnerships—particularly with large banks. For example, Bank of America offers a full free year of DashPass membership to Gold-tier customers, which dramatically reduces delivery fees and encourages frequent use. Because Bank of America operates nationally and has a large customer base, this partnership likely boosts DoorDash’s popularity across the U.S. far more consistently than Uber Eats. Meanwhile, Uber Eats’ slightly stronger pockets of interest make sense in dense urban areas where people already use Uber all the time, so the food delivery app feels familiar and easy to adopt. For example, in New York City many people rely on Uber for transportation, so it makes sense that this familiarity leads to higher interest in Uber Eats compared to other states.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="time_series_interaction_model_files/figure-html/2f41518e-14fc-4c56-aad7-9709904c49ba-1-eec4db61-02b0-42f1-bff1-eb87d8cf5a78.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+</section>
+<section id="uber-eats" class="level3">
+<h3 class="anchored" data-anchor-id="uber-eats">Uber Eats:</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="time_series_interaction_model_files/figure-html/2610f210-8cd1-4492-8c99-4f93b71b57ff-2-b45ad26b-2671-4c3f-b733-8e18f4a683d0.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+<p>The top rising related query for Uber Eats is “uber eats student discount,” which has surged by 120 percent. This shows that students are actively looking for cheaper delivery options, especially during busy school months when they rely on convenience but still need to save money. As a student myself, this search trend makes sense because Uber has recently promoted discounted Uber One memberships for students, which naturally drives more searches.</p>
+</section>
+<section id="doordash" class="level3">
+<h3 class="anchored" data-anchor-id="doordash">DoorDash:</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="time_series_interaction_model_files/figure-html/2610f210-8cd1-4492-8c99-4f93b71b57ff-1-8493ef85-8e3a-47cb-9608-4dba63074da1.png" class="img-fluid figure-img"></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+<p>Four out of five rising related queries for DoorDash are tied to the phrase “doordash girl,” which is clearly tied to a viral clip that has been circulating on social media. The huge spike in searches, jumping by +2,500%, shows how quickly online scandal/hot topic can spill over into brand-related search behavior even when it has nothing to do with the service itself. It’s interesting to see how a single viral moment can overshadow more practical or brand-focused searches.</p>
+<p><strong>Implementation:</strong> <br> Google Trends is really valuable for marketers because it shows what people are actually searching for in real time. For example, I noticed recently that DoorDash’s related queries were mostly about a viral “doordash girl”, which is clearly driven by social media rather than anything related to the company’s actual service, showing how quickly online trends can distort what people are looking for. A marketer could use this to adjust their approach, either address the trend if it’s affecting the brand, or redirect focus toward promos, loyalty programs, or partnerships. With Uber Eats, the surge in searches for student discounts shows clear interest in saving money, giving marketers an significant opportunity to target students with specific campaigns such as giving out monthly discounts towards the end of the month or student discount monthly memberships. Another practical use is timing: since Uber Eats showed pockets of higher interest in major cities, marketers could tailor region-specific promotions in areas where the app naturally has stronger recognition.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/nhattran309\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
