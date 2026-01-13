@@ -1,3 +1,8 @@
 ---
-title: "Python Coursework & Notebooks"
+title: "Python Notebooks"
+listing:
+  contents: python_notebooks
+  type: grid
+  fields: [title, image]
 ---
+
