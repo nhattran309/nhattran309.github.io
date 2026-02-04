@@ -43,7 +43,7 @@ Verified certifications that demonstrate expertise in technology, data analytics
     </p>
 
     <p>
-      <a href="https://www.credly.com/badges/263bd76c-681d-4e37-ab01-06edee26c825/public_url" target="_blank" class="btn btn-outline-success btn-sm">View Credential</a>
+      <a href="https://portal.bloombergforeducation.com/certificates/5zg8XS1796gJuw8RcChHkRx9" target="_blank" class="btn btn-outline-success btn-sm">View Credential</a>
     </p>
   </div>
 </div>
