@@ -20,9 +20,56 @@ I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston Un
 
 I’m passionate about turning raw data into actionable insights that solve real-world business problems, uncover market trends, and create tools that make complex information easy to understand. Outside of work, I love exploring the world through travel, photography, and trying new cuisines, often visiting local restaurants to discover hidden gems.
 
+```{=html}
+<div class="card bg-light mb-3">
+<div class="card-header text-white bg-primary fs-5 fw-bold">
+    Through My Lens
+  </div>
+
+  <div class="card-body">
+    <p class="card-text">
+      <em>A few moments I’ve captured from my hometown, travels, and life in Boston.</em>
+    </p>
+
+    <div class="photo-viewer mb-2">
+      <img
+        id="interest-photo"
+        src="image/photo1.JPG"
+        alt="Photography by Nhat"
+        class="img-fluid"
+      >
+    </div>
+
+    <div class="btn-toolbar justify-content-center mt-2" role="toolbar" aria-label="Photo selector">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-secondary active" onclick="showPhoto(1)">1</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(2)">2</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(3)">3</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(4)">4</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(5)">5</button>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
 ---
 
 ## Contact
 
 For inquiries or collaboration, please visit 
 <a href="contact.qmd" class="btn btn-outline-info btn-sm" style="margin-left:0.5rem;">Contact</a> — happy to connect anytime :)
+
+```{=html}
+<script>
+  function showPhoto(num) {
+    // Update image source
+    document.getElementById("interest-photo").src = `image/photo${num}.JPG`;
+
+    // Update active button state
+    const buttons = document.querySelectorAll(".btn-group .btn");
+    buttons.forEach(btn => btn.classList.remove("active"));
+    buttons[num - 1].classList.add("active");
+  }
+</script>
+```
