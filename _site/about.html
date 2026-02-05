@@ -195,9 +195,15 @@ ul.task-list li input[type="checkbox"] {
   <div class="card-body text-center">
 
     <!-- Photo -->
-    <div class="photo-viewer d-flex justify-content-center mb-2">
-      <img id="interest-photo" src="image/photo1.JPG" alt="Photography by Nhat" class="img-fluid" style="width:70%;">
-    </div>
+<div class="photo-viewer d-flex justify-content-center mb-2">
+  <div class="text-center">
+    <img id="interest-photo" src="image/photo1.JPG" alt="Photography by Nhat" class="img-fluid" style="width:70%;">
+
+    <p id="photo-caption" class="text-muted fst-italic mt-2">
+      A small corner of Hanoi, where I grew up.
+    </p>
+  </div>
+</div>
 
     <!-- Pagination-style buttons -->
     <div class="d-flex justify-content-center">
@@ -252,14 +258,10 @@ ul.task-list li input[type="checkbox"] {
     }
   };
 
-  function showPhoto(num, btn) {
+  function showPhoto(num) {
     document.getElementById("interest-photo").src = photoData[num].src;
-    document.getElementById("photo-caption").textContent = photoData[num].caption;
-
-    document.querySelectorAll(".btn-group .btn").forEach(b =>
-      b.classList.remove("active")
-    );
-    btn.classList.add("active");
+    document.getElementById("photo-caption").textContent =
+      photoData[num].caption;
   }
 </script>
 
