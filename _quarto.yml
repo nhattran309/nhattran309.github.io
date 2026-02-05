@@ -27,6 +27,15 @@ website:
         href: cv.qmd
       - text: Contact
         href: contact.qmd
+    
+    right:
+      - icon: github
+        href: https://github.com/nhattran309
+        aria-label: GitHub
+
+      - icon: linkedin
+        href: https://www.linkedin.com/in/nhat-tran-30999/
+        aria-label: LinkedIn
 
 format:
   html:
