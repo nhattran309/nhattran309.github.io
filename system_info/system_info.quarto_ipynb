@@ -1,0 +1,48 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Assignment 01\"\n",
+        "subtitle: \"System Information Proof\"\n",
+        "author: \"Nhat Tran\"\n",
+        "format: \n",
+        "  docx: default\n",
+        "---"
+      ],
+      "id": "6b62adf6"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import platform\n",
+        "import psutil\n",
+        "\n",
+        "print(\"Operating System:\", platform.system(), platform.release())\n",
+        "print(\"Python Version:\", platform.python_version())\n",
+        "print(\"Machine:\", platform.machine())\n",
+        "print(\"Processor:\", platform.processor())\n",
+        "\n",
+        "mem = psutil.virtual_memory()\n",
+        "print(\"Total Memory (MB):\", round(mem.total / (1024**2), 2))\n",
+        "print(\"Available Memory (MB):\", round(mem.available / (1024**2), 2))"
+      ],
+      "id": "6e631ab3",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/nhattran/Downloads/MSBA/fall25/METAD688 - Cloud Analytics for Business/repository/nhattran309.github.io/.venv/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
