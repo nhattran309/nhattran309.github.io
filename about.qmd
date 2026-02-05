@@ -20,35 +20,54 @@ I’m currently pursuing my Master’s in Business Analytics (MSBA) at Boston Un
 
 I’m passionate about turning raw data into actionable insights that solve real-world business problems, uncover market trends, and create tools that make complex information easy to understand. Outside of work, I love exploring the world through travel, photography, and trying new cuisines, often visiting local restaurants to discover hidden gems.
 
+A few moments I’ve captured along the way — places and details that shape how I see the world.
+
 ```{=html}
 <div class="card bg-light mb-3">
-<div class="card-header text-white bg-primary fs-5 fw-bold">
+  <div class="card-header text-white bg-primary fs-5 fw-bold">
     Through My Lens
   </div>
 
-  <div class="card-body">
-    <p class="card-text">
-      <em>A few moments I’ve captured from my hometown, travels, and life in Boston.</em>
-    </p>
+  <div class="card-body text-center">
 
-    <div class="photo-viewer mb-2">
+    <!-- Photo -->
+    <div class="photo-viewer d-flex justify-content-center mb-2">
       <img
         id="interest-photo"
         src="image/photo1.JPG"
         alt="Photography by Nhat"
         class="img-fluid"
+        style="width:70%;"
       >
     </div>
 
-    <div class="btn-toolbar justify-content-center mt-2" role="toolbar" aria-label="Photo selector">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn btn-outline-secondary active" onclick="showPhoto(1)">1</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(2)">2</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(3)">3</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(4)">4</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="showPhoto(5)">5</button>
+    <!-- Caption -->
+    <p id="photo-caption" class="text-center text-muted fst-italic mb-3">
+      A quiet moment from my hometown that shaped how I see the world.
+    </p>
+
+    <!-- Pagination-style buttons -->
+    <div class="d-flex justify-content-center">
+      <div class="btn-group" role="group" aria-label="Photo pagination">
+
+        <input type="radio" class="btn-check" name="photo-radio" id="photo1" autocomplete="off" checked>
+        <label class="btn btn-outline-secondary" for="photo1" onclick="showPhoto(1)">1</label>
+
+        <input type="radio" class="btn-check" name="photo-radio" id="photo2" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="photo2" onclick="showPhoto(2)">2</label>
+
+        <input type="radio" class="btn-check" name="photo-radio" id="photo3" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="photo3" onclick="showPhoto(3)">3</label>
+
+        <input type="radio" class="btn-check" name="photo-radio" id="photo4" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="photo4" onclick="showPhoto(4)">4</label>
+
+        <input type="radio" class="btn-check" name="photo-radio" id="photo5" autocomplete="off">
+        <label class="btn btn-outline-secondary" for="photo5" onclick="showPhoto(5)">5</label>
+
       </div>
     </div>
+
   </div>
 </div>
 ```
@@ -62,14 +81,37 @@ For inquiries or collaboration, please visit
 
 ```{=html}
 <script>
-  function showPhoto(num) {
-    // Update image source
-    document.getElementById("interest-photo").src = `image/photo${num}.JPG`;
+  const photoData = {
+    1: {
+      src: "image/photo1.JPG",
+      caption: "A small corner of Hanoi, where I grew up."
+    },
+    2: {
+      src: "image/photo2.JPG",
+      caption: "Watching my parents walk through Antelope Canyon, Arizona."
+    },
+    3: {
+      src: "image/photo3.JPG",
+      caption: "An early morning grocery run at Con Dao market."
+    },
+    4: {
+      src: "image/photo4.JPG",
+      caption: "Spring blossoms in Washington, D.C."
+    },
+    5: {
+      src: "image/photo5.JPG",
+      caption: "Boston University’s CDS building during finals week."
+    }
+  };
 
-    // Update active button state
-    const buttons = document.querySelectorAll(".btn-group .btn");
-    buttons.forEach(btn => btn.classList.remove("active"));
-    buttons[num - 1].classList.add("active");
+  function showPhoto(num, btn) {
+    document.getElementById("interest-photo").src = photoData[num].src;
+    document.getElementById("photo-caption").textContent = photoData[num].caption;
+
+    document.querySelectorAll(".btn-group .btn").forEach(b =>
+      b.classList.remove("active")
+    );
+    btn.classList.add("active");
   }
 </script>
 ```
