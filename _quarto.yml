@@ -2,7 +2,7 @@ project:
   type: website
   resources:
     - image/photo1.JPG
-    - image/photo2.JPG
+    - image/photo2b.JPG
     - image/photo3.JPG
     - image/photo4.JPG
     - image/photo5.JPG
