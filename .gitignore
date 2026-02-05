@@ -4,5 +4,5 @@ Assignment01
 _site/
 .Rhistory
 *.log
-.venv/
+.venv
 
