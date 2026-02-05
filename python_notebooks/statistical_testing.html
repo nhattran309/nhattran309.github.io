@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistical Testing</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="statistical_testing_files/libs/clipboard/clipboard.min.js"></script>
+<script src="statistical_testing_files/libs/quarto-html/quarto.js"></script>
+<script src="statistical_testing_files/libs/quarto-html/popper.min.js"></script>
+<script src="statistical_testing_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="statistical_testing_files/libs/quarto-html/anchor.min.js"></script>
+<link href="statistical_testing_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="statistical_testing_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="statistical_testing_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="statistical_testing_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="statistical_testing_files/libs/bootstrap/bootstrap-973236bd072d72a04ee9cd82dcc9cb29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Statistical Testing</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Conducted A/B testing and statistical analysis to evaluate how different app versions impact user spending and retention using Python. Applied hypothesis testing (ANOVA, binomial z-tests, chi-square) to identify significant differences in long-term engagement and validate data-driven product recommendations.</p>
+<section id="part-i-ab-testing-for-user-spending" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-ab-testing-for-user-spending">Part I: A/B Testing for User Spending</h2>
+<div id="ce1e0ff1-2a64-4a74-87a6-aee9e826099e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary functions to use</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chisquare</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c538b01d-da3c-4968-a610-2dd76812e1aa" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lobster_run <span class="op">=</span> pd.read_csv(<span class="st">"data/lobster_run.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="57321bf6-1106-4eb4-8b8f-f24ab5c574ae" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lobster_run.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">userid</th>
+<th data-quarto-table-cell-role="th">version</th>
+<th data-quarto-table-cell-role="th">sum_gamerounds</th>
+<th data-quarto-table-cell-role="th">retention_1</th>
+<th data-quarto-table-cell-role="th">retention_7</th>
+<th data-quarto-table-cell-role="th">user_spend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>Gulf of Maine</td>
+<td>3</td>
+<td>False</td>
+<td>False</td>
+<td>17.09</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>Gulf of Maine</td>
+<td>38</td>
+<td>True</td>
+<td>False</td>
+<td>15.30</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>7</td>
+<td>Gulf of Maine</td>
+<td>0</td>
+<td>False</td>
+<td>False</td>
+<td>13.67</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>12</td>
+<td>Gulf of Maine</td>
+<td>0</td>
+<td>False</td>
+<td>False</td>
+<td>16.92</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>14</td>
+<td>Gulf of Maine</td>
+<td>39</td>
+<td>True</td>
+<td>False</td>
+<td>8.42</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="3be21e43-c044-4de1-aab4-d69b0b71645a" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lobster_run.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>userid            0
+version           0
+sum_gamerounds    0
+retention_1       0
+retention_7       0
+user_spend        0
+dtype: int64</code></pre>
+</div>
+</div>
+<div id="e8b1b2c9-fc5a-43fe-8b68-fe63a8a68fc1" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lobster_run.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 90189 entries, 0 to 90188
+Data columns (total 6 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   userid          90189 non-null  int64  
+ 1   version         90189 non-null  object 
+ 2   sum_gamerounds  90189 non-null  int64  
+ 3   retention_1     90189 non-null  bool   
+ 4   retention_7     90189 non-null  bool   
+ 5   user_spend      90189 non-null  float64
+dtypes: bool(2), float64(1), int64(2), object(1)
+memory usage: 2.9+ MB</code></pre>
+</div>
+</div>
+<div id="f05348ae-6c8b-44b6-9d16-48eb9d590d9f" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change datatype of version in the dataset to categorical variable</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lobster_run[[<span class="st">'version'</span>]] <span class="op">=</span> lobster_run[[<span class="st">'version'</span>]].astype(<span class="st">'category'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>lobster_run.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 90189 entries, 0 to 90188
+Data columns (total 6 columns):
+ #   Column          Non-Null Count  Dtype   
+---  ------          --------------  -----   
+ 0   userid          90189 non-null  int64   
+ 1   version         90189 non-null  category
+ 2   sum_gamerounds  90189 non-null  int64   
+ 3   retention_1     90189 non-null  bool    
+ 4   retention_7     90189 non-null  bool    
+ 5   user_spend      90189 non-null  float64 
+dtypes: bool(2), category(1), float64(1), int64(2)
+memory usage: 2.3 MB</code></pre>
+</div>
+</div>
+<div id="d634a540-04f4-4a93-a0a3-d6ada9450246" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lobster_run.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">userid</th>
+<th data-quarto-table-cell-role="th">sum_gamerounds</th>
+<th data-quarto-table-cell-role="th">user_spend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">count</td>
+<td>90189.000000</td>
+<td>90189.000000</td>
+<td>90189.000000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">mean</td>
+<td>45095.000000</td>
+<td>51.872457</td>
+<td>15.015899</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">std</td>
+<td>26035.466051</td>
+<td>195.050858</td>
+<td>2.747268</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">min</td>
+<td>1.000000</td>
+<td>0.000000</td>
+<td>4.050000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25%</td>
+<td>22548.000000</td>
+<td>5.000000</td>
+<td>13.170000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">50%</td>
+<td>45095.000000</td>
+<td>16.000000</td>
+<td>15.010000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">75%</td>
+<td>67642.000000</td>
+<td>51.000000</td>
+<td>16.870000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">max</td>
+<td>90189.000000</td>
+<td>49854.000000</td>
+<td>28.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="6f33c27a-a0f1-4991-a6f1-c63b1f570b5c" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the row with the maximum sum_gamerounds</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>max_rounds <span class="op">=</span> lobster_run.loc[lobster_run[<span class="st">'sum_gamerounds'</span>].idxmax()]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(max_rounds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>userid                    57703
+version           Gulf of Maine
+sum_gamerounds            49854
+retention_1               False
+retention_7               False
+user_spend                13.36
+Name: 28650, dtype: object</code></pre>
+</div>
+</div>
+<div id="8a8fffcf-e969-485e-8de4-bc2faed5a06c" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter rows where sum_gamerounds &gt; 2000</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>high_rounds <span class="op">=</span> lobster_run[lobster_run[<span class="st">'sum_gamerounds'</span>] <span class="op">&gt;</span> <span class="dv">2000</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(high_rounds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       userid         version  sum_gamerounds  retention_1  retention_7  \
+3927     7913   Gulf of Maine            2961         True        False   
+21685   43672   Gulf of Maine            2438         True        False   
+23037   46345   Gulf of Maine            2251         True        False   
+28650   57703   Gulf of Maine           49854        False        False   
+43118   87008   Gulf of Maine            2156         True        False   
+47967    6537  North Atlantic            2015         True         True   
+59444   29418  North Atlantic            2640         True        False   
+63193   36934  North Atlantic            2124         True         True   
+68948   48189  North Atlantic            2294         True         True   
+89253   88329  North Atlantic            2063         True         True   
+
+       user_spend  
+3927        11.28  
+21685       12.57  
+23037       18.00  
+28650       13.36  
+43118       17.68  
+47967       10.41  
+59444       15.47  
+63193       15.37  
+68948       16.28  
+89253       18.10  </code></pre>
+</div>
+</div>
+<div id="ac5d25ee-ec78-4c4a-a3ac-faa0b6e578be" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter rows where sum_gamerounds &gt; 3000</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>high_rounds <span class="op">=</span> lobster_run[lobster_run[<span class="st">'sum_gamerounds'</span>] <span class="op">&gt;</span> <span class="dv">3000</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(high_rounds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       userid        version  sum_gamerounds  retention_1  retention_7  \
+28650   57703  Gulf of Maine           49854        False        False   
+
+       user_spend  
+28650       13.36  </code></pre>
+</div>
+</div>
+<div id="90a04638-0dd3-44a9-827c-c194a7da2d12" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>max_spend <span class="op">=</span> lobster_run.loc[lobster_run[<span class="st">'user_spend'</span>].idxmax()]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(max_spend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>userid                     35202
+version           North Atlantic
+sum_gamerounds                42
+retention_1                False
+retention_7                False
+user_spend                  28.0
+Name: 62331, dtype: object</code></pre>
+</div>
+</div>
+<p>After running some basic checks on the dataset, I noticed an extreme outlier in sum_gamerounds - a value of 49,854 for userid = 57703, which is the only record exceeding 3,000 rounds. What’s interesting is that this user’s user_spend is actually lower than the average, and they didn’t return to the app after one day (retention_1) or seven days (retention_7) following the download. This would mean the user supposedly completed nearly 50,000 game rounds in a single day, which is highly unrealistic. It’s likely due to a data error or possibly a case of hacking. Because this outlier is so extreme compared to other high-ranking users and this is a large dataset (90189 entries), I decided to remove it to avoid distorting the analysis.</p>
+<div id="aa9c8901-d8c5-423c-aa6c-08972a52f0eb" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lobster_run <span class="op">=</span> lobster_run[lobster_run[<span class="st">'sum_gamerounds'</span>] <span class="op">&lt;=</span> <span class="dv">3000</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="generate-a-histogram-to-view-the-user_spend-variable." class="level4">
+<h4 class="anchored" data-anchor-id="generate-a-histogram-to-view-the-user_spend-variable.">Generate a histogram to view the user_spend variable.</h4>
+<div id="a09aba1e-b489-4016-bcce-ad9953219885" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.hist(lobster_run[<span class="st">'user_spend'</span>], bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of User Spend'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'User Spend (USD)'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Users'</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="statistical_testing_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Distribution of User Spend histogram shows a clear bell-shaped pattern centered around $15, indicating that most users spend roughly this amount in the app. The distribution is fairly symmetric, with fewer users spending much less or more - ranging from less than \$5 to more than \$25, suggesting that spending behavior is consistent across the player base. Understanding this distribution can help the Lobster Land team design pricing strategies and in-app offers that align with typical user spending habits.</p>
+</section>
+<section id="generate-another-histogram-that-depicts-user_spend-but-this-time-use-version-as-a-color-or-hue-variable." class="level4">
+<h4 class="anchored" data-anchor-id="generate-another-histogram-that-depicts-user_spend-but-this-time-use-version-as-a-color-or-hue-variable.">Generate another histogram that depicts user_spend, but this time, use version as a color or hue variable.</h4>
+<div id="20be3701-b418-425d-a6c6-5458e4095848" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram with hue by version</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>lobster_run, x<span class="op">=</span><span class="st">'user_spend'</span>, hue<span class="op">=</span><span class="st">'version'</span>, bins<span class="op">=</span><span class="dv">50</span>, palette<span class="op">=</span><span class="st">'Set2'</span>, multiple<span class="op">=</span><span class="st">'stack'</span>, stat<span class="op">=</span><span class="st">'count'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'User Spend Distribution by Version'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'User Spend (USD)'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Users'</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="statistical_testing_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The User Spend Distribution by Version histogram shows the distribution of user spend by Gulf of Maine vs.&nbsp;North Atlantic version, with both versions following a similar bell-shaped pattern centered around $15. However, users of the Gulf of Maine version appear to spend slightly more on average than those using the North Atlantic version. This suggests that the Gulf of Maine version may encourage higher in-app spending or greater engagement among players. The overall similarity shape between the two distributions indicates that spending behavior is consistent across versions, with only modest differences in average spend.</p>
+</section>
+<section id="conduct-a-statistical-test-to-check-whether-the-user_spend-variable-is-normally-distributed." class="level4">
+<h4 class="anchored" data-anchor-id="conduct-a-statistical-test-to-check-whether-the-user_spend-variable-is-normally-distributed.">Conduct a statistical test to check whether the user_spend variable is normally distributed.</h4>
+<div id="0dc2138c-6dd5-4308-a1fe-59c50c785580" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run statistical test to check if user_spend is normally distributed</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>uspend_result <span class="op">=</span> stats.normaltest(lobster_run[<span class="st">'user_spend'</span>])</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic = </span><span class="sc">{</span>uspend_result<span class="sc">.</span>statistic<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value   = </span><span class="sc">{</span>uspend_result<span class="sc">.</span>pvalue<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistic = 0.2353
+p-value   = 0.8890</code></pre>
+</div>
+</div>
+<p>The test’s null hypothesis: <br> H0: The user_spend variable is normally distributed. <br> H1: The user_spend variable is not normally distributed. <br></p>
+<p>This hypothesis tests whether the observed distribution of user_spend significantly deviates from a normal distribution, which is important for determining if standard statistical methods can be appropriately applied. Under H0, any deviation from normality is due to random variation, implying the data follow a normal pattern. Under H1, the deviations are systematic, indicating that user spend is not normally distributed.</p>
+<div id="66e0b374-f6d8-4a6f-a922-8457a883e8cc" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> uspend_result.pvalue <span class="op">&gt;</span> alpha:</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject H0: user_spend looks normally distributed."</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject H0: user_spend is not normally distributed."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fail to reject H0: user_spend looks normally distributed.</code></pre>
+</div>
+</div>
+<p>Since the p-value = 0.8890, much greater than the common significance level of 0.05 - the test fail to reject the null hypothesis. This indicates that there is no strong statistical evidence suggesting the Lobster Land’s user spending deviates from normality.</p>
+</section>
+<section id="next-conduct-an-appropriate-statistical-test-to-check-whether-version-has-a-significant-impact-on-user-spending.-you-can-use-any-alpha-value-that-you-prefer-to-use-for-the-significance-threshold." class="level4">
+<h4 class="anchored" data-anchor-id="next-conduct-an-appropriate-statistical-test-to-check-whether-version-has-a-significant-impact-on-user-spending.-you-can-use-any-alpha-value-that-you-prefer-to-use-for-the-significance-threshold.">Next, conduct an appropriate statistical test to check whether version has a significant impact on user spending. You can use any alpha value that you prefer to use for the significance threshold.</h4>
+<div id="4c33f0b0-a091-4669-a31a-a997ea6e07c9" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract places from version where player begins</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>gulf_of_maine_spend <span class="op">=</span> lobster_run[lobster_run[<span class="st">'version'</span>] <span class="op">==</span> <span class="st">'Gulf of Maine'</span>][<span class="st">'user_spend'</span>]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>north_atlantic_spend <span class="op">=</span> lobster_run[lobster_run[<span class="st">'version'</span>] <span class="op">==</span> <span class="st">'North Atlantic'</span>][<span class="st">'user_spend'</span>]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform one-way Analysis of Variance (ANOVA) to compare user_spend across 2 versions</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>version_anova <span class="op">=</span> stats.f_oneway(gulf_of_maine_spend, north_atlantic_spend)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Statistic = </span><span class="sc">{</span>version_anova<span class="sc">.</span>statistic<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value   = </span><span class="sc">{</span>version_anova<span class="sc">.</span>pvalue<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistic = 2.5264
+p-value   = 0.1120</code></pre>
+</div>
+</div>
+<p>The test’s null hypothesis: <br> H0: The mean user_spend is equal between Gulf of Maine and North Atlantic versions. <br> H1: The mean user_spend is different between the two versions. <br> In this analysis, I tested whether the product version (Gulf of Maine vs.&nbsp;North Atlantic) had a statistically significant effect on user spending. The null hypothesis (H0) assumed that the average user_spend was the same for both versions.</p>
+<div id="a94c0e24-7026-4c04-b64a-fa5683188287" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> version_anova.pvalue <span class="op">&gt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject H0: No significant difference in user_spend between versions."</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject H0: Version has a significant impact on user_spend."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fail to reject H0: No significant difference in user_spend between versions.</code></pre>
+</div>
+</div>
+<p>The ANOVA is chosen in this case because it allows me to compare the means of the user_spend variable across two product versions (Gulf of Maine and North Atlantic) to see if any observed differences are statistically significant. The test produced an F-statistic of 2.5264 and a p-value of 0.1120. Since the p-value is greater than the 0.05 significance level, I failed to reject the null hypothesis. This suggests that there isn’t a meaningful difference in average user spending between the two product versions, and any variation observed is likely due to random chance rather than an actual version effect.</p>
+</section>
+</section>
+<section id="part-ii-ab-testing-two-app-versions" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-ab-testing-two-app-versions">Part II: A/B Testing Two App Versions</h2>
+<section id="generate-some-summary-stats-here-group-the-observations-by-versionand-then-compare-the-retention_1-and-the-retention_7-outcomes." class="level4">
+<h4 class="anchored" data-anchor-id="generate-some-summary-stats-here-group-the-observations-by-versionand-then-compare-the-retention_1-and-the-retention_7-outcomes.">Generate some summary stats here – group the observations by ’version’and then compare the retention_1 and the retention_7 outcomes.</h4>
+<div id="9646400a-c18b-4c81-b009-040c072dd404" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>retention_summary <span class="op">=</span> lobster_run.groupby(<span class="st">'version'</span>,observed<span class="op">=</span><span class="va">True</span>)[[<span class="st">'retention_1'</span>, <span class="st">'retention_7'</span>]].mean().<span class="bu">round</span>(<span class="dv">6</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(retention_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                retention_1  retention_7
+version                                 
+Gulf of Maine      0.448198      0.19562
+North Atlantic     0.442283      0.18200</code></pre>
+</div>
+</div>
+<p>From the results, the average retention rates for both Day 1 and Day 7 are slightly higher in the Gulf of Maine version compared to the North Atlantic version. - <strong>Day 1 retention:</strong> Gulf of Maine (44.82%) vs.&nbsp;North Atlantic (44.23%) - <strong>Day 7 retention:</strong> Gulf of Maine (19.56%) vs.&nbsp;North Atlantic (18.20%) <br></p>
+<p>Although the differences are minimal, the fact that they appear at both time points hints at a subtle but consistent pattern. Users of the Gulf of Maine version might be finding something slightly more engaging or user-friendly, which helps keep them around a bit longer. While this isn’t enough to draw firm conclusions without a statistical test, the trend suggests there could be small design or content differences that make the Gulf of Maine version more appealing over time.</p>
+</section>
+<section id="use-a-binomial-z-test-to-compare-retention_1-between-the-two-versions-of-the-game" class="level4">
+<h4 class="anchored" data-anchor-id="use-a-binomial-z-test-to-compare-retention_1-between-the-two-versions-of-the-game">Use a binomial z-test to compare retention_1 between the two versions of the game</h4>
+<div id="03b575a3-8958-4b56-ad98-89a25bcdde58" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.proportion <span class="im">import</span> proportions_ztest</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Count retained users per version</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>retained_count_rt1 <span class="op">=</span> lobster_run.groupby(<span class="st">'version'</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">'retention_1'</span>].<span class="bu">sum</span>()</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Retained users (retention_1):"</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(retained_count_rt1)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Count total users per version</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>user_total_rt1 <span class="op">=</span> lobster_run.groupby(<span class="st">'version'</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">'retention_1'</span>].count()</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total users per version (retention_1):"</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(user_total_rt1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Retained users (retention_1):
+version
+Gulf of Maine     20034
+North Atlantic    20119
+Name: retention_1, dtype: int64
+
+Total users per version (retention_1):
+version
+Gulf of Maine     44699
+North Atlantic    45489
+Name: retention_1, dtype: int64</code></pre>
+</div>
+</div>
+<p>For retention day one, Gulf of Maine retained 20,034 out of 44,699 users, while North Atlantic retained 20,119 out of 45,489 users, showing nearly identical retention performance across both versions. This suggests that initial engagement is consistent regardless of which version users started with.</p>
+<div id="c507bd91-d7f0-4717-b744-7aa3fd7406a4" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run binomial z-test to compare the 2 versions</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>z_stat1, p_value1 <span class="op">=</span> proportions_ztest(count<span class="op">=</span>retained_count_rt1, nobs<span class="op">=</span>user_total_rt1)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binomial Z-Test Results (retention_1):"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Z-statistic = </span><span class="sc">{</span>z_stat1<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value     = </span><span class="sc">{</span>p_value1<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Binomial Z-Test Results (retention_1):
+Z-statistic = 1.7871
+p-value     = 0.0739</code></pre>
+</div>
+</div>
+<div id="59218024-4387-427f-9994-dee2a95d598e" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value1 <span class="op">&gt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject H0: No significant difference in day-1 retention between versions."</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject H0: Version has a significant impact on day-1 retention."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fail to reject H0: No significant difference in day-1 retention between versions.</code></pre>
+</div>
+</div>
+<p>The test’s null hypothesis: <br> H0: Day-1 retention rates are equal between Gulf of Maine and North Atlantic versions. <br> H1: Day-1 retention rates are different between versions. <br></p>
+<p>The results show a Z-statistic of 1.7871 and a p-value of 0.0739. Since this p-value is slightly above the 0.05 threshold, there isn’t enough evidence to say that the two versions differ in a statistically significant way. Though p-value is close enough to suggest a possible pattern. In other words, while the difference is not significant, it hints that the Gulf of Maine version might be performing a bit better, and Lobster Land should keep an eye on it for future marketing strategy.</p>
+</section>
+<section id="in-this-case-i-chose-a-slighly-better-performer-which-is-gulf-of-maine." class="level4">
+<h4 class="anchored" data-anchor-id="in-this-case-i-chose-a-slighly-better-performer-which-is-gulf-of-maine.">In this case, I chose a slighly better performer which is ‘Gulf of Maine’.</h4>
+<div id="5fe6b4fb-2265-40f4-b7f0-84ab7ade6230" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>gom_version <span class="op">=</span> <span class="st">'Gulf of Maine'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-the-number-of-users-of-your-chosen-version-who-stayed-with-the-game-for-one-day." class="level4">
+<h4 class="anchored" data-anchor-id="find-the-number-of-users-of-your-chosen-version-who-stayed-with-the-game-for-one-day.">Find the number of users of your chosen version who stayed with the game for one day.</h4>
+<div id="51566763-ba51-4c0b-bed9-f455f8d1658c" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The total users in Gulf of Maine version</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>gom_total <span class="op">=</span> lobster_run[lobster_run[<span class="st">'version'</span>] <span class="op">==</span> gom_version].shape[<span class="dv">0</span>]</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The total users in Gulf of Maine is: </span><span class="sc">{</span>gom_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out the retained users for Gulf of Maine after day 1</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>gom_retained1 <span class="op">=</span> lobster_run[(lobster_run[<span class="st">'version'</span>] <span class="op">==</span> gom_version) <span class="op">&amp;</span> </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    (lobster_run[<span class="st">'retention_1'</span>] <span class="op">==</span> <span class="va">True</span>)].shape[<span class="dv">0</span>]</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The actual retained users after Day 1 in Gulf of Maine is: </span><span class="sc">{</span>gom_retained1<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The total users in Gulf of Maine is: 44699
+The actual retained users after Day 1 in Gulf of Maine is: 20034</code></pre>
+</div>
+</div>
+</section>
+<section id="find-the-expected-number-of-users-who-would-have-stayed-with-the-game-for-one-day-if-your-null-hypothesis-were-true." class="level4">
+<h4 class="anchored" data-anchor-id="find-the-expected-number-of-users-who-would-have-stayed-with-the-game-for-one-day-if-your-null-hypothesis-were-true.">Find the expected number of users who would have stayed with the game for one day, if your null hypothesis were true.</h4>
+<div id="d0175d4c-adc7-4175-8377-e0c90140256c" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the average retention_1 rate across all users of Lobster Land</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>avg_retention1 <span class="op">=</span> lobster_run[<span class="st">'retention_1'</span>].mean()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The expected number of users from Gulf of Maine that stayed after one day if the hypothesis were true</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>expect_retained1 <span class="op">=</span> gom_total <span class="op">*</span> avg_retention1</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Round number of users to the nearest integer</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>expect_retained1_round <span class="op">=</span> <span class="bu">round</span>(expect_retained1)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The expected retained users in Gulf of Maine after Day 1 under H0: </span><span class="sc">{</span>expect_retained1_round<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The expected retained users in Gulf of Maine after Day 1 under H0: 19901</code></pre>
+</div>
+</div>
+<p>The expected value shows how many users from the Gulf of Maine version I would expect to stay after Day 1 if the version had no effect on retention. To calculate this, I multiplied the total number of Gulf of Maine users by the overall day 1 retention rate across all users. I used the overall rate because, under the null hypothesis, I assume retention is independent of version. This gives me a baseline to compare against the actual retention in Gulf of Maine and helps me assess whether the observed difference is meaningful.</p>
+<p>After the calculation, the expected retained users in Gulf of Maine after day 1 is 19901 users. This version retained 20,034 users, compared to the expected 19,901 under the null hypothesis, meaning it held on to about 133 more users than anticipated. While this difference is small relative to the total user base, it suggests a slight positive deviation in retention performance for Gulf of Maine.</p>
+</section>
+<section id="conduct-a-binomial-z-test-to-determine-whether-the-retention_1-for-the-version-you-chose-is-meaningfully-different-from-the-expected-number-given-your-null-hypothesis." class="level4">
+<h4 class="anchored" data-anchor-id="conduct-a-binomial-z-test-to-determine-whether-the-retention_1-for-the-version-you-chose-is-meaningfully-different-from-the-expected-number-given-your-null-hypothesis.">Conduct a binomial z-test to determine whether the retention_1 for the version you chose is meaningfully different from the expected number, given your null hypothesis.</h4>
+<div id="a035fd64-a5d3-47df-ac80-c23871c9f082" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run binomial z-test</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>z_stat, p_value <span class="op">=</span> proportions_ztest(count<span class="op">=</span>gom_retained1, nobs<span class="op">=</span>gom_total, value<span class="op">=</span>avg_retention1)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Print results</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binomial Z-Test for Gulf of Maine retention_1 vs expected under H0:"</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Z-statistic = </span><span class="sc">{</span>z_stat<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value     = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Binomial Z-Test for Gulf of Maine retention_1 vs expected under H0:
+Z-statistic = 1.2684
+p-value     = 0.2047</code></pre>
+</div>
+</div>
+<p>Based on the binomial z-test, the day 1 retention rate for the Gulf of Maine version does not differ significantly from what would be expected under the null hypothesis. The p-value of 0.2047 is greater than the conventional 0.05 threshold, so I fail to reject the null hypothesis. This result indicates that, given the available data, there isn’t sufficient evidence to conclude that the Gulf of Maine version has an effect on day 1 retention relative to the overall average. Lobster Land could improve this analysis by gathering more data or testing targeted design changes to better understand what drives early user retention.</p>
+</section>
+<section id="using-a-binomial-z-test-compare-the-retention_7-outcomes-for-the-two-app-versions." class="level4">
+<h4 class="anchored" data-anchor-id="using-a-binomial-z-test-compare-the-retention_7-outcomes-for-the-two-app-versions.">Using a binomial z-test, compare the retention_7 outcomes for the two app versions.</h4>
+<div id="ecd40944-5f08-4452-b62b-c3b5723734e4" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count retained users per version by retention_7</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>retained_count_rt7 <span class="op">=</span> lobster_run.groupby(<span class="st">'version'</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">'retention_7'</span>].<span class="bu">sum</span>()</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Retained users (retention_7):"</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(retained_count_rt7)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Count total users per version by retention 7</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>user_total_rt7 <span class="op">=</span> lobster_run.groupby(<span class="st">'version'</span>, observed<span class="op">=</span><span class="va">True</span>)[<span class="st">'retention_7'</span>].count()</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Total users per version (retention_7):"</span>)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(user_total_rt7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Retained users (retention_7):
+version
+Gulf of Maine     8744
+North Atlantic    8279
+Name: retention_7, dtype: int64
+
+Total users per version (retention_7):
+version
+Gulf of Maine     44699
+North Atlantic    45489
+Name: retention_7, dtype: int64</code></pre>
+</div>
+</div>
+<div id="e6597079-4848-4819-a388-c786a5b1158a" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run binomial z-test to compare the 2 versions</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>z_stat7, p_value7 <span class="op">=</span> proportions_ztest(count<span class="op">=</span>retained_count_rt7, nobs<span class="op">=</span>user_total_rt7)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binomial Z-Test Results (retention_7):"</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Z-statistic = </span><span class="sc">{</span>z_stat7<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value     = </span><span class="sc">{</span>p_value7<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Binomial Z-Test Results (retention_7):
+Z-statistic = 5.2260
+p-value     = 0.0000</code></pre>
+</div>
+</div>
+<div id="14663eb9-2b24-4d3b-ab2e-4304c26b23b8" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> p_value7 <span class="op">&gt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject H0: No significant difference in day-7 retention between versions."</span>)</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject H0: Version has a significant impact on day-7 retention."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reject H0: Version has a significant impact on day-7 retention.</code></pre>
+</div>
+</div>
+<p>The test’s null hypothesis: <br> H0: Day-7 retention rates are equal between Gulf of Maine and North Atlantic versions. <br> H1: Day-7 retention rates are different between versions. <br></p>
+<p>I conducted a binomial z-test to compare day-7 retention between the Gulf of Maine and North Atlantic versions. The p-value was approximately 0.000, which is well below the standard significance level of 0.05. Therefore, I reject the null hypothesis and conclude that there is a statistically significant difference in day-7 retention between the two versions. This result suggests that users playing the Gulf of Maine version are more likely to remain active after 7 days compared to those playing the North Atlantic version.</p>
+</section>
+<section id="i-still-chose-a-slighly-better-performer-which-is-gulf-of-maine." class="level4">
+<h4 class="anchored" data-anchor-id="i-still-chose-a-slighly-better-performer-which-is-gulf-of-maine.">I still chose a slighly better performer which is ‘Gulf of Maine’.</h4>
+<div id="e1e9b7fd-6e2a-4fdb-baf1-91d1418748fd" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gom_version <span class="op">=</span> <span class="st">'Gulf of Maine'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-the-number-of-users-of-your-chosen-version-who-stayed-with-the-game-for-one-day.-1" class="level4">
+<h4 class="anchored" data-anchor-id="find-the-number-of-users-of-your-chosen-version-who-stayed-with-the-game-for-one-day.-1">Find the number of users of your chosen version who stayed with the game for one day.</h4>
+<div id="4842761c-2a5a-4f02-b783-31c0c1ab9d3d" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter out the retained users for Gulf of Maine after day 1</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>gom_retained7 <span class="op">=</span> lobster_run[(lobster_run[<span class="st">'version'</span>] <span class="op">==</span> gom_version) <span class="op">&amp;</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    (lobster_run[<span class="st">'retention_7'</span>] <span class="op">==</span> <span class="va">True</span>)].shape[<span class="dv">0</span>]</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The actual retained users after Day 7 in Gulf of Maine is: </span><span class="sc">{</span>gom_retained7<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The actual retained users after Day 7 in Gulf of Maine is: 8744</code></pre>
+</div>
+</div>
+</section>
+<section id="find-the-expected-number-of-users-who-would-have-stayed-with-the-game-for-one-day-if-your-null-hypothesis-were-true.-1" class="level4">
+<h4 class="anchored" data-anchor-id="find-the-expected-number-of-users-who-would-have-stayed-with-the-game-for-one-day-if-your-null-hypothesis-were-true.-1">Find the expected number of users who would have stayed with the game for one day, if your null hypothesis were true.</h4>
+<div id="44cb361e-c634-484d-bc4a-696df80dbd2b" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the average retention 7 rate across all users of Lobster Land</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>avg_retention7 <span class="op">=</span> lobster_run[<span class="st">'retention_7'</span>].mean()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The expected number of users from Gulf of Maine that stayed after one day if the hypothesis were true</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>expect_retained7 <span class="op">=</span> gom_total <span class="op">*</span> avg_retention7</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Round number of users to the nearest integer</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>expect_retained7_round <span class="op">=</span> <span class="bu">round</span>(expect_retained7)</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The expected retained users in Gulf of Maine after Day 7 under H0: </span><span class="sc">{</span>expect_retained7_round<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The expected retained users in Gulf of Maine after Day 7 under H0: 8437</code></pre>
+</div>
+</div>
+<p>The expected value here refers to the number of Gulf of Maine users I would anticipate being retained under the null hypothesis (H0), which assumes that day‑7 retention in Gulf of Maine is the same as the overall average retention rate across all users.</p>
+<p>To calculate this, I take the total number of Gulf of Maine users and multiply by the overall day‑7 retention rate (the pooled proportion across both versions). This gives an expected retained count of 8,437 users. In other words, if Gulf of Maine behaved exactly like the overall user base, Lobster Land would expect about 8,437 users to remain by day 7.</p>
+</section>
+<section id="conduct-a-binomial-z-test-to-determine-whether-the-retention_1-for-the-version-you-chose-is-meaningfully-different-from-the-expected-number-given-your-null-hypothesis.-1" class="level4">
+<h4 class="anchored" data-anchor-id="conduct-a-binomial-z-test-to-determine-whether-the-retention_1-for-the-version-you-chose-is-meaningfully-different-from-the-expected-number-given-your-null-hypothesis.-1">Conduct a binomial z-test to determine whether the retention_1 for the version you chose is meaningfully different from the expected number, given your null hypothesis.</h4>
+<div id="52989d1a-56ec-44eb-8d42-8f44505d96e4" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run binomial z-test</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>z_stat, p_value <span class="op">=</span> proportions_ztest(count<span class="op">=</span>gom_retained7, nobs<span class="op">=</span>gom_total, value<span class="op">=</span>avg_retention7)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 6: Print results</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Binomial Z-Test for Gulf of Maine retention_7 vs expected under H0:"</span>)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Z-statistic = </span><span class="sc">{</span>z_stat<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"p-value     = </span><span class="sc">{</span>p_value<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Binomial Z-Test for Gulf of Maine retention_7 vs expected under H0:
+Z-statistic = 3.6613
+p-value     = 0.0003</code></pre>
+</div>
+</div>
+<p>The binomial z-test for Gulf of Maine’s day‑7 retention produced a Z‑statistic of 3.6613 with a p‑value of 0.0003, well below the 0.05 threshold, suggesting retention is higher than expected under the null hypothesis. Gulf of Maine retained 20,034 users by day 1 and continued to outperform expectations by day 7, with 8,437 users retained compared to the expected count.</p>
+<p>This suggests that while early retention looked similar across versions, Gulf of Maine is delivering a stronger long‑term engagement advantage. For Lobster Land, this is a clear signal that the Gulf of Maine version could be leveraged more aggressively in marketing and product strategy.</p>
+</section>
+<section id="recommendations-for-lobster-land-based-on-the-overall-results-that-you-have-found-from-the-super-lobster-run-data-and-the-statistical-tests." class="level4">
+<h4 class="anchored" data-anchor-id="recommendations-for-lobster-land-based-on-the-overall-results-that-you-have-found-from-the-super-lobster-run-data-and-the-statistical-tests.">Recommendations for Lobster Land based on the overall results that you have found from the Super Lobster Run data and the statistical tests.</h4>
+<p>The Super Lobster Run experiment shows that the starting level didn’t have a major impact on day‑1 retention or spending, with both Gulf of Maine and North Atlantic versions retaining roughly 20,034 users initially. Retention differences on day 1 were not statistically significant (Z = 1.79, p = 0.074), but by day‑7, the Gulf of Maine version retained 8,437 users, showing a clear and statistically significant advantage (Z = 5.23, p &lt; 0.05). This suggests that while early engagement was similar, Gulf of Maine may help maintain stronger long‑term retention.</p>
+<p>Based on these findings, Lobster Land could consider emphasizing the Gulf of Maine level marketing strategies to leverage its retention advantage. They might also experiment with transferring successful design elements from Gulf of Maine - such as level design, difficulty pacing, or visual - into North Atlantic or future levels. Additionally, offering limited-time promotion booster packages for $0.99 or applying seasonal/holiday theme could encourage spending and interaction, potentially increasing engagement across all versions. To better understand the results, it would be useful to monitor retention beyond day‑7, track whether higher retention leads to increased long-term spending, and gather qualitative feedback to learn what aspects of Gulf of Maine are driving engagement.</p>
+</section>
+<section id="part-iii-chi-square-goodness-of-fit" class="level3">
+<h3 class="anchored" data-anchor-id="part-iii-chi-square-goodness-of-fit">Part III: Chi-Square Goodness of Fit</h3>
+<div id="86450290-41e6-45d2-a79e-543cf1c21132" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The data collected from the survey  Roller Coasters, Water Rides, Lobsterama Restaurant, Marine Life Exhibit, Lobsterland Merchandise Shop</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>observed <span class="op">=</span> [<span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">90</span>, <span class="dv">80</span>, <span class="dv">60</span>]</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">sum</span>(observed)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The total of observed visitors from their favorite attraction at Lobster Land is: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">."</span>)</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>expected <span class="op">=</span> [<span class="fl">0.30</span> <span class="op">*</span> total, <span class="fl">0.25</span> <span class="op">*</span> total, <span class="fl">0.15</span> <span class="op">*</span> total, <span class="fl">0.15</span> <span class="op">*</span> total, <span class="fl">0.15</span> <span class="op">*</span> total]</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The expected visitors at Lobster Land is:"</span>)</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Roller Coasters: </span><span class="sc">{</span>expected[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Water Rides: </span><span class="sc">{</span>expected[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lobsterama Restaurant: </span><span class="sc">{</span>expected[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Marine Life Exhibit: </span><span class="sc">{</span>expected[<span class="dv">3</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Lobsterland Merchandise Shop: </span><span class="sc">{</span>expected[<span class="dv">4</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The total of observed visitors from their favorite attraction at Lobster Land is: 500.
+
+The expected visitors at Lobster Land is:
+Roller Coasters: 150.0
+Water Rides: 125.0
+Lobsterama Restaurant: 75.0
+Marine Life Exhibit: 75.0
+Lobsterland Merchandise Shop: 75.0</code></pre>
+</div>
+</div>
+<section id="the-null-hypothesis-and-the-alternative-hypothesis-of-this-test" class="level4">
+<h4 class="anchored" data-anchor-id="the-null-hypothesis-and-the-alternative-hypothesis-of-this-test">The null hypothesis and the alternative hypothesis of this test:</h4>
+<p>H0 - Null Hypothesis: The distribution of visitor preferences across the five attractions at Lobster Land matches the expected proportions provided by management: - 30% Roller Coasters - 25% Water Rides - 15% Lobsterama Restaurant - 15% Marine Life Exhibit - 15% Merchandise Shop</p>
+<p>H1 - Alternative hypothesis: The distribution of visitor preferences does not match the expected proportions.</p>
+<p>The null hypothesis (H0) assumes that the distribution of visitor preferences across Lobster Land’s attractions: roller coasters, water rides, the seafood-themed food court, marine life exhibit, and lobster-themed merchandise shop which matches the proportions expected by the park’s management. Whereas, the alternative hypothesis (H1) suggests that visitor preferences differ enough from these expected proportions that the differences are unlikely to occur by chance, indicating that certain attractions may be more or less popular than anticipated, which could inform resource allocation and marketing strategies.</p>
+</section>
+<section id="under-the-null-hypothesis-what-is-our-expected-number-of-respondents-for-roller-coasters-water-rides-lobsterama-restaurant-marine-life-exhibit-and-the-lobsterland-merchandise-shop" class="level4">
+<h4 class="anchored" data-anchor-id="under-the-null-hypothesis-what-is-our-expected-number-of-respondents-for-roller-coasters-water-rides-lobsterama-restaurant-marine-life-exhibit-and-the-lobsterland-merchandise-shop">Under the null hypothesis, what is our expected number of respondents for roller coasters, water rides, Lobsterama Restaurant, Marine Life Exhibit, and the Lobsterland Merchandise Shop?</h4>
+<p>Since a total of 500 survey responses were collected, I calculated the expected number of respondents for each attraction by applying the expected percentages to this total. Lobster Land expects 30% of visitors to prefer roller coasters, which equals 150 respondents. For water rides, the expected proportion is 25%, resulting in 125 expected respondents. The remaining three attractions, Lobsterama Restaurant, the Marine Life Exhibit, and the Lobsterland Merchandise Shop, are each expected to receive 15% of the votes, corresponding to 75 respondents per attraction.</p>
+</section>
+<section id="using-both-the-expected-values-and-the-actual-numbers-that-came-from-the-survey-respondents-run-a-chi-square-goodness-of-fit-test-to-assess-your-null-hypothesis." class="level4">
+<h4 class="anchored" data-anchor-id="using-both-the-expected-values-and-the-actual-numbers-that-came-from-the-survey-respondents-run-a-chi-square-goodness-of-fit-test-to-assess-your-null-hypothesis.">Using both the expected values and the actual numbers that came from the survey respondents, run a chi-square goodness of fit test to assess your null hypothesis.</h4>
+<div id="d8796b7a-e064-4fc3-bc78-13d28d8c1deb" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conduct a chi-square goodness of fit</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>chisq, pvalue <span class="op">=</span> chisquare(f_obs<span class="op">=</span>observed, f_exp<span class="op">=</span>expected)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The chi-square value is: "</span>, <span class="bu">round</span>(chisq, <span class="dv">4</span>))</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The p-value is: "</span>, <span class="bu">round</span>(pvalue, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The chi-square value is:  6.5333
+The p-value is:  0.1627</code></pre>
+</div>
+</div>
+<div id="b996510e-2823-45c4-8a5e-498016dcbc76" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> pvalue <span class="op">&gt;</span> alpha:</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fail to reject H0: The observed distribution does not differ significantly from the expected distribution."</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Reject H0: The observed distribution differ significantly from the expected distribution."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fail to reject H0: The observed distribution does not differ significantly from the expected distribution.</code></pre>
+</div>
+</div>
+<p>The p-value of this chi-square goodness of fit test is 0.1627.</p>
+<p>Since this p-value = 0.1627 is greater than the common significance level of 0.05, I fail to reject the null hypothesis. This means there is no statistically significant difference between the observed distribution of visitor preferences and the expected distribution provided by Lobster Land management.</p>
+<p>In other words, the survey results do not provide enough evidence to conclude that visitor preferences differ from what management anticipated. The observed variation is likely due to random chance rather than a meaningful shift in attraction popularity. To improve the reliability of this test, Lobster Land could collect a larger sample of visitor responses to reduce sampling error and increase statistical power. Additionally, the management team could refine the expected distribution by providing more recent attendance data or seasonal trends, ensuring that the comparison reflects current visitor behavior more accurately.</p>
+</section>
+<section id="demonstrate-where-the-chi-square-number-from-your-test-came-from.-use-jupyter-notebook-or-colab-to-do-this-but-do-not-use-any-python-libraries-or-modules." class="level4">
+<h4 class="anchored" data-anchor-id="demonstrate-where-the-chi-square-number-from-your-test-came-from.-use-jupyter-notebook-or-colab-to-do-this-but-do-not-use-any-python-libraries-or-modules.">Demonstrate where the chi-square number from your test came from. Use Jupyter Notebook or Colab to do this, but do not use any Python libraries or modules.</h4>
+<p>Based on the results and datas that I retrieve from part A and B, once I have both the observed (O) and expected (E) counts, I am able to calculate the contribution of each cell to the overall chi-square statistic using this formula:</p>
+<p><img src="https://www.thoughtco.com/thmb/ns7d4DC1AqVGme2p1-WYqC26r_s=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/latex_ac74fec08532861eb5f8b87226ebf396-5c59a6fcc9e77c00016b4195.jpg"></p>
+<p>The calculations for each attraction at Lobster Land are as follows: - <strong>Roller Coasters:</strong> (150 − 150)^2/150 = 0.00 - <strong>Water Rides:</strong> (120 − 125)^2/125 = 0.20 - <strong>Lobsterama Restaurant:</strong> (90 − 75)^2/75 = 3.00 - <strong>Marine Life Exhibit:</strong> (80 − 75)^2/75 = 0.33 - <strong>Merchandise Shop:</strong> (60 − 75)^2/75 = 3.00</p>
+<p>Finally, I sum these five contributions to obtain the overall chi-square statistic: <br> X^2 = 0.00 + 0.20 + 3.00 + 0.33 + 3.00 = 6.53</p>
+<p>The degrees of freedom in a chi‑square goodness‑of‑fit test are calculated as the number of categories minus one. Since there are 5 attraction categories at Lobster Land, the degrees of freedom are 5 − 1 = 4. With 4 degrees of freedom, the corresponding p‑value is approximately 0.1627. Since this p‑value is greater than the 0.05 threshold, I fail to reject the null hypothesis. In practical terms, this means the observed visitor preferences are not significantly different from the expected proportions, and the distribution of favorite attractions at Lobster Land is broadly consistent with the assumed model.</p>
+<p>The results show that visitors’ attraction preferences are largely in line with what Lobster Land’s management expected, with only small differences in how often people chose the Lobsterama Restaurant and Merchandise Shop. The chi-square value of 6.53 and p-value of 0.1627 suggest that these variations aren’t statistically significant, or the overall pattern of visitor preferences are pretty consistent with the original expectations. Though, as Lobster Land expands its engagement through the “Super Lobster Run” game, it could benefit from collecting data from a larger and more diverse group of users throughout the year to identify any seasonal shifts in interest. Updating expected values to reflect new attractions or marketing efforts could also help the park fine-tune its offerings and digital strategy.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Exploration &amp; Visualization</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="data_exploration_visualization_files/libs/clipboard/clipboard.min.js"></script>
+<script src="data_exploration_visualization_files/libs/quarto-html/quarto.js"></script>
+<script src="data_exploration_visualization_files/libs/quarto-html/popper.min.js"></script>
+<script src="data_exploration_visualization_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="data_exploration_visualization_files/libs/quarto-html/anchor.min.js"></script>
+<link href="data_exploration_visualization_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="data_exploration_visualization_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="data_exploration_visualization_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="data_exploration_visualization_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="data_exploration_visualization_files/libs/bootstrap/bootstrap-973236bd072d72a04ee9cd82dcc9cb29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Exploration &amp; Visualization</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Analyzed Lobsterland’s 2025 visitor and revenue data using Python to uncover trends in attendance, spending, and event performance. Applied exploratory data analysis and data visualization techniques to generate actionable business insights.</p>
+<section id="part-i-exploratory-data-analysis-exploration-manipulation" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-exploratory-data-analysis-exploration-manipulation">Part I: Exploratory Data Analysis: Exploration &amp; Manipulation</h2>
+<div id="1bf34e12-27b4-4d98-99a1-1ddfa1115443" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing necessary functions</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="82308301-9ab1-4e3c-b177-7878ff45d0c9" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lobster_25 <span class="op">=</span> pd.read_csv(<span class="st">"data/lobster_25.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d6c1942c-0564-45b1-b6a3-847296c7c3aa" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lobster_25.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Day_of_Week</th>
+<th data-quarto-table-cell-role="th">season_week_rel</th>
+<th data-quarto-table-cell-role="th">Is_Holiday</th>
+<th data-quarto-table-cell-role="th">Total_Visitors</th>
+<th data-quarto-table-cell-role="th">Passholder_Percentage</th>
+<th data-quarto-table-cell-role="th">Day_Tickets_Sold</th>
+<th data-quarto-table-cell-role="th">Avg_Ticket_Price</th>
+<th data-quarto-table-cell-role="th">Gate_Revenue</th>
+<th data-quarto-table-cell-role="th">Revenue_Food</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Weather_Type</th>
+<th data-quarto-table-cell-role="th">Weather_Code</th>
+<th data-quarto-table-cell-role="th">Promo_Flag</th>
+<th data-quarto-table-cell-role="th">Promo_Type</th>
+<th data-quarto-table-cell-role="th">Cruise_Docked</th>
+<th data-quarto-table-cell-role="th">Is_Special_Event</th>
+<th data-quarto-table-cell-role="th">Special_Events</th>
+<th data-quarto-table-cell-role="th">Attraction_Tier</th>
+<th data-quarto-table-cell-role="th">Zone_ID</th>
+<th data-quarto-table-cell-role="th">Per_Capita_Spend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2025-05-26</td>
+<td>Monday</td>
+<td>1</td>
+<td>1</td>
+<td>1769</td>
+<td>48.65</td>
+<td>908</td>
+<td>77.42</td>
+<td>70297.36</td>
+<td>40521.91</td>
+<td>...</td>
+<td>Thunderstorms</td>
+<td>4</td>
+<td>0</td>
+<td>NaN</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>2</td>
+<td>101</td>
+<td>73.43</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2025-05-27</td>
+<td>Tuesday</td>
+<td>1</td>
+<td>0</td>
+<td>1717</td>
+<td>60.58</td>
+<td>677</td>
+<td>69.80</td>
+<td>47254.60</td>
+<td>35298.92</td>
+<td>...</td>
+<td>Partly Cloudy</td>
+<td>2</td>
+<td>0</td>
+<td>NaN</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>2</td>
+<td>101</td>
+<td>59.30</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2025-05-28</td>
+<td>Wednesday</td>
+<td>1</td>
+<td>0</td>
+<td>1600</td>
+<td>30.84</td>
+<td>1107</td>
+<td>70.09</td>
+<td>77589.63</td>
+<td>36495.95</td>
+<td>...</td>
+<td>Partly Cloudy</td>
+<td>2</td>
+<td>0</td>
+<td>NaN</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>3</td>
+<td>103</td>
+<td>82.33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2025-05-29</td>
+<td>Thursday</td>
+<td>1</td>
+<td>0</td>
+<td>1037</td>
+<td>19.02</td>
+<td>840</td>
+<td>72.30</td>
+<td>60732.00</td>
+<td>22486.65</td>
+<td>...</td>
+<td>Showers</td>
+<td>3</td>
+<td>0</td>
+<td>NaN</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>2</td>
+<td>101</td>
+<td>91.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2025-05-30</td>
+<td>Friday</td>
+<td>1</td>
+<td>0</td>
+<td>1671</td>
+<td>66.18</td>
+<td>565</td>
+<td>68.11</td>
+<td>38482.15</td>
+<td>40705.15</td>
+<td>...</td>
+<td>Partly Cloudy</td>
+<td>2</td>
+<td>0</td>
+<td>NaN</td>
+<td>0</td>
+<td>0</td>
+<td>NaN</td>
+<td>1</td>
+<td>104</td>
+<td>58.67</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 27 columns</p>
+</div>
+</div>
+</div>
+<div id="39b095a0-3ea4-47e2-b01c-20b30a99736d" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lobster_25.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>(99, 27)</code></pre>
+</div>
+</div>
+<p>There are 99 rows and 27 columns in this Lobsterland data set.</p>
+<ul>
+<li><strong>Categorical variables:</strong> Date, Day of Week, season_week_rel, is_holiday, Precipitation, Weather Type, Weather Code, Promo Flag, Promo Type, Cruise Docked, Is_Special_Event, Special_Events, Attraction_Tier, Zone_ID</li>
+<li><strong>Numeric variables:</strong> Total visitors, Passholder percentage, Day Tickets Sold, Avg Ticket Price, Gate Revenue, Revenue Food, Revenue Merch, Revenue Arcade, Total Revenue, Total Labor Hours, International Visitors, High temperature, Per Capita Spend</li>
+</ul>
+<section id="checking-for-nan-values." class="level4">
+<h4 class="anchored" data-anchor-id="checking-for-nan-values.">Checking for NaN values.</h4>
+<div id="f0b0568b-5e5b-415f-9192-106f66cddc6e" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lobster_25.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>Date                       0
+Day_of_Week                0
+season_week_rel            0
+Is_Holiday                 0
+Total_Visitors             0
+Passholder_Percentage      0
+Day_Tickets_Sold           0
+Avg_Ticket_Price           0
+Gate_Revenue               0
+Revenue_Food               0
+Revenue_Merch              5
+Revenue_Arcade             0
+Total_Revenue              0
+Total_Labor_Hours          0
+International_Visitors     5
+High_Temperature           0
+Precipitation              0
+Weather_Type               0
+Weather_Code               0
+Promo_Flag                 0
+Promo_Type                79
+Cruise_Docked              0
+Is_Special_Event           0
+Special_Events            84
+Attraction_Tier            0
+Zone_ID                    0
+Per_Capita_Spend           0
+dtype: int64</code></pre>
+</div>
+</div>
+<p>To check for NaN values, I used the code lobster25.isna().sum(). This showed the number of missing values in each column. The columns that contain missing values are Revenue_Merch with 5 missing entries, International_Visitors with 5 missing entries, Promo_Type with 79 missing entries, and Special_Events with 84 missing entries. These missing values are understandable because the columns represent optional events, promotions, or international visitors.</p>
+<ul>
+<li><p>For numeric variables like Revenue_Merch and International_Visitors, which are recorded in numbers, NaN likely means no merchandise revenue or no international visitors that day, so it can be replaced with 0.</p></li>
+<li><p>As for categorial variables like Promo_Type and Special_Events, NaN means no promotion/special event was active, so it’s better to fill them with descriptive text rather than 0. So, for Promo_Type, I replace NaN with “No Promo” and for Special_Events with “No Event” respectively.</p></li>
+</ul>
+<div id="d5637eca-f8bd-4ef7-8698-15d5d7763d5a" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and copy from the original dataframe so not to mess with it</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lobster25 <span class="op">=</span> lobster_25.copy() </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Filling numeric variables with NaN to 0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'Revenue_Merch'</span>] <span class="op">=</span> lobster25[<span class="st">'Revenue_Merch'</span>].fillna(<span class="fl">0.0</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'International_Visitors'</span>] <span class="op">=</span> lobster25[<span class="st">'International_Visitors'</span>].fillna(<span class="fl">0.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="12a86667-d06b-4b83-afba-a7f08b492ed6" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">"Promo_Type"</span>] <span class="op">=</span> lobster25[<span class="st">"Promo_Type"</span>].fillna(<span class="st">"No Promo"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">"Special_Events"</span>] <span class="op">=</span> lobster25[<span class="st">"Special_Events"</span>].fillna(<span class="st">"No Event"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ba53fe31-b8a0-46e3-aa65-c7f22ad375c8" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-checking to see if there's still NaN in the data set</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lobster25.isnull().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>Date                      0
+Day_of_Week               0
+season_week_rel           0
+Is_Holiday                0
+Total_Visitors            0
+Passholder_Percentage     0
+Day_Tickets_Sold          0
+Avg_Ticket_Price          0
+Gate_Revenue              0
+Revenue_Food              0
+Revenue_Merch             0
+Revenue_Arcade            0
+Total_Revenue             0
+Total_Labor_Hours         0
+International_Visitors    0
+High_Temperature          0
+Precipitation             0
+Weather_Type              0
+Weather_Code              0
+Promo_Flag                0
+Promo_Type                0
+Cruise_Docked             0
+Is_Special_Event          0
+Special_Events            0
+Attraction_Tier           0
+Zone_ID                   0
+Per_Capita_Spend          0
+dtype: int64</code></pre>
+</div>
+</div>
+<p>I replaced NaNs in Revenue_Merch and International_Visitors with 0, assuming missing values indicate no revenue or no visitors. For Promo_Type and Special_Events, I used “No Promo” and “No Event” because missing entries mean no promotion or event occurred. I made these choices by considering what each column represents. This approach makes the dataset more informative and descriptive.</p>
+</section>
+<section id="rename-the-food_rev-column-to-foodbev_rev." class="level4">
+<h4 class="anchored" data-anchor-id="rename-the-food_rev-column-to-foodbev_rev.">Rename the ‘Food_Rev’ column to ‘FoodBev_Rev’.</h4>
+<div id="09a625f6-5ff7-48f3-aa8a-6d83f9e69856" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lobster25 <span class="op">=</span> lobster25.rename(columns<span class="op">=</span>{<span class="st">'Revenue_Food'</span>:<span class="st">'Revenue_FoodBev'</span>}) <span class="co">#rename the columns</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># There is no 'Food_Rev' so I'm assuming it's 'Revenue_Food' and replace it with 'Revenue_FoodBev'</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster25.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Index(['Date', 'Day_of_Week', 'season_week_rel', 'Is_Holiday',
+       'Total_Visitors', 'Passholder_Percentage', 'Day_Tickets_Sold',
+       'Avg_Ticket_Price', 'Gate_Revenue', 'Revenue_FoodBev', 'Revenue_Merch',
+       'Revenue_Arcade', 'Total_Revenue', 'Total_Labor_Hours',
+       'International_Visitors', 'High_Temperature', 'Precipitation',
+       'Weather_Type', 'Weather_Code', 'Promo_Flag', 'Promo_Type',
+       'Cruise_Docked', 'Is_Special_Event', 'Special_Events',
+       'Attraction_Tier', 'Zone_ID', 'Per_Capita_Spend'],
+      dtype='object')</code></pre>
+</div>
+</div>
+</section>
+<section id="in-the-dataset-there-are-four-components-of-total-revenue-gate-revenue-revenue-food-revenue-merch-and-revenue-arcade.-generate-a-table-that-shows-average-spending-in-each-of-those-areas-based-on-special-event-types." class="level4">
+<h4 class="anchored" data-anchor-id="in-the-dataset-there-are-four-components-of-total-revenue-gate-revenue-revenue-food-revenue-merch-and-revenue-arcade.-generate-a-table-that-shows-average-spending-in-each-of-those-areas-based-on-special-event-types.">In the dataset, there are four components of total revenue: gate revenue, revenue food, revenue merch, and revenue arcade. Generate a table that shows average spending in each of those areas, based on Special Event types.</h4>
+<div id="9ad9c32b-98e7-47d3-89ff-e4eb0f79e0e6" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>avg_rev_by_event <span class="op">=</span> lobster25.groupby(<span class="st">'Special_Events'</span>)[[<span class="st">'Gate_Revenue'</span>,<span class="st">'Revenue_FoodBev'</span>,<span class="st">'Revenue_Merch'</span>,<span class="st">'Revenue_Arcade'</span>]].mean()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(avg_rev_by_event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         Gate_Revenue  Revenue_FoodBev  Revenue_Merch  \
+Special_Events                                                          
+Beatles Tribute         146630.870000     86767.966667   21431.026667   
+MusicFest               107296.750000     83544.713333   33065.490000   
+Night Glow              107957.660000     59590.776667   31730.376667   
+No Event                 73213.523333     40692.877500   15931.317500   
+Taylor Swift Lookalike   96895.336667     67165.716667   33479.076667   
+Vintage Days            114238.410000     51074.406667   24561.976667   
+
+                        Revenue_Arcade  
+Special_Events                          
+Beatles Tribute           10488.050000  
+MusicFest                  9745.910000  
+Night Glow                 8637.820000  
+No Event                   3624.482500  
+Taylor Swift Lookalike     9691.783333  
+Vintage Days               6821.316667  </code></pre>
+</div>
+</div>
+<p><strong>Table analysis: Stand out points &amp; limitations</strong> <br> Looking at the table, it’s clear that special events like Beatles Tribute and MusicFest bring in noticeably higher revenue across all areas compared to days with no events. This makes sense, as popular events tend to draw bigger crowds and encourage people to spend more on tickets, food, and merchandise. Some of the standout numbers are probably because certain events are more well-known or heavily promoted. That said, this analysis only looks at averages and doesn’t consider other factors like weather, day of the week, or seasonal trends. Because of these other influences, it’s hard to say for sure how much of the revenue boost is truly caused by the events themselves.</p>
+</section>
+<section id="a-date-variable-type.-use-the-info-function-to-determine-the-data-type-for-thedate-variable." class="level4">
+<h4 class="anchored" data-anchor-id="a-date-variable-type.-use-the-info-function-to-determine-the-data-type-for-thedate-variable.">A ‘Date’ variable type. Use the info() function to determine the data type for the‘Date’ variable.</h4>
+<div id="e75d1f36-f725-473f-8121-fc6ad7a0d8e8" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'Date'</span>].info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.series.Series'&gt;
+RangeIndex: 99 entries, 0 to 98
+Series name: Date
+Non-Null Count  Dtype 
+--------------  ----- 
+99 non-null     object
+dtypes: object(1)
+memory usage: 924.0+ bytes</code></pre>
+</div>
+</div>
+<p>Python currently views this variable as an object.</p>
+<div id="395993a2-b8bc-4b1f-89cc-71eb9bc6242d" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting the variable into a datetime object.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(lobster25[<span class="st">'Date'</span>])</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check to see if the conversion is successful</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster25[<span class="st">'Date'</span>].dtype)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>datetime64[ns]</code></pre>
+</div>
+</div>
+<p>Converting a column to datetime lets Python treat it as a real date, enabling operations like filtering by month, extracting weekdays, calculating durations, and plotting time-series data accurately. Without it, dates are just text and harder to analyze.</p>
+</section>
+<section id="using-the-groupby-function-along-with-the-describe-function-explore-the-relationship-between-day-of-the-week-and-total-revenue." class="level4">
+<h4 class="anchored" data-anchor-id="using-the-groupby-function-along-with-the-describe-function-explore-the-relationship-between-day-of-the-week-and-total-revenue.">Using the groupby() function, along with the describe() function, explore the relationship between day of the week and total revenue.</h4>
+<div id="e2b8751f-46bf-4ee8-9347-b3671c7cca20" class="cell" data-scrolled="true" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lobster25.groupby(<span class="st">'Day_of_Week'</span>)[[<span class="st">'Total_Revenue'</span>]].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="8" data-quarto-table-cell-role="th" data-halign="left">Total_Revenue</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">count</th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">std</th>
+<th data-quarto-table-cell-role="th">min</th>
+<th data-quarto-table-cell-role="th">25%</th>
+<th data-quarto-table-cell-role="th">50%</th>
+<th data-quarto-table-cell-role="th">75%</th>
+<th data-quarto-table-cell-role="th">max</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Day_of_Week</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Friday</td>
+<td>14.0</td>
+<td>124348.351429</td>
+<td>25766.281104</td>
+<td>68899.07</td>
+<td>113828.1850</td>
+<td>126337.460</td>
+<td>134174.9625</td>
+<td>180408.42</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Monday</td>
+<td>15.0</td>
+<td>123881.241333</td>
+<td>30711.357993</td>
+<td>88753.13</td>
+<td>101210.0300</td>
+<td>110997.990</td>
+<td>143166.6050</td>
+<td>202565.15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Saturday</td>
+<td>14.0</td>
+<td>233435.688571</td>
+<td>63186.045667</td>
+<td>132174.43</td>
+<td>209613.2550</td>
+<td>227397.180</td>
+<td>238614.4925</td>
+<td>423019.37</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Sunday</td>
+<td>14.0</td>
+<td>222040.763571</td>
+<td>51689.800794</td>
+<td>127310.71</td>
+<td>211008.1775</td>
+<td>245217.160</td>
+<td>251046.1250</td>
+<td>284520.15</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Thursday</td>
+<td>14.0</td>
+<td>110808.970000</td>
+<td>23883.366451</td>
+<td>63247.57</td>
+<td>94773.4125</td>
+<td>112346.540</td>
+<td>128805.5325</td>
+<td>147562.14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Tuesday</td>
+<td>14.0</td>
+<td>110803.409286</td>
+<td>28858.768417</td>
+<td>64017.91</td>
+<td>95816.2750</td>
+<td>106621.260</td>
+<td>132957.8850</td>
+<td>166042.42</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Wednesday</td>
+<td>14.0</td>
+<td>111780.540000</td>
+<td>24591.350227</td>
+<td>75302.24</td>
+<td>92629.4175</td>
+<td>111242.325</td>
+<td>127296.6300</td>
+<td>165467.64</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Looking at the table, it’s pretty noticeable that weekends bring in much higher revenue than weekdays. Saturday averages around $233,000 and Sunday about $222,000, while most weekdays hover between $110,000 and $125,000. This makes sense since more people are likely to visit the park on their days off. The bigger variation in weekend revenues probably comes from special events or particularly busy days. Overall, the day of the week has a noticeable effect, with weekends clearly driving the biggest crowds and sales.</p>
+</section>
+<section id="lobster-land-management-has-decided-that-they-wont-be-using-the-zone_id-variable.-remove-it-and-demonstrate-that-its-no-longer-part-of-the-dataset-going-forward." class="level4">
+<h4 class="anchored" data-anchor-id="lobster-land-management-has-decided-that-they-wont-be-using-the-zone_id-variable.-remove-it-and-demonstrate-that-its-no-longer-part-of-the-dataset-going-forward.">Lobster Land management has decided that they won’t be using the Zone_ID variable. Remove it, and demonstrate that it’s no longer part of the dataset going forward.</h4>
+<div id="5d7bc02d-3d1a-4e28-9bfa-0acd0e7607f4" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>lobster25 <span class="op">=</span> lobster25.drop(columns<span class="op">=</span>[<span class="st">'Zone_ID'</span>], errors<span class="op">=</span><span class="st">'ignore'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-check</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lobster25.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Index(['Date', 'Day_of_Week', 'season_week_rel', 'Is_Holiday',
+       'Total_Visitors', 'Passholder_Percentage', 'Day_Tickets_Sold',
+       'Avg_Ticket_Price', 'Gate_Revenue', 'Revenue_FoodBev', 'Revenue_Merch',
+       'Revenue_Arcade', 'Total_Revenue', 'Total_Labor_Hours',
+       'International_Visitors', 'High_Temperature', 'Precipitation',
+       'Weather_Type', 'Weather_Code', 'Promo_Flag', 'Promo_Type',
+       'Cruise_Docked', 'Is_Special_Event', 'Special_Events',
+       'Attraction_Tier', 'Per_Capita_Spend'],
+      dtype='object')</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="part-ii-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-visualization">Part II: Visualization</h2>
+<section id="using-any-plotting-tool-in-python-generate-a-bar-plot-that-shows-promo_type-on-one-axis-and-average-gate-revenue-on-the-other.-be-sure-to-give-your-plot-a-clear-descriptive-title." class="level4">
+<h4 class="anchored" data-anchor-id="using-any-plotting-tool-in-python-generate-a-bar-plot-that-shows-promo_type-on-one-axis-and-average-gate-revenue-on-the-other.-be-sure-to-give-your-plot-a-clear-descriptive-title.">Using any plotting tool in Python, generate a bar plot that shows Promo_Type on one axis and average gate revenue on the other. Be sure to give your plot a clear, descriptive title.</h4>
+<div id="a8f9f248-34f3-4c30-85da-4270df63affa" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(x <span class="op">=</span> <span class="st">"Promo_Type"</span>, y <span class="op">=</span> <span class="st">"Gate_Revenue"</span>, data <span class="op">=</span> lobster25, hue<span class="op">=</span><span class="st">"Promo_Type"</span>, palette<span class="op">=</span><span class="st">"Set2"</span>, dodge<span class="op">=</span><span class="va">False</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)<span class="op">;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Promotion Type"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. Gate Revenue ($)"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average Gate Revenue during Promotion Types"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bar plot shows that days with no promotion, email, or influencer campaigns have similar average gate revenue, while bundle promotions have noticeably lower revenue. Surprisingly, bundles seem less effective than doing nothing or running other promotions, possibly because they attract fewer people or are offered on slower days. Overall, not all promotions necessarily increase gate revenue.</p>
+</section>
+<section id="lobster-land-management-wants-to-better-understand-how-visitor-counts-vary-across-the-days-of-the-week.-generate-a-barplot-that-shows-average-total-visitors-by-day-of-week." class="level4">
+<h4 class="anchored" data-anchor-id="lobster-land-management-wants-to-better-understand-how-visitor-counts-vary-across-the-days-of-the-week.-generate-a-barplot-that-shows-average-total-visitors-by-day-of-week.">Lobster Land management wants to better understand how visitor counts vary across the days of the week. Generate a barplot that shows average total visitors by day of Week.</h4>
+<div id="114d05e1-160c-4b1d-85f7-7104f82176ca" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version 1: y-axis starting at 0</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sns.barplot(x <span class="op">=</span> <span class="st">"Day_of_Week"</span>, y <span class="op">=</span> <span class="st">"Gate_Revenue"</span>, data <span class="op">=</span> lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)<span class="op">;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Day of the Week"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg Gate Revenue ($)"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average Gate Revenue on Days of the Week"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">0</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b4557140-6e2b-4361-8e4e-4111ff7f3869" class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Version 2: y-axis zoomed to highlight differences</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>avg_values <span class="op">=</span> lobster25.groupby(<span class="st">"Day_of_Week"</span>)[<span class="st">"Gate_Revenue"</span>].mean()</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Day_of_Week"</span>, y<span class="op">=</span><span class="st">"Gate_Revenue"</span>, data<span class="op">=</span>lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Day of the Week"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg Gate Revenue ($)"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average Gate Revenue on Days of the Week"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Set y-axis limits slightly beyond min and max average values</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>plt.ylim(avg_values.<span class="bu">min</span>() <span class="op">*</span> <span class="fl">0.95</span>, avg_values.<span class="bu">max</span>() <span class="op">*</span> <span class="fl">1.05</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Both plots display the same visitor data, but they feel very different. The first plot, with the y-axis starting at 0, shows the weekend boost in visitors clearly but keeps the differences in perspective. The second plot, with a zoomed-in y-axis, makes those differences look much larger and more dramatic than they really are. This kind of change can easily influence how people interpret the importance of the trend. That’s why, for bar charts, it’s usually best to start the axis at 0 — it helps present the data honestly and avoids misleading your audience.</p>
+</section>
+<section id="next-generate-a-histogram-of-per-capita-spend-across-all-visitors-in-the-2025-season.-be-sure-to-give-your-plot-a-clear-descriptive-title." class="level4">
+<h4 class="anchored" data-anchor-id="next-generate-a-histogram-of-per-capita-spend-across-all-visitors-in-the-2025-season.-be-sure-to-give-your-plot-a-clear-descriptive-title.">Next, generate a histogram of per capita spend across all visitors in the 2025 season. Be sure to give your plot a clear, descriptive title.</h4>
+<div id="5561e1ce-6275-4e9e-a400-d84e3db9e638" class="cell" data-scrolled="true" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Version 1: Non-adjusted bins</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>lobster25, x<span class="op">=</span><span class="st">"Per_Capita_Spend"</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Per Capita Spend ($)"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland Per Capita Spend in 2025"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The histogram shows that most visitors spend between about $70 and $85, with spending peaking around $80. The distribution is roughly bell-shaped, suggesting that per capita spending is fairly consistent across visitors, with only a few spending much lower or higher than the average.</p>
+<div id="0cc21a1f-26f5-4e13-a5b0-a8e3cf70e4af" class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Version 2: 50 bins</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>lobster25, x<span class="op">=</span><span class="st">"Per_Capita_Spend"</span>, bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'skyblue'</span>, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Per Capita Spend ($)"</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland Per Capita Spend in 2025"</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The second histogram, with 50 bins, shows a lot more detail about how people spend. Instead of the smooth, bell-like shape in the first plot, you can see smaller peaks and dips, almost like there are a few “favorite” spending amounts that visitors cluster around. Someone looking at this version might notice that spending habits are a bit more varied and not perfectly smooth, which isn’t as clear in the first histogram.</p>
+</section>
+<section id="one-member-of-the-lobster-land-board-of-directors-thinks-that-people-tend-to-buy-more-merch-on-hot-days.-lets-see-whether-the-data-supports-this-theory-generate-a-scatterplot-with-the-days-high-temperature-on-the-x-axis-and-with-total-merch-revenue-on-the-y-axis.-be-sure-to-give-your-plot-a-clear-descriptive-title." class="level4">
+<h4 class="anchored" data-anchor-id="one-member-of-the-lobster-land-board-of-directors-thinks-that-people-tend-to-buy-more-merch-on-hot-days.-lets-see-whether-the-data-supports-this-theory-generate-a-scatterplot-with-the-days-high-temperature-on-the-x-axis-and-with-total-merch-revenue-on-the-y-axis.-be-sure-to-give-your-plot-a-clear-descriptive-title.">One member of the Lobster Land Board of Directors thinks that people tend to buy more merch on hot days. Let’s see whether the data supports this theory! Generate a scatterplot with the day’s high temperature on the x-axis, and with total merch revenue on the y-axis. Be sure to give your plot a clear, descriptive title.</h4>
+<div id="7d7a2226-0e62-4993-bce7-075534d0cb50" class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x <span class="op">=</span> <span class="st">"High_Temperature"</span>, y <span class="op">=</span> <span class="st">"Revenue_Merch"</span>, data <span class="op">=</span> lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>)<span class="op">;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"High Temperature"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. Merch Revenue ($)"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Merch Revenue on Hot Temperature Day"</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The scatterplot shows no clear relationship between high temperature and merch revenue — the points are spread fairly randomly across the temperature range. This suggests that hotter days do not consistently lead to higher merch sales. It’s possible that factors like crowd size, special events, or promotions play a bigger role in driving merch revenue than temperature alone.</p>
+</section>
+<section id="create-a-boxplot-that-shows-day-of-week-on-one-axis-and-passholder-percentage-on-the-other.-be-sure-to-give-your-plot-a-clear-descriptive-title." class="level4">
+<h4 class="anchored" data-anchor-id="create-a-boxplot-that-shows-day-of-week-on-one-axis-and-passholder-percentage-on-the-other.-be-sure-to-give-your-plot-a-clear-descriptive-title.">Create a boxplot that shows day of week on one axis and passholder percentage on the other. Be sure to give your plot a clear, descriptive title.</h4>
+<div id="2a6aca36-707d-4c61-97f6-05d114523a15" class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(x<span class="op">=</span><span class="st">"Day_of_Week"</span>, y<span class="op">=</span><span class="st">"Passholder_Percentage"</span>, data<span class="op">=</span>lobster25, color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Day of the Week"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Passholder Percentage (%)"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Passholder Percentage during Day of the Week"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The boxplot shows that weekdays, especially Wednesday and Thursday, tend to have higher passholder percentages compared to weekends. Saturday has the lowest median and a narrower range, meaning fewer passholders visit that day. This might be because weekends attract more casual or one-time visitors, while passholders prefer visiting during less crowded weekdays.</p>
+</section>
+<section id="create-a-barplot-that-shows-average-daily-total-visitors-by-month." class="level4">
+<h4 class="anchored" data-anchor-id="create-a-barplot-that-shows-average-daily-total-visitors-by-month.">Create a barplot that shows average daily total visitors by month.</h4>
+<div id="f319b23e-2691-4cc0-8cbb-a8aa6e3fe345" class="cell" data-execution_count="83">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a new 'Month' column extracted from 'Date'</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>lobster25[<span class="st">'Month'</span>] <span class="op">=</span> lobster25[<span class="st">'Date'</span>].dt.month_name()</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>monthly_avg <span class="op">=</span> lobster25.groupby(<span class="st">'Month'</span>, as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'Total_Visitors'</span>].mean()</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Month"</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Total_Visitors"</span>, </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>monthly_avg, </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="st">"Month"</span>, </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>            palette<span class="op">=</span><span class="st">"Set2"</span>, </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>            dodge<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>            edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Month"</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. Daily Total Visitors"</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Average Daily Total Visitors at Lobsterland by Month"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bar plot shows that average daily visitors are highest in September and lowest in May and July. There’s a clear upward trend from August into September, suggesting strong late-season attendance. I would tell management that September appears to be a key month for drawing visitors, which could be a good time to focus marketing campaigns or launch special fall events to maximize engagement and revenue.</p>
+</section>
+<section id="generate-a-barplot-that-shows-special-events-on-one-axis-and-average-international-visitors-on-the-other." class="level4">
+<h4 class="anchored" data-anchor-id="generate-a-barplot-that-shows-special-events-on-one-axis-and-average-international-visitors-on-the-other.">Generate a barplot that shows special events on one axis and average international visitors on the other.</h4>
+<div id="a3305732-2749-483a-b7b7-53ff951590fe" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>avg_visitor <span class="op">=</span> lobster25.groupby(<span class="st">"Special_Events"</span>)[<span class="st">"International_Visitors"</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(avg_visitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Special_Events
+Taylor Swift Lookalike    236.666667
+MusicFest                 201.333333
+Beatles Tribute           194.000000
+Vintage Days              178.666667
+Night Glow                172.000000
+No Event                  167.738095
+Name: International_Visitors, dtype: float64</code></pre>
+</div>
+</div>
+<div id="583d6fd6-57ed-43e3-86c4-c908b382f66f" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>order_event <span class="op">=</span> avg_visitor.index</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(order_event)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Index(['Taylor Swift Lookalike', 'MusicFest', 'Beatles Tribute',
+       'Vintage Days', 'Night Glow', 'No Event'],
+      dtype='object', name='Special_Events')</code></pre>
+</div>
+</div>
+<div id="ce7de892-2e72-40e4-af2e-24afdc4a43f5" class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span><span class="st">"Special_Events"</span>, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"International_Visitors"</span>, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>lobster25, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>            order<span class="op">=</span>order_event, </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>            errorbar<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="st">"Special_Events"</span>, </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>            palette<span class="op">=</span><span class="st">"Set3"</span>, </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>            dodge<span class="op">=</span><span class="va">False</span>, </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>            edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Special Events"</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Avg. International Visitors"</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Average International Visitors on Special Events"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The barplot shows that the Taylor Swift Lookalike event attracts the highest average number of international visitors, followed by MusicFest and Beatles Tribute. Days with no events have the lowest international attendance. This suggests that special events, especially music-related ones, may encourage more international guests to visit. However, we cannot assume the events directly cause the increase, other factors like peak tourist season or holidays could also explain the higher numbers. This is why the relationship should be viewed as a correlation, not proof of causation.</p>
+</section>
+<section id="create-a-faceted-bar-plot-of-food-beverage-revenue-with-facets-for-weather-type-and-bars-representing-day-of-the-week." class="level4">
+<h4 class="anchored" data-anchor-id="create-a-faceted-bar-plot-of-food-beverage-revenue-with-facets-for-weather-type-and-bars-representing-day-of-the-week.">Create a faceted bar plot of food &amp; beverage revenue, with facets for weather type, and bars representing day of the week.</h4>
+<div id="0d572693-afad-442a-bcd9-72300fba1666" class="cell" data-execution_count="69">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sns.catplot(x<span class="op">=</span><span class="st">"Day_of_Week"</span>, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Revenue_FoodBev"</span>, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>            col<span class="op">=</span><span class="st">"Weather_Type"</span>, </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>lobster25, </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>            kind<span class="op">=</span><span class="st">"bar"</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'skyblue'</span>, </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>            edgecolor<span class="op">=</span><span class="st">'black'</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>            errorbar<span class="op">=</span><span class="va">None</span>).fig.suptitle(<span class="st">"Food &amp; Beverage Revenue by Day of the Week, Faceted by Weather Type"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, y<span class="op">=</span><span class="fl">1.05</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Day of the Week"</span>)</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Food &amp; Beverage Revenue"</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-27-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot shows that food and beverage sales really take off on weekends, especially when the weather is nice or just a bit cloudy. Thunderstorms seem to keep people away no matter the day, while sunny or partly cloudy Saturdays and Sundays bring in the biggest revenue. It’s interesting that even rainy weekends still perform better than most weekdays. However, this visualization does not show the number of observations (sample size) for each weather-day combination, making it hard to know whether some patterns are based on only a few data points.</p>
+</section>
+<section id="create-a-lineplot-that-shows-season_week_rel-on-the-x-axis-and-aggregate-total-gold-zone-spending-for-that-week-on-the-y-axis." class="level4">
+<h4 class="anchored" data-anchor-id="create-a-lineplot-that-shows-season_week_rel-on-the-x-axis-and-aggregate-total-gold-zone-spending-for-that-week-on-the-y-axis.">Create a lineplot that shows season_week_rel on the x-axis, and aggregate (total) Gold Zone spending for that week on the y-axis.</h4>
+<div id="7fa56c53-7a9f-402f-a6ae-48168198b2de" class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>lobster25[[<span class="st">'Attraction_Tier'</span>,<span class="st">'Per_Capita_Spend'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Attraction_Tier</th>
+<th data-quarto-table-cell-role="th">Per_Capita_Spend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2</td>
+<td>73.43</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>59.30</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>82.33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2</td>
+<td>91.19</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1</td>
+<td>58.67</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">94</td>
+<td>2</td>
+<td>81.26</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">95</td>
+<td>1</td>
+<td>79.43</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">96</td>
+<td>3</td>
+<td>82.08</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">97</td>
+<td>2</td>
+<td>68.70</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">98</td>
+<td>1</td>
+<td>84.26</td>
+</tr>
+</tbody>
+</table>
+
+<p>99 rows × 2 columns</p>
+</div>
+</div>
+</div>
+<div id="5c2c1304-c0ac-4bc2-8cd8-97cd4b672ffe" class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter attraction tier to gold zone which is 1, copy() from lobster25() dataframe</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>gold_zone <span class="op">=</span> lobster25.query(<span class="st">'Attraction_Tier==1'</span>).copy() </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-check to see if there's any zone other than 1</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(gold_zone[<span class="st">'Attraction_Tier'</span>].unique())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]</code></pre>
+</div>
+</div>
+<div id="0d1a468d-b31a-4853-b92d-0962b999d490" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a 'Total_Spend' column to record the total spending of gold zone by multiplying total visitors by per visitor spend</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>gold_zone[<span class="st">'Total_Spend'</span>] <span class="op">=</span> gold_zone[<span class="st">'Total_Visitors'</span>]<span class="op">*</span>gold_zone[<span class="st">'Per_Capita_Spend'</span>]</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Double-check to see if the tier and the calculation is correct</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>gold_zone[[<span class="st">'Attraction_Tier'</span>,<span class="st">'Total_Spend'</span>,<span class="st">'season_week_rel'</span>]].tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Attraction_Tier</th>
+<th data-quarto-table-cell-role="th">Total_Spend</th>
+<th data-quarto-table-cell-role="th">season_week_rel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">88</td>
+<td>1</td>
+<td>131917.20</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">89</td>
+<td>1</td>
+<td>209116.95</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">91</td>
+<td>1</td>
+<td>110994.19</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">95</td>
+<td>1</td>
+<td>138287.63</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">98</td>
+<td>1</td>
+<td>202561.04</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="742db92b-070c-43c9-9818-9cb08359e1ba" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregrate the total spending of gol</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>gold_spend_weekly <span class="op">=</span> gold_zone.groupby(<span class="st">'season_week_rel'</span>)[<span class="st">'Total_Spend'</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the line chart</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>gold_spend_weekly, x<span class="op">=</span><span class="st">'season_week_rel'</span>,y<span class="op">=</span><span class="st">'Total_Spend'</span>, color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Week of the Season"</span>)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Total Spending"</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Lobsterland's Gold Zone Weekly Total Spending of the Season"</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_exploration_visualization_files/figure-html/cell-31-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This line plot shows that Gold Zone spending starts low during opening week and rises quickly, peaking around Weeks 4–5. After that, there’s a big drop, though Week 7 shows a nice little rebound before things taper off again toward the end of the season. This tells us guests spend the most when excitement is fresh and maybe when special events happen. I’d suggest management double down on promotions early in the season and figure out what drove that Week 7 spike so we can recreate it.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

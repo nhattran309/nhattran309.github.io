@@ -1,3 +1,12 @@
+project:
+  type: website
+  resources:
+    - image/photo1.JPG
+    - image/photo2.JPG
+    - image/photo3.JPG
+    - image/photo4.JPG
+    - image/photo5.JPG
+
 website:
   title: "Nhat Tran"
   navbar:
@@ -19,11 +28,13 @@ website:
       - text: Contact
         href: contact.qmd
 
-    right:
-      - icon: github
-        href: https://github.com/nhattran309
-        aria-label: GitHub
+format:
+  html:
+    theme:
+      - minty
+      - brand
+    css: styles.css
+    toc: true
 
-      - icon: linkedin
-        href: https://www.linkedin.com/in/nhat-tran-30999/
-        aria-label: LinkedIn
+
+
