@@ -142,9 +142,21 @@ For inquiries or collaboration, please visit
   };
 
   function showPhoto(num) {
-    document.getElementById("interest-photo").src = photoData[num].src;
-    document.getElementById("photo-caption").textContent =
-      photoData[num].caption;
+    const img = document.getElementById("interest-photo");
+    const caption = document.getElementById("photo-caption");
+
+    // Fade out
+    img.classList.add("fade-out");
+    caption.classList.add("fade-out");
+
+    setTimeout(() => {
+      img.src = photoData[num].src;
+      caption.textContent = photoData[num].caption;
+
+      // Fade back in
+      img.classList.remove("fade-out");
+      caption.classList.remove("fade-out");
+    }, 200);
   }
 </script>
 ```
