@@ -124,7 +124,7 @@ For inquiries or collaboration, please visit
       caption: "A small corner of Hanoi, where I grew up."
     },
     2: {
-      src: "image/photo2.JPG",
+      src: "image/photo2.JPG?v=1",
       caption: "Watching my parents walk through Antelope Canyon, Arizona."
     },
     3: {
