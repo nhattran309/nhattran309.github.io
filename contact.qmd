@@ -14,5 +14,16 @@ I’m always happy to connect! You can reach me through any of the platforms bel
 
 ---
 
+## 🖇️ Let’s Work Together
+
+I am currently seeking **Full-Time opportunities** starting May of 2026 in **Business Analytics, Data Science, or Financial Research**. 
+
+I’m particularly interested in roles where I can apply predictive modeling and machine learning to solve complex market problems. If your team is looking for a bridge between technical data analysis and strategic decision-making, I’d love to hear from you!
+
+> **Looking for a resume?**
+> You can download my latest CV: <a href="cv/Nhat_Tran_Resume.pdf" target="_blank" class="btn btn-outline-primary btn-sm" style="margin-left:0.25rem;">CV (PDF)</a> or view my work on the <a href="projects.qmd" class="btn btn-outline-primary btn-sm" style="margin-left:0.25rem;">Projects</a> page.
+
+---
+
 You can also return to the
-<a href="about.qmd" class="btn btn-outline-info btn-sm" style="margin-left:0.5rem;">About</a> tab to learn more about me.
+<a href="about.qmd" class="btn btn-outline-info" style="padding:0.4rem 1rem; margin-left:0.25rem; font-size: 1rem;">About</a> tab to learn more about me.
