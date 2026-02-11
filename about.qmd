@@ -69,7 +69,7 @@ A few moments I’ve captured along the way — places and details that shape ho
 ## Contact
 
 For inquiries or collaboration, please visit 
-<a href="contact.qmd" class="btn btn-outline-info btn-sm" style="margin-left:0.5rem;">Contact</a> — happy to connect anytime :)
+<a href="contact.qmd" class="btn btn-outline-info btn-sm" style="margin-left:0.25rem;">Contact</a> — happy to connect anytime :)
 
 ```{=html}
 <script>
