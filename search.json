@@ -228,7 +228,7 @@
     "href": "about.html#skills",
     "title": "About",
     "section": "Skills",
-    "text": "Skills\n\nProgramming Languages: Python, SQL, Eviews, R\nData Analysis Tools: Bloomberg, Power BI, Tableau, Macrobond, Haver, Microsoft Office (Word, Excel, PowerPoint)\n\nTechnical Skills: Data Visualizations, Data Manipulation, Database Management, Macro Research, ML, GenAI, Regression, XGBoost, Random Forest"
+    "text": "Skills\n\nProgramming & Libraries: Python (Pandas, NumPy, Scikit-learn, Plotly); SQL; R; Eviews\nData Analysis Tools: Power BI; Tableau; Excel; Bloomberg; Macrobond; Haver Analytics; AWS; Git/GitHub; VS Code; Jupyter Notebook\nTechnical Skills: Macro Research; Data Visualization; Machine Learning (Regression, XGBoost, Random Forest); GenAI"
   },
   {
     "objectID": "about.html#what-im-interested-in",
