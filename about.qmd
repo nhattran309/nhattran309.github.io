@@ -29,82 +29,37 @@ A few moments I’ve captured along the way — places and details that shape ho
   </div>
 
   <div class="card-body text-center">
-
-    <!-- Photo -->
-    <div class="photo-viewer d-flex justify-content-center mb-2">
-      <div class="text-center">
+    <div class="photo-viewer d-flex flex-column align-items-center justify-content-center mb-2" style="min-height: 450px;">
         <img
           id="interest-photo"
           src="image/photo1.JPG"
           alt="Photography by Nhat"
           class="img-fluid"
-          style="width:70%;"
+          style="width:70%; opacity: 1; transition: opacity 0.2s ease-in-out;"
         >
-
-        <p id="photo-caption" class="text-muted fst-italic mt-2">
+        <p id="photo-caption" class="text-muted fst-italic mt-2" style="opacity: 1; transition: opacity 0.2s ease-in-out;">
           A small corner of Hanoi, where I grew up.
         </p>
-      </div>
     </div>
 
-    <!-- Pagination-style buttons -->
     <div class="d-flex justify-content-center">
       <div class="btn-group" role="group" aria-label="Photo pagination">
-
-        <input
-          type="radio"
-          class="btn-check"
-          name="photo-radio"
-          id="photo1"
-          autocomplete="off"
-          checked
-          onclick="showPhoto(1)"
-        >
+        <input type="radio" class="btn-check" name="photo-radio" id="photo1" autocomplete="off" checked onclick="showPhoto(1)">
         <label class="btn btn-outline-secondary" for="photo1">1</label>
 
-        <input
-          type="radio"
-          class="btn-check"
-          name="photo-radio"
-          id="photo2b"
-          autocomplete="off"
-          onclick="showPhoto(2)"
-        >
+        <input type="radio" class="btn-check" name="photo-radio" id="photo2b" autocomplete="off" onclick="showPhoto(2)">
         <label class="btn btn-outline-secondary" for="photo2b">2</label>
 
-        <input
-          type="radio"
-          class="btn-check"
-          name="photo-radio"
-          id="photo3"
-          autocomplete="off"
-          onclick="showPhoto(3)"
-        >
+        <input type="radio" class="btn-check" name="photo-radio" id="photo3" autocomplete="off" onclick="showPhoto(3)">
         <label class="btn btn-outline-secondary" for="photo3">3</label>
 
-        <input
-          type="radio"
-          class="btn-check"
-          name="photo-radio"
-          id="photo4"
-          autocomplete="off"
-          onclick="showPhoto(4)"
-        >
+        <input type="radio" class="btn-check" name="photo-radio" id="photo4" autocomplete="off" onclick="showPhoto(4)">
         <label class="btn btn-outline-secondary" for="photo4">4</label>
 
-        <input
-          type="radio"
-          class="btn-check"
-          name="photo-radio"
-          id="photo5"
-          autocomplete="off"
-          onclick="showPhoto(5)"
-        >
+        <input type="radio" class="btn-check" name="photo-radio" id="photo5" autocomplete="off" onclick="showPhoto(5)">
         <label class="btn btn-outline-secondary" for="photo5">5</label>
-
       </div>
     </div>
-
   </div>
 </div>
 ```
@@ -119,44 +74,31 @@ For inquiries or collaboration, please visit
 ```{=html}
 <script>
   const photoData = {
-    1: {
-      src: "image/photo1.JPG",
-      caption: "A small corner of Hanoi, where I grew up."
-    },
-    2: {
-      src: "image/photo2b.JPG?v=1",
-      caption: "Watching my parents walk through Antelope Canyon, Arizona."
-    },
-    3: {
-      src: "image/photo3.JPG",
-      caption: "An early morning grocery run at Con Dao market."
-    },
-    4: {
-      src: "image/photo4.JPG",
-      caption: "Spring blossoms in Washington, D.C."
-    },
-    5: {
-      src: "image/photo5.JPG",
-      caption: "Boston University’s CDS building during finals week."
-    }
+    1: { src: "image/photo1.JPG", caption: "A small corner of Hanoi, where I grew up." },
+    2: { src: "image/photo2b.JPG?v=1", caption: "Watching my parents walk through Antelope Canyon, Arizona." },
+    3: { src: "image/photo3.JPG", caption: "An early morning grocery run at Con Dao market." },
+    4: { src: "image/photo4.JPG", caption: "Spring blossoms in Washington, D.C." },
+    5: { src: "image/photo5.JPG", caption: "Boston University’s CDS building during finals week." }
   };
+
+  Object.values(photoData).forEach(photo => {
+    const img = new Image();
+    img.src = photo.src;
+  });
 
   function showPhoto(num) {
     const img = document.getElementById("interest-photo");
     const caption = document.getElementById("photo-caption");
 
-    // Fade out
-    img.classList.add("fade-out");
-    caption.classList.add("fade-out");
+    img.style.opacity = 0;
+    caption.style.opacity = 0;
 
     setTimeout(() => {
       img.src = photoData[num].src;
       caption.textContent = photoData[num].caption;
-
-      // Fade back in
-      img.classList.remove("fade-out");
-      caption.classList.remove("fade-out");
-    }, 200);
+      img.style.opacity = 1;
+      caption.style.opacity = 1;
+    }, 150);
   }
 </script>
 ```
