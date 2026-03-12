@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nhattran309.github.io/projects.html</loc>
-    <lastmod>2026-02-11T21:34:17.429Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/certifications.html</loc>
-    <lastmod>2026-02-11T21:34:17.246Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/cv.html</loc>
-    <lastmod>2026-02-11T21:34:17.246Z</lastmod>
+    <loc>https://nhattran309.github.io/python_notebooks/statistical_testing.html</loc>
+    <lastmod>2026-03-12T16:35:19.744Z</lastmod>
   </url>
   <url>
     <loc>https://nhattran309.github.io/python_notebooks/market_segment_conjoint.html</loc>
-    <lastmod>2026-02-11T21:34:17.480Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/python_notebooks/time_series_interaction_model.html</loc>
-    <lastmod>2026-02-11T21:34:17.492Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/python_notebooks/data_exploration_visualization.html</loc>
-    <lastmod>2026-02-11T21:34:17.474Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/index.html</loc>
-    <lastmod>2026-02-11T21:34:17.429Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/coursework.html</loc>
-    <lastmod>2026-02-11T21:34:17.246Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nhattran309.github.io/pynotes.html</loc>
-    <lastmod>2026-02-11T21:34:17.430Z</lastmod>
+    <lastmod>2026-03-12T16:35:19.740Z</lastmod>
   </url>
   <url>
     <loc>https://nhattran309.github.io/python_notebooks/classification.html</loc>
-    <lastmod>2026-02-11T21:34:17.435Z</lastmod>
+    <lastmod>2026-03-12T16:35:19.697Z</lastmod>
   </url>
   <url>
-    <loc>https://nhattran309.github.io/python_notebooks/statistical_testing.html</loc>
-    <lastmod>2026-02-11T21:34:17.484Z</lastmod>
+    <loc>https://nhattran309.github.io/coursework.html</loc>
+    <lastmod>2026-03-12T16:35:19.517Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/pynotes.html</loc>
+    <lastmod>2026-03-12T16:35:19.693Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/projects.html</loc>
+    <lastmod>2026-03-12T16:35:19.693Z</lastmod>
   </url>
   <url>
     <loc>https://nhattran309.github.io/contact.html</loc>
-    <lastmod>2026-02-11T21:34:17.246Z</lastmod>
+    <lastmod>2026-03-12T16:35:19.516Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/index.html</loc>
+    <lastmod>2026-03-12T16:35:19.693Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/certifications.html</loc>
+    <lastmod>2026-03-12T16:35:19.516Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/cv.html</loc>
+    <lastmod>2026-03-12T16:35:19.517Z</lastmod>
   </url>
   <url>
     <loc>https://nhattran309.github.io/about.html</loc>
-    <lastmod>2026-02-11T21:34:17.246Z</lastmod>
+    <lastmod>2026-03-12T16:35:19.516Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/python_notebooks/data_exploration_visualization.html</loc>
+    <lastmod>2026-03-12T16:35:19.736Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nhattran309.github.io/python_notebooks/time_series_interaction_model.html</loc>
+    <lastmod>2026-03-12T16:35:19.751Z</lastmod>
   </url>
 </urlset>
