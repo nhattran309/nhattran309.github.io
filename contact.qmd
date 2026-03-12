@@ -14,11 +14,9 @@ I’m always happy to connect! You can reach me through any of the platforms bel
 
 ---
 
-## 🖇️ Let’s Work Together
+## Let’s Work Together
 
-I am currently seeking **Full-Time opportunities** starting May of 2026 in **Business Analytics, Data Science, or Financial Research**. 
-
-I’m particularly interested in roles where I can apply predictive modeling and machine learning to solve complex market problems. If your team is looking for a bridge between technical data analysis and strategic decision-making, I’d love to hear from you!
+I’m graduating in May 2026 and am actively looking for **Full-time roles** in **Business Analytics**, **Data Science**, or **Financial Research**. I’m particularly interested in using predictive modeling and machine learning to make sense of messy market data. If your team needs someone who can build the models and actually explain what they mean for the business, I’d love to connect.
 
 > **Looking for a resume?**
 > You can download my latest CV: <a href="cv/Nhat_Tran_Resume.pdf" target="_blank" class="btn btn-outline-primary btn-sm" style="margin-left:0.25rem;">CV (PDF)</a> or view my work on the <a href="projects.qmd" class="btn btn-outline-primary btn-sm" style="margin-left:0.25rem;">Projects</a> page.
